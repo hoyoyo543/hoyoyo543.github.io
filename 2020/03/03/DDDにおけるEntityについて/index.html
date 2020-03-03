@@ -5,13 +5,17 @@
   
 
   
-  <title>hoyoyo</title>
+  <title>DDDにおけるEntityについて | hoyoyo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="hoyoyo">
-<meta property="og:url" content="http://hoyoyo543.github.io/index.html">
+  <meta name="description" content="IDDD本を読んだりしてEntityのイメージが固まってきたので書き残します。 原則Entityは識別子を持って一意であり永続化されます。 Entityの振る舞いとは多くは下記の二点のことを指します。・自身の状態を変更するメソッド・自身を作成するファクトリメソッド※デザインパターンのファクトリメソッドのことではありません。 例えば下記codeでの振る舞いは、・プロフィール編集の時に名前と年齢を変更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDDにおけるEntityについて">
+<meta property="og:url" content="http://hoyoyo543.github.io/2020/03/03/DDD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BEntity%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/index.html">
 <meta property="og:site_name" content="hoyoyo">
+<meta property="og:description" content="IDDD本を読んだりしてEntityのイメージが固まってきたので書き残します。 原則Entityは識別子を持って一意であり永続化されます。 Entityの振る舞いとは多くは下記の二点のことを指します。・自身の状態を変更するメソッド・自身を作成するファクトリメソッド※デザインパターンのファクトリメソッドのことではありません。 例えば下記codeでの振る舞いは、・プロフィール編集の時に名前と年齢を変更">
 <meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2020-03-03T14:30:08.000Z">
+<meta property="article:modified_time" content="2020-03-03T14:30:35.696Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
   
@@ -62,9 +66,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-DDDにおけるEntityについて" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-DDDにおけるEntityについて" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/03/DDD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BEntity%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
   <time datetime="2020-03-03T14:30:08.000Z" itemprop="datePublished">2020-03-03</time>
@@ -77,8 +79,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/03/DDD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BEntity%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">DDDにおけるEntityについて</a>
+    <h1 class="article-title" itemprop="name">
+      DDDにおけるEntityについて
     </h1>
   
 
@@ -104,178 +106,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-検索で不要な記事を除外する" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2020-02-24T23:01:33.000Z" itemprop="datePublished">2020-02-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/">検索で不要な記事を除外する</a>
-    </h1>
+    <a href="/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">検索で不要な記事を除外する</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>検索を行う時に不要なものが表示されて目的の記事を探しづらい時に、不要な記事に一致するキーワードを <code>-不要 キーワード</code> とすることで<br>検索から除外するキーワードを設定できます。<br>例えば iPhone11の記事を探している時にiPhone8の記事が沢山でてきて、iPhone8を除外したい場合は、<br>iPhone11 -iPhone8 と検索すると、iPhone8が除外された記事がでてきます。  </p>
-<p>また検索エンジンで、サイト内検索を行う方法もあります。<br><code>site:サイトURL</code>とおこなうことでサイト内検索ができます。<br>例えば amazon内でiphone11を探したい場合は下記のように、<br>iphone11 site:<a href="https://www.amazon.co.jp/" target="_blank" rel="noopener">https://www.amazon.co.jp/</a><br>とすると、amazonサイト内でのiphone11の記事に絞り込むことができます。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/" data-id="ck712stkn0000ay8z5q2p9qb6" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-Hexoテーマカスタマイズ" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/11/Hexo%E3%83%86%E3%83%BC%E3%83%9E%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA/" class="article-date">
-  <time datetime="2020-02-11T07:35:40.000Z" itemprop="datePublished">2020-02-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/11/Hexo%E3%83%86%E3%83%BC%E3%83%9E%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA/">Hexoテーマカスタマイズ</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Hexoのサイドカラムにバナーを表示の仕方を探していました。<br>landscapeというテーマだと<br>themes &gt; landscape &gt; layout &gt; _partial &gt; sidebar.ejs<br>のファイルを編集すると表示できました。<br>テーマというディレクトリ構成がWordpressに似ていますね。  </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/02/11/Hexo%E3%83%86%E3%83%BC%E3%83%9E%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA/" data-id="ck6hkmfwb0002db8zhx20gafj" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-無料でブログを始める方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/11/%E7%84%A1%E6%96%99%E3%81%A7%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E6%96%B9%E6%B3%95/" class="article-date">
-  <time datetime="2020-02-11T07:34:23.000Z" itemprop="datePublished">2020-02-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/11/%E7%84%A1%E6%96%99%E3%81%A7%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E6%96%B9%E6%B3%95/">無料でブログを始める方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>サーバー料金やドメインの料金をかからない方法で、ブログを始める方法を探していたら。<br>github pageとhexoの組み合わせがよさそうだったので、試してみました。<br>大体は下記のurlに通りにすれば、簡単にはじめれました。<br><a href="https://qiita.com/wawawa/items/1a2f174fb29c35302543" target="_blank" rel="noopener">https://qiita.com/wawawa/items/1a2f174fb29c35302543</a><br>つまずいた点は</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
-<p>のコマンドを打つと下記のエラーが出てきました。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR Deployer not found: git</span><br></pre></td></tr></table></figure>
-<p>こちらは、blogディレクトリに移動してから</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>を再度実行することでエラーの解消ができました。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/02/11/%E7%84%A1%E6%96%99%E3%81%A7%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E6%96%B9%E6%B3%95/" data-id="ck6hkksjx0001db8zdkgwg7th" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/11/hello-world/" class="article-date">
-  <time datetime="2020-02-11T07:22:49.556Z" itemprop="datePublished">2020-02-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/11/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/02/11/hello-world/" data-id="ck6hk6upf0000db8zacc572ej" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
