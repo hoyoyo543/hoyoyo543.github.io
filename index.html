@@ -64,6 +64,44 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-何故プログラミングで少数の値がずれるのか" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" class="article-date">
+  <time datetime="2020-03-15T08:45:39.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/">何故プログラミングで少数の値がずれるのか</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>少数に2進数で表現できないものが多くあるから。</p>
+<h2 id="どうして2進数で表現できない少数があるのか"><a href="#どうして2進数で表現できない少数があるのか" class="headerlink" title="どうして2進数で表現できない少数があるのか"></a>どうして2進数で表現できない少数があるのか</h2><p>例えば十進数で0.9の場合にそれを2進数で表現しようとすると、<br>少数点第一位 だと 1/2(0.5) 少数点第二位 だと 1/4(0.25) 少数点第三位 だと 1/8(0.175)と  少しずつ寄っては行くが、<br>それをfloat型（単精度浮動小数点形式）の仮数部23回をおこなっても0.9と一致することはない。</p>
+<h2 id="検証JSコード"><a href="#検証JSコード" class="headerlink" title="検証JSコード"></a>検証JSコード</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var n &#x3D; 0;</span><br><span class="line">var nishinsu &#x3D; 0.5;</span><br><span class="line">var amari &#x3D; 0.9;</span><br><span class="line">var counter &#x3D; 0;</span><br><span class="line">while (n !&#x3D;&#x3D; 0.9 &amp;&amp; counter &lt; 23) &#123;</span><br><span class="line">    counter +&#x3D; 1;</span><br><span class="line">    if (amari &gt;&#x3D; nishinsu) &#123;</span><br><span class="line">        n +&#x3D; nishinsu;</span><br><span class="line">    &#125;</span><br><span class="line">    amari &#x3D; amari % nishinsu;</span><br><span class="line">    nishinsu &#x3D; nishinsu &#x2F; 2</span><br><span class="line">    </span><br><span class="line">    console.table(&#123;&#39;counter&#39;:counter, &#39;number&#39;:n, &#39;amari&#39;:amari, &#39;nishinsu&#39;:nishinsu&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" data-id="ck7tmv6zj0000j18zea7rhuku" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ビジネスロジックバリデーション" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" class="article-date">
@@ -364,6 +402,10 @@
       <ul>
         
           <li>
+            <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/">何故プログラミングで少数の値がずれるのか</a>
+          </li>
+        
+          <li>
             <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/">ビジネスロジックバリデーションの例外の種類</a>
           </li>
         
@@ -377,10 +419,6 @@
         
           <li>
             <a href="/2020/02/11/Hexo%E3%83%86%E3%83%BC%E3%83%9E%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA/">Hexoテーマカスタマイズ</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/11/%E7%84%A1%E6%96%99%E3%81%A7%E3%83%96%E3%83%AD%E3%82%B0%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E6%96%B9%E6%B3%95/">無料でブログを始める方法</a>
           </li>
         
       </ul>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>何故プログラミングで少数の値がずれるのか | hoyoyo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="結論少数に2進数で表現できないものが多くあるから。 どうして2進数で表現できない少数があるのか例えば十進数で0.9の場合にそれを2進数で表現しようとすると、少数点第一位 だと 1&#x2F;2(0.5) 少数点第二位 だと 1&#x2F;4(0.25) 少数点第三位 だと 1&#x2F;8(0.175)と  少しずつ寄っては行くが、それをfloat型（単精度浮動小数点形式）の仮数部23回をおこなっても0.9と一致することはない">
+<meta property="og:type" content="article">
+<meta property="og:title" content="何故プログラミングで少数の値がずれるのか">
+<meta property="og:url" content="http://hoyoyo543.github.io/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/index.html">
+<meta property="og:site_name" content="hoyoyo">
+<meta property="og:description" content="結論少数に2進数で表現できないものが多くあるから。 どうして2進数で表現できない少数があるのか例えば十進数で0.9の場合にそれを2進数で表現しようとすると、少数点第一位 だと 1&#x2F;2(0.5) 少数点第二位 だと 1&#x2F;4(0.25) 少数点第三位 だと 1&#x2F;8(0.175)と  少しずつ寄っては行くが、それをfloat型（単精度浮動小数点形式）の仮数部23回をおこなっても0.9と一致することはない">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2020-03-15T08:45:39.000Z">
+<meta property="article:modified_time" content="2020-03-15T22:50:24.774Z">
+<meta property="article:author" content="hoyoyo">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hoyoyo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hoyoyo543.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-何故プログラミングで少数の値がずれるのか" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" class="article-date">
+  <time datetime="2020-03-15T08:45:39.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      何故プログラミングで少数の値がずれるのか
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>少数に2進数で表現できないものが多くあるから。</p>
+<h2 id="どうして2進数で表現できない少数があるのか"><a href="#どうして2進数で表現できない少数があるのか" class="headerlink" title="どうして2進数で表現できない少数があるのか"></a>どうして2進数で表現できない少数があるのか</h2><p>例えば十進数で0.9の場合にそれを2進数で表現しようとすると、<br>少数点第一位 だと 1/2(0.5) 少数点第二位 だと 1/4(0.25) 少数点第三位 だと 1/8(0.175)と  少しずつ寄っては行くが、<br>それをfloat型（単精度浮動小数点形式）の仮数部23回をおこなっても0.9と一致することはない。</p>
+<h2 id="検証JSコード"><a href="#検証JSコード" class="headerlink" title="検証JSコード"></a>検証JSコード</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var n &#x3D; 0;</span><br><span class="line">var nishinsu &#x3D; 0.5;</span><br><span class="line">var amari &#x3D; 0.9;</span><br><span class="line">var counter &#x3D; 0;</span><br><span class="line">while (n !&#x3D;&#x3D; 0.9 &amp;&amp; counter &lt; 23) &#123;</span><br><span class="line">    counter +&#x3D; 1;</span><br><span class="line">    if (amari &gt;&#x3D; nishinsu) &#123;</span><br><span class="line">        n +&#x3D; nishinsu;</span><br><span class="line">    &#125;</span><br><span class="line">    amari &#x3D; amari % nishinsu;</span><br><span class="line">    nishinsu &#x3D; nishinsu &#x2F; 2</span><br><span class="line">    </span><br><span class="line">    console.table(&#123;&#39;counter&#39;:counter, &#39;number&#39;:n, &#39;amari&#39;:amari, &#39;nishinsu&#39;:nishinsu&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" data-id="ck7tmv6zj0000j18zea7rhuku" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">ビジネスロジックバリデーションの例外の種類</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/">何故プログラミングで少数の値がずれるのか</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/">ビジネスロジックバリデーションの例外の種類</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/03/DDD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BEntity%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">DDDにおけるEntityについて</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/">検索で不要な記事を除外する</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/11/Hexo%E3%83%86%E3%83%BC%E3%83%9E%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA/">Hexoテーマカスタマイズ</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 hoyoyo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
