@@ -87,6 +87,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>検索の一覧ページでパフォーマンスが問題になることがありますが、<br>マテリアライズドビューを利用することでパフォーマンス改善ができます。<br>mysqlではマテリアライズドビューの機能が無いので、<br><code>マテリアライズドビュー</code>のようなSQL結果を保存するテーブルを作成し、<code>CQRS</code>で更新をおこない利用することでパフォーマンスを改善することができます。</p>
+<p>（例）SNSでユーザーに多くの投稿があって最新の投稿内容について検索内容が一致するユーザーを一覧で表示する場合に、<br>マテリアライズドビューをユーザーと最新の投稿の中間テーブルとすると最新の投稿を特定する箇所のクエリのパフォーマンス改善になる。</p>
 <p>CQRS マテリアライズドビュー 更新フロー図<br><img src="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png" alt="CQRSとマテリアライズドビューの更新フロー図"></p>
 <h3 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8" target="_blank" rel="noopener">https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8</a><br><a href="http://nippondanji.blogspot.com/2015/06/rdb.html" target="_blank" rel="noopener">http://nippondanji.blogspot.com/2015/06/rdb.html</a><br><a href="https://blog.spacemarket.com/code/room-search-speed/" target="_blank" rel="noopener">https://blog.spacemarket.com/code/room-search-speed/</a></p>
 
