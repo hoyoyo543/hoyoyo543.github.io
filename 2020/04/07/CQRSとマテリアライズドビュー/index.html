@@ -7,16 +7,16 @@
   
   <title>CQRSとマテリアライズドビュー | hoyoyo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="検索の一覧ページでパフォーマンスが問題になることがありますが、CQRSとマテリアライズドビューを利用することでパフォーマンスを改善することができます。mysqlではマテリアライズドビューの機能が無いので、検索を高速化する中間テーブルをCQRSの処理のフロー内で更新していきます。 参考urlhttps:&#x2F;&#x2F;slideship.com&#x2F;users&#x2F;@miyake&#x2F;presentations&#x2F;2018">
+  <meta name="description" content="検索の一覧ページでパフォーマンスが問題になることがありますが、マテリアライズドビューを利用することでパフォーマンス改善ができます。mysqlではマテリアライズドビューの機能が無いので、マテリアライズドビューのようなSQL結果を保存するテーブルを作成し、CQRSで更新をおこない利用することでパフォーマンスを改善することができます。 CQRS マテリアライズドビュー 更新フロー図 参考urlhttp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CQRSとマテリアライズドビュー">
 <meta property="og:url" content="http://hoyoyo543.github.io/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/index.html">
 <meta property="og:site_name" content="hoyoyo">
-<meta property="og:description" content="検索の一覧ページでパフォーマンスが問題になることがありますが、CQRSとマテリアライズドビューを利用することでパフォーマンスを改善することができます。mysqlではマテリアライズドビューの機能が無いので、検索を高速化する中間テーブルをCQRSの処理のフロー内で更新していきます。 参考urlhttps:&#x2F;&#x2F;slideship.com&#x2F;users&#x2F;@miyake&#x2F;presentations&#x2F;2018">
+<meta property="og:description" content="検索の一覧ページでパフォーマンスが問題になることがありますが、マテリアライズドビューを利用することでパフォーマンス改善ができます。mysqlではマテリアライズドビューの機能が無いので、マテリアライズドビューのようなSQL結果を保存するテーブルを作成し、CQRSで更新をおこない利用することでパフォーマンスを改善することができます。 CQRS マテリアライズドビュー 更新フロー図 参考urlhttp">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png">
 <meta property="article:published_time" content="2020-04-07T14:55:41.000Z">
-<meta property="article:modified_time" content="2020-04-07T15:16:09.807Z">
+<meta property="article:modified_time" content="2020-04-07T15:37:58.152Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png">
@@ -90,7 +90,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>検索の一覧ページでパフォーマンスが問題になることがありますが、<code>CQRS</code>と<code>マテリアライズドビュー</code>を利用することでパフォーマンスを改善することができます。<br>mysqlではマテリアライズドビューの機能が無いので、検索を高速化する中間テーブルをCQRSの処理のフロー内で更新していきます。<br><img src="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png" alt="CQRSとマテリアライズドビューの更新フロー図"></p>
+        <p>検索の一覧ページでパフォーマンスが問題になることがありますが、<br>マテリアライズドビューを利用することでパフォーマンス改善ができます。<br>mysqlではマテリアライズドビューの機能が無いので、<br><code>マテリアライズドビュー</code>のようなSQL結果を保存するテーブルを作成し、<code>CQRS</code>で更新をおこない利用することでパフォーマンスを改善することができます。</p>
+<p>CQRS マテリアライズドビュー 更新フロー図<br><img src="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png" alt="CQRSとマテリアライズドビューの更新フロー図"></p>
 <h3 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8" target="_blank" rel="noopener">https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8</a><br><a href="http://nippondanji.blogspot.com/2015/06/rdb.html" target="_blank" rel="noopener">http://nippondanji.blogspot.com/2015/06/rdb.html</a><br><a href="https://blog.spacemarket.com/code/room-search-speed/" target="_blank" rel="noopener">https://blog.spacemarket.com/code/room-search-speed/</a></p>
 
       
