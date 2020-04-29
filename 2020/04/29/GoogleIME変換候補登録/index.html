@@ -5,19 +5,22 @@
   
 
   
-  <title>何故プログラミングで小数の値がずれるのか | hoyoyo</title>
+  <title>GoogleIME変換候補登録 | hoyoyo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="結論小数に2進数で表現できないものが多くあるから。 どうして2進数で表現できない少数があるのか例えば十進数で0.9の場合にそれを2進数で表現しようとすると、小数点第一位 だと 1&#x2F;2(0.5) 小数点第二位 だと 1&#x2F;4(0.25) 小数点第三位 だと 1&#x2F;8(0.125)と  少しずつ 0.5 + 0.25 + 0.125 &#x3D; 0.875と0.9に寄っては行くが、それをfloat型（単精度浮動">
+  <meta name="description" content="GoogleIMEで「餘根津」という旧字体を含んでいたり特殊な名字を「よねず」から変換しようとしても候補には「米津」とか「米酢」しかでてこないと思います。それがよく利用する単語なのに変換ででてこないと面倒ですよね。そんな時の解決方法としてGoogleIMEの単語登録があります。変換候補の単語を登録すると、変換候補に出てくるようになります。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="何故プログラミングで小数の値がずれるのか">
-<meta property="og:url" content="http://hoyoyo543.github.io/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/index.html">
+<meta property="og:title" content="GoogleIME変換候補登録">
+<meta property="og:url" content="http://hoyoyo543.github.io/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/index.html">
 <meta property="og:site_name" content="hoyoyo">
-<meta property="og:description" content="結論小数に2進数で表現できないものが多くあるから。 どうして2進数で表現できない少数があるのか例えば十進数で0.9の場合にそれを2進数で表現しようとすると、小数点第一位 だと 1&#x2F;2(0.5) 小数点第二位 だと 1&#x2F;4(0.25) 小数点第三位 だと 1&#x2F;8(0.125)と  少しずつ 0.5 + 0.25 + 0.125 &#x3D; 0.875と0.9に寄っては行くが、それをfloat型（単精度浮動">
+<meta property="og:description" content="GoogleIMEで「餘根津」という旧字体を含んでいたり特殊な名字を「よねず」から変換しようとしても候補には「米津」とか「米酢」しかでてこないと思います。それがよく利用する単語なのに変換ででてこないと面倒ですよね。そんな時の解決方法としてGoogleIMEの単語登録があります。変換候補の単語を登録すると、変換候補に出てくるようになります。">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2020-03-15T08:45:39.000Z">
-<meta property="article:modified_time" content="2020-03-21T03:43:29.819Z">
+<meta property="og:image" content="http://hoyoyo543.github.io/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//word-add.png">
+<meta property="og:image" content="http://hoyoyo543.github.io/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//dictionaly.png">
+<meta property="article:published_time" content="2020-04-29T00:40:15.000Z">
+<meta property="article:modified_time" content="2020-04-29T00:54:27.573Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hoyoyo543.github.io/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//word-add.png">
   
     <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
   
@@ -67,10 +70,10 @@
 </header>
       <div class="outer">
         <iframe src="https://rcm-fe.amazon-adsystem.com/e/cm?o=9&p=6&l=ur1&category=kindlerotate&f=ifr&linkID=ecabe8808e91c90eadd600e4650f8330&t=hoyoyo00-22&tracking_id=hoyoyo00-22" width="120" height="150" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
-        <section id="main"><article id="post-何故プログラミングで少数の値がずれるのか" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-GoogleIME変換候補登録" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" class="article-date">
-  <time datetime="2020-03-15T08:45:39.000Z" itemprop="datePublished">2020-03-15</time>
+    <a href="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/" class="article-date">
+  <time datetime="2020-04-29T00:40:15.000Z" itemprop="datePublished">2020-04-29</time>
 </a>
     
   </div>
@@ -81,7 +84,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      何故プログラミングで小数の値がずれるのか
+      GoogleIME変換候補登録
     </h1>
   
 
@@ -89,13 +92,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>小数に2進数で表現できないものが多くあるから。</p>
-<h2 id="どうして2進数で表現できない少数があるのか"><a href="#どうして2進数で表現できない少数があるのか" class="headerlink" title="どうして2進数で表現できない少数があるのか"></a>どうして2進数で表現できない少数があるのか</h2><p>例えば十進数で0.9の場合にそれを2進数で表現しようとすると、<br>小数点第一位 だと 1/2(0.5) 小数点第二位 だと 1/4(0.25) 小数点第三位 だと 1/8(0.125)と  少しずつ 0.5 + 0.25 + 0.125 = 0.875と0.9に寄っては行くが、<br>それをfloat型（単精度浮動小数点形式）の仮数部23回をおこなっても0.9と一致することはない。</p>
-<h2 id="検証JSコード"><a href="#検証JSコード" class="headerlink" title="検証JSコード"></a>検証JSコード</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var n &#x3D; 0;</span><br><span class="line">var nishinsu &#x3D; 0.5;</span><br><span class="line">var amari &#x3D; 0.9;</span><br><span class="line">var counter &#x3D; 0;</span><br><span class="line">while (n !&#x3D;&#x3D; 0.9 &amp;&amp; counter &lt; 23) &#123;</span><br><span class="line">    counter +&#x3D; 1;</span><br><span class="line">    if (amari &gt;&#x3D; nishinsu) &#123;</span><br><span class="line">        n +&#x3D; nishinsu;</span><br><span class="line">    &#125;</span><br><span class="line">    amari &#x3D; amari % nishinsu;</span><br><span class="line">    nishinsu &#x3D; nishinsu &#x2F; 2</span><br><span class="line">    </span><br><span class="line">    console.table(&#123;&#39;counter&#39;:counter, &#39;number&#39;:n, &#39;amari&#39;:amari, &#39;nishinsu&#39;:nishinsu&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>GoogleIMEで「餘根津」という旧字体を含んでいたり特殊な名字を「よねず」から変換しようとしても<br>候補には「米津」とか「米酢」しかでてこないと思います。<br>それがよく利用する単語なのに変換ででてこないと面倒ですよね。<br>そんな時の解決方法として<code>GoogleIME</code>の<code>単語登録</code>があります。<br>変換候補の単語を登録すると、変換候補に出てくるようになります。<br><img src="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//word-add.png" /><br><img src="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//dictionaly.png" /></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" data-id="ck8rgn3gx0005k88z8vkx8t22" class="article-share-link">共有</a>
+      <a data-url="http://hoyoyo543.github.io/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/" data-id="ck9kmn5j20000dy8z97a15n3b" class="article-share-link">共有</a>
       
       
     </footer>
@@ -104,19 +106,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/03/21/amazon%E3%82%A2%E3%83%95%E3%82%A7%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%88%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E9%80%9A%E3%81%97%E3%81%A6%E8%B3%BC%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A8%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AF%E7%B4%B9%E4%BB%8B%E6%96%99%E3%82%92%E8%B2%B0%E3%81%88%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          amazonアフェリエイト 知り合いのリンクを通して購入すると知り合いは紹介料を貰えるのか？
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">ビジネスロジックバリデーションの例外の種類</div>
+      <div class="article-nav-title">CQRSとマテリアライズドビュー</div>
     </a>
   
 </nav>
