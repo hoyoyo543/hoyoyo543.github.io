@@ -75,6 +75,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-python-moduleのimport-fromのルートとなる起点を指定したい" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/" class="article-date">
+  <time datetime="2020-06-21T07:51:06.000Z" itemprop="datePublished">2020-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/">python moduleのimport fromのルートとなる起点を指定したい</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="実行スクリプトのディレクトリ階層に関係なくfrom-importをさせたい"><a href="#実行スクリプトのディレクトリ階層に関係なくfrom-importをさせたい" class="headerlink" title="実行スクリプトのディレクトリ階層に関係なくfrom importをさせたい"></a>実行スクリプトのディレクトリ階層に関係なくfrom importをさせたい</h1><p>pythonを実行するスクリプトのディレクトリ階層によってfrom importが失敗することがあります。<br>実行するスクリプトのディレクトリ階層の位置に関係なくfrom importをできるようにする方法を調べました。</p>
+<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><p>このようなディレクトリ構成で普段は、python main.pyからitem_service.py item.py が呼び出され実行される内容だとします。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── main.py</span><br><span class="line">├── models</span><br><span class="line">│   └── item.py</span><br><span class="line">└──services</span><br><span class="line">    └── item_service.py</span><br></pre></td></tr></table></figure>
+<p>下記のようにitem_service.pyはmain.pyをルートとしてmodels/item.pyをfrom importしています。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">item_service.py</span><br><span class="line"></span><br><span class="line">from models.item import Item</span><br><span class="line"></span><br><span class="line">class ItemServiceModel:</span><br><span class="line">    def search():</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    ItemServiceModel.search()</span><br></pre></td></tr></table></figure>
+
+<p>この場合に python item_service.py をすると<br>ModuleNotFoundError: No module named ‘models’<br>のようなエラーが出てimportに失敗します。  </p>
+<h2 id="なぜ失敗するか"><a href="#なぜ失敗するか" class="headerlink" title="なぜ失敗するか"></a>なぜ失敗するか</h2><p><a href="https://docs.python.org/ja/3/tutorial/modules.html" target="_blank" rel="noopener">https://docs.python.org/ja/3/tutorial/modules.html</a><br>html#the-module-search-path<br>公式ドキュメントによると、「入力されたスクリプトのあるディレクトリ」がモジュールの探索パスになるということで。<br>python main.pyでは成功し、python item_service.pyでは失敗するようになることの理解はできました。</p>
+<h2 id="入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom-importさせたい"><a href="#入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom-importさせたい" class="headerlink" title="入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom importさせたい"></a>入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom importさせたい</h2><p>先程の公式ドキュメントの同じところに<br>「PYTHONPATH (ディレクトリ名のリスト。シェル変数の PATH と同じ構文)。」がモジュールの探索パス（import from の起点ルート）になると書いています。<br>なので、.zshrc や .bshrc に<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PYTHONPATH&#x3D;$PYTHONPATH:&#123;main.pyのあるディレクトリの絶対パス&#125;</span><br></pre></td></tr></table></figure><br> とすれば、python item_service.pyでもfrom importが成功するようになりました。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/" data-id="ckbotn2fp0000zv8zh2fs9kw7" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-python-リスト内の＊について" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/16/python-%E3%83%AA%E3%82%B9%E3%83%88%E5%86%85%E3%81%AE%EF%BC%8A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
@@ -482,44 +527,6 @@
 
 
   
-    <article id="post-検索で不要な記事を除外する" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2020-02-24T23:01:33.000Z" itemprop="datePublished">2020-02-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/">検索で不要な記事を除外する</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>検索を行う時に不要なものが表示されて目的の記事を探しづらい時に、不要な記事に一致するキーワードを <code>-不要 キーワード</code> とすることで<br>検索から除外するキーワードを設定できます。<br>例えば iPhone11の記事を探している時にiPhone8の記事が沢山でてきて、iPhone8を除外したい場合は、<br>iPhone11 -iPhone8 と検索すると、iPhone8が除外された記事がでてきます。  </p>
-<p>また検索エンジンで、サイト内検索を行う方法もあります。<br><code>site:サイトURL</code>とおこなうことでサイト内検索ができます。<br>例えば amazon内でiphone11を探したい場合は下記のように、<br>iphone11 site:<a href="https://www.amazon.co.jp/" target="_blank" rel="noopener">https://www.amazon.co.jp/</a><br>とすると、amazonサイト内でのiphone11の記事に絞り込むことができます。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/" data-id="ck8rgn3h10008k88z9601dn1h" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -556,6 +563,10 @@
       <ul>
         
           <li>
+            <a href="/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/">python moduleのimport fromのルートとなる起点を指定したい</a>
+          </li>
+        
+          <li>
             <a href="/2020/06/16/python-%E3%83%AA%E3%82%B9%E3%83%88%E5%86%85%E3%81%AE%EF%BC%8A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">python リスト内の＊について</a>
           </li>
         
@@ -569,10 +580,6 @@
         
           <li>
             <a href="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/">GoogleIME変換候補登録</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/">CQRSとマテリアライズドビュー</a>
           </li>
         
       </ul>
