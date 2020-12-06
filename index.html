@@ -75,6 +75,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-AWS-EKS-にnginxのPodをデプロイしてブラウザからアクセスする" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2020-07-26T05:18:47.000Z" itemprop="datePublished">2020-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/">AWS EKS にnginxのPodをデプロイしてブラウザからアクセスする</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Docker/Kubernetes実践コンテナ開発入門の本を読んでいて5.10.1のIngressを通じたアクセスをAmazon EKSで行う場合はどのようになるのか調べました。</p>
+<h2 id="利用しているdocker-image"><a href="#利用しているdocker-image" class="headerlink" title="利用しているdocker image"></a>利用しているdocker image</h2><p>gihyodocker/echo : Hollo Docker!!と表示するwebサーバー<br>gihyodocker/nginx-proxy : echoに対してリバースプロキシする</p>
+<h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><ul>
+<li><p>1 eksctlでcrusterを作成する<br><a href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/getting-started-eksctl.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/getting-started-eksctl.html</a><br>※Fargetポッドがデプロイされる</p>
+</li>
+<li><p>2 ALB Ingress Controllerを作成する<br><a href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/alb-ingress.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/alb-ingress.html</a></p>
+</li>
+<li><p>3 ReplicaSet Service Ingress を作成する<br>ブラウザでIngressのアドレスにアクセスする</p>
+</li>
+</ul>
+<h3 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h3><p>同じ仕様のPodを複数作成する</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: ReplicaSet</span><br><span class="line">metadata:</span><br><span class="line">  name: echo-summer</span><br><span class="line">  labels:</span><br><span class="line">    app: echo</span><br><span class="line">    release: summer</span><br><span class="line">spec:</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: echo</span><br><span class="line">      release: summer</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: echo</span><br><span class="line">        release: summer</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx</span><br><span class="line">        image: gihyodocker&#x2F;nginx:latest</span><br><span class="line">        env:</span><br><span class="line">        - name: BACKEND_HOST</span><br><span class="line">          value: localhost:8080</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line">      - name: echo</span><br><span class="line">        image: gihyodocker&#x2F;echo:latest</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 8080</span><br></pre></td></tr></table></figure>
+
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>Podの集合に対して、アクセス経路を作成する。typeをNodePortにすることでグローバルなポートを開ける。OSI参照モデルのレイヤー４までしか扱えない。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: &quot;echo&quot;</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  selector:</span><br><span class="line">    app: echo</span><br><span class="line">    release: summer</span><br><span class="line">  ports:</span><br><span class="line">    - port: 80</span><br><span class="line">      targetPort: 80</span><br><span class="line">      protocol: TCP</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h3><p>ServiceのKudernetesクラスタ外への公開。<br>VirtualHostやパスベースでのHTTP、HTTPSベースでのルーティングが可能。<br>Ingressが作成されると、EKSのALB Ingress ControllerがALBと必要なAWSサポートリソースを作成してくれる。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions&#x2F;v1beta1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: &quot;echo&quot;</span><br><span class="line">  annotations:</span><br><span class="line">    kubernetes.io&#x2F;ingress.class: alb # Ingress が ALB Ingress Controllerを使用することを設定</span><br><span class="line">    alb.ingress.kubernetes.io&#x2F;scheme: internet-facing</span><br><span class="line">    alb.ingress.kubernetes.io&#x2F;target-type: ip # Serviceでアクセス経路が作成されたPodにトラフィックをルーティングすることを設定</span><br><span class="line">  labels:</span><br><span class="line">    app: echo</span><br><span class="line">spec:</span><br><span class="line">  rules:</span><br><span class="line">    - http:</span><br><span class="line">        paths:</span><br><span class="line">          - path: &#x2F;*</span><br><span class="line">            backend:</span><br><span class="line">              serviceName: &quot;echo&quot;</span><br><span class="line">              servicePort: 80</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/" data-id="ckicw672z0000qi8zeh30d1l8" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-AWS-EKS-にてno-endpoints-available-for-service-kubernetes-dashboardのエラー対応" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/19/AWS-EKS-%E3%81%AB%E3%81%A6no-endpoints-available-for-service-kubernetes-dashboard%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E5%AF%BE%E5%BF%9C/" class="article-date">
@@ -469,58 +522,6 @@
 
 
   
-    <article id="post-ビジネスロジックバリデーション" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" class="article-date">
-  <time datetime="2020-03-08T14:42:55.000Z" itemprop="datePublished">2020-03-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/">ビジネスロジックバリデーションの例外の種類</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ビジネスロジックのバリデーションは-DomainException-を継承したものを投げる"><a href="#ビジネスロジックのバリデーションは-DomainException-を継承したものを投げる" class="headerlink" title="ビジネスロジックのバリデーションは DomainException を継承したものを投げる"></a>ビジネスロジックのバリデーションは DomainException を継承したものを投げる</h1><p>バリューオブジェクトやエンティティやドメインサービスで投げられることの多いビジネスロジックのバリデーションの例外ですが、<br>その例外はphpstormのdocコメントにて<code>@throws</code>が必要な（Exceptionをextendしたもの）で投げるべきかコメントが必要ない<code>DomainException</code>を継承したもので投げるべきかを悩んでいたのですが、<br><code>DomainException</code>を継承したもので投げるべきだと私の中で答えがでました。</p>
-<p>入力フォームなどでビジネスロジックのバリデーションの例外をキャッチして、Viewに表示したいことがあり、<code>@throws</code>が必要な例外だとcatchすることが明示的なのでそっちかなと思ったのですが。<br>下記のスライドを見てビジネスロジックの例外を投げるクラスからしたら、システムを落とすように例外を投げることを推奨していたので <code>DomainException</code> を継承してビジネスロジックのバリデーションは投げるべきだなと決めました。<br>では、落とすように例外をなげたらそれをキャッチしてはいけないかというとそうではなくて、アーキテクチャ/フレームワーク等では逆に落とさないようにcatchすることを推奨しています。</p>
-<p><a href="https://speakerdeck.com/twada/php-conference-2016?slide=56" target="_blank" rel="noopener">https://speakerdeck.com/twada/php-conference-2016?slide=56</a><br>こちらのスライドである通り、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ミクロでは正当性を重視し、マクロでは堅牢性を重視する</span><br><span class="line">個々のクラスは正当性を重視し、堅牢性はアーキテクチャ&#x2F;フレームワーク等で保証するのがオススメ。</span><br><span class="line">例：個々のクラスはfail fast原則で書き、Webフレームワークやグローバルハンドラがキャッチして500エラー画面等を出す責務を負う</span><br></pre></td></tr></table></figure>
-<p>とありました。<br>正当性と堅牢性とか意味が分からなければ、このページの5ページ前ぐらいから読むといいと思います。</p>
-<p>また、Viewに表示したいから<code>@throws</code>が必要な例外を投げるとかドメインがViewに配慮する考え方もおかしいですよね。</p>
-<h1 id="ビジネスロジックのエラーは例外的状況である"><a href="#ビジネスロジックのエラーは例外的状況である" class="headerlink" title="ビジネスロジックのエラーは例外的状況である"></a>ビジネスロジックのエラーは例外的状況である</h1><p>そもそもビジネスロジックのバリデーションで例外を投げるのはおかしい、<br>例外は例外的な状況にだけ利用するべきだと意見されたことがあるのですが、<br>それは、<code>例外的な状況</code>の縮小解釈です。<br><a href="https://qiita.com/kata/items/bd129ba6113a61126389#%E9%A0%85%E7%9B%AE57-%E4%BE%8B%E5%A4%96%E7%9A%84%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A0%E3%81%91%E4%BE%8B%E5%A4%96%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B" target="_blank" rel="noopener">https://qiita.com/kata/items/bd129ba6113a61126389#%E9%A0%85%E7%9B%AE57-%E4%BE%8B%E5%A4%96%E7%9A%84%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A0%E3%81%91%E4%BE%8B%E5%A4%96%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B</a><br>に書かれている通り、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayIndexOutOfBoundsExceptionを使用して配列のループ処理の脱出するなどアホな事はしない</span><br></pre></td></tr></table></figure>
-<p>このレベルでの状況で例外を使うなということで、ビジネスロジックのバリデーションエラーについては例外的状況と捉えてよいと考えます。  </p>
-<p>また、こちらのスライドの14ページに<br><a href="https://www.slideshare.net/t_wada/exception-design-by-contract" target="_blank" rel="noopener">https://www.slideshare.net/t_wada/exception-design-by-contract</a>  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例外は例外的な状況にだけ利用するべき</span><br><span class="line">例外は、その名が示す通り、例外的状況に対してのみ使用するべきです。</span><br><span class="line">通常の制御フローにたいしては、決して使用すべきではありません。</span><br></pre></td></tr></table></figure>
-<p>とありますが、この<code>通常の制御フロー</code>を示すものも前のページでのループを抜ける制御のレベルで使うなといっていますし。<br>15ページの</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例外は例外的な問題のみに使用すること</span><br><span class="line">「すべての例外ハンドラーを除去しても、このプログラムは動作することができるだろうか？」</span><br><span class="line">答えが「ノー」であれば、例外では無い状況下で例外が使われている</span><br></pre></td></tr></table></figure>
-<p>についても、ビジネスロジックの例外のキャッチをすべて行わなくても動作することはできます。<br>29ページにて</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">技術的例外とビジネス例外を明確に区別する</span><br><span class="line">技術的例外は貫通させてフレームワークに任せる。ビジネス例外は準正常系なので呼び出し側で対処する</span><br></pre></td></tr></table></figure>
-<p>ビジネスロジックのバリデーションの例外を準正常系として利用することを認めています。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" data-id="ck8rgn3gz0006k88zhrrjf25e" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -557,6 +558,10 @@
       <ul>
         
           <li>
+            <a href="/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/">AWS EKS にnginxのPodをデプロイしてブラウザからアクセスする</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/19/AWS-EKS-%E3%81%AB%E3%81%A6no-endpoints-available-for-service-kubernetes-dashboard%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E5%AF%BE%E5%BF%9C/">AWS EKS にてno endpoints available for service kubernetes-dashboardのエラー対応</a>
           </li>
         
@@ -570,10 +575,6 @@
         
           <li>
             <a href="/2020/06/14/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">コマンドラインインターフェイスのオプションについて</a>
-          </li>
-        
-          <li>
-            <a href="/2020/05/04/This-version-of-ChromeDriver-only-supports-Chrome-version-vesion%E7%95%AA%E5%8F%B7/">This version of ChromeDriver only supports Chrome version {vesion番号}</a>
           </li>
         
       </ul>
