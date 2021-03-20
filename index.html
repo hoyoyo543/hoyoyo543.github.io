@@ -97,7 +97,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>CentOS8にてsystemdのtest.serviceを作成してみてsystemd start testを行ってみると下記のエラーが表示され、実行に失敗しました。</p>
+        <p>CentOS8にてsystemdのtest.serviceを作成してみてsystemd start testを行ってみると実行に失敗、<br>/var/log/messagesに下記のエラーが表示されていました。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mar 20 13:21:45 unamu systemd[1]: Started testscript.</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed to execute command: Permission denied</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed at step EXEC spawning &#x2F;tmp&#x2F;test: Permission denied</span><br></pre></td></tr></table></figure>
 <p>Permission deniedの表示からファイルのパーミッションを確認しましたが、問題無し。<br>SELinuxが邪魔をしていたようです。<br>有効になっているか確認</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ getenforce</span><br><span class="line">Enforcing</span><br></pre></td></tr></table></figure>
