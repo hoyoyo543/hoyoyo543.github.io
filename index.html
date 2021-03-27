@@ -75,6 +75,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-日毎のlogrotateをテストで動かしたい" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/" class="article-date">
+  <time datetime="2021-03-27T09:18:32.000Z" itemprop="datePublished">2021-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/">日毎のlogrotateをテストで動かしたい</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="日毎のlogrotateをテストで動かしたい"><a href="#日毎のlogrotateをテストで動かしたい" class="headerlink" title="日毎のlogrotateをテストで動かしたい"></a>日毎のlogrotateをテストで動かしたい</h1><p>AmazonLinuxで日毎の設定のlogrotateの動作確認をしたいと思い。<br>対象のファイルの日付をtouchで昨日にして、<br>/usr/sbin/logrotate /etc/logrotate.conf を実行してもログファイルが作成されませんでした。</p>
+<p>調べてみると<br>/var/lib/logrotate/logrotate.status<br>というファイルに前回のログローテートを行った時刻を記載しているとのこと。</p>
+<p>/var/lib/logrotate/logrotate.status に先程logrotateコマンドをした日時が記録されていたので、<br>その日時を昨日に変更して、再度 /usr/sbin/logrotate /etc/logrotate.conf を実行すると</p>
+<p>無事ログファイルがローテートされました。</p>
+<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><p>調べている際に、logrotateは/etc/cron.dailyで実行されていて。<br>cron.dailyの実行は/etc/anacrontabで設定されているということを知りました。</p>
+<h2 id="参考サイト"><a href="#参考サイト" class="headerlink" title="参考サイト"></a>参考サイト</h2><p><a href="https://www.khstasaba.com/?p=958" target="_blank" rel="noopener">https://www.khstasaba.com/?p=958</a><br><a href="https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/6/html/deployment_guide/ch-automating_system_tasks#s2-configuring-anacron-jobs" target="_blank" rel="noopener">https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/6/html/deployment_guide/ch-automating_system_tasks#s2-configuring-anacron-jobs</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/" data-id="ckmrjfvbz0000oa8z568a07e8" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-systemd-Failed-to-execute-command-Permission-denied" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/" class="article-date">
@@ -582,62 +624,6 @@
 
 
   
-    <article id="post-コマンドラインインターフェイスのオプションについて" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/14/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
-  <time datetime="2020-06-14T03:09:06.000Z" itemprop="datePublished">2020-06-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/14/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">コマンドラインインターフェイスのオプションについて</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>コマンドラインでオプションの引数を指定する時に、<code>半角スペース</code>と<code>=</code>を利用する違いについて気になったので調べました。</p>
-<h2 id="調査結果"><a href="#調査結果" class="headerlink" title="調査結果"></a>調査結果</h2><p>オプションの引数が省略できる場合だと<code>半角スペース</code>が、オプション引数を省略した形かコマンドの引数か曖昧なので<code>=</code>の指定が必要。</p>
-<h2 id="詳細内容"><a href="#詳細内容" class="headerlink" title="詳細内容"></a>詳細内容</h2><p>コマンドラインアプリケーションごとに違いはありますので <code>grep</code> を基準にします。</p>
-<p>まずファイルを作成します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; test.txt</span><br><span class="line">test</span><br><span class="line">hoge</span><br><span class="line">poyo</span><br><span class="line">poke</span><br><span class="line">111</span><br><span class="line">control+d</span><br></pre></td></tr></table></figure>
-
-<p>man grep をすると、–after-context<code>=</code>num でnum行分を一致した行以降も表示しれくれるとなっています。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-A num, --after-context&#x3D;num</span><br><span class="line">             Print num lines of trailing context after each match.  See also the -B and -C options.</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --after-context&#x3D;3</span><br><span class="line">test</span><br><span class="line">hoge</span><br><span class="line">poyo</span><br><span class="line">poke</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --after-context 3</span><br><span class="line">test</span><br><span class="line">hoge</span><br><span class="line">poyo</span><br><span class="line">poke</span><br></pre></td></tr></table></figure>
-<p>–after-context<code>=</code>num 、–after-context<code></code>num のどちらでも受け付けてくれます。</p>
-<p>man grep をすると、–colour<code>=</code>never で一致した箇所の色付けを消してくれるとなっています。[when]になっているのでオプションの引数は省略できます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--colour&#x3D;[when, --color&#x3D;[when]]</span><br><span class="line">             Mark up the matching text with the expression stored in GREP_COLOR environment variable.  The possible</span><br><span class="line">             values of when can be &#96;never&#39;, &#96;always&#39; or &#96;auto&#39;.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --colour&#x3D;never</span><br><span class="line">test</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --colour never</span><br><span class="line">test.txt:test</span><br><span class="line">grep: never: No such file or directory</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test --colour test.txt</span><br><span class="line">test</span><br></pre></td></tr></table></figure>
-<p>–colour<code>=</code>never は受け付けてくれますが、–colour<code></code>never はneverがオプションの引数とは認識されずに検索対象のファイル名と認識されました。<br>確かにオプションの引数が省略できる場合だとそれが、オプションの引数かコマンドの引数か曖昧なので<code>=</code>の指定が必要なことは納得できますね。</p>
-<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="http://docopt.org/" target="_blank" rel="noopener">http://docopt.org/</a> : <code>-o --option</code> の項目<br><a href="https://qiita.com/rubytomato@github/items/2ee2fd4127eadc1f1193" target="_blank" rel="noopener">https://qiita.com/rubytomato@github/items/2ee2fd4127eadc1f1193</a><br><a href="https://qiita.com/aosho235/items/0f2b73d08eb645c05208" target="_blank" rel="noopener">https://qiita.com/aosho235/items/0f2b73d08eb645c05208</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/06/14/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" data-id="ckbepetrh0000o28zbxrc3esj" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -674,6 +660,10 @@
       <ul>
         
           <li>
+            <a href="/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/">日毎のlogrotateをテストで動かしたい</a>
+          </li>
+        
+          <li>
             <a href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/">systemd Failed to execute command: Permission denied</a>
           </li>
         
@@ -687,10 +677,6 @@
         
           <li>
             <a href="/2020/12/19/Elasticsearch-%E4%BD%BF%E3%81%84%E6%96%B9/">Elasticsearch 使い方</a>
-          </li>
-        
-          <li>
-            <a href="/2020/12/06/core-dump%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">core dumpについて</a>
           </li>
         
       </ul>
