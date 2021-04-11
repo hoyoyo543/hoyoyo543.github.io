@@ -99,12 +99,15 @@
       
         <p>Laravelのapp()-&gt;make()はアンチパターンなのか調べてみました。</p>
 <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>フレームワークに依存すると問題のあるドメイン層以外ではapp()-&gt;make()を利用してもいい。</p>
-<h1 id="調査内容"><a href="#調査内容" class="headerlink" title="調査内容"></a>調査内容</h1><p>アプリケーションサービスのメソッド内でapp()-&gt;make()を利用していたら、<br>疎結合を意識してコンストラクタインジェクションを利用するようにコードレビューをもらったことがあったのですが、app()-&gt;make()も疎結合だし、コンストラクタからプロパティに持たせるほうが循環参照になりやすく依存度は高いのにと思ったのでいろいろ調べて見ました。  </p>
+<h1 id="調査内容"><a href="#調査内容" class="headerlink" title="調査内容"></a>調査内容</h1><p>アプリケーションサービスのメソッド内でapp()-&gt;make()を利用していたら、<br>疎結合を意識してコンストラクタインジェクションを利用するようにコードレビューをもらったことがあったのですが、app()-&gt;make()は疎結合だし、コンストラクタからタイプヒンティングでプロパティに持たせるほうがインスタンスの作成時に必ず依存することで循環参照になりやすく結合度は高そうと思ったのでいろいろ調べて見ました。  </p>
 <p>パターンの種類でいうと<br>app()-&gt;make()はServiceLocaorで、<br>コンストラクタインジェクションはDIになります。</p>
-<p>双方のバターンとも疎結合を基本としている。という記事や、<br>そもそもDIは依存性の解決であって、依存が無くなるわけではないという記事があったりして。<br>正反対な意見があるようですが、ServiceLocaorをコンストラクタインジェクションにすることで、疎結合でないものが疎結合になるようなことは無いようです。  </p>
-<p>また、ServiceLocaorがアンチパターンのような記事をいくつか見かけたのですが、マーティンファウラー先生によるとそれは違うようです。<br>先生によるとDIよりService Locatorが利用できるのであれば、それを利用するのはもっともだとおっしゃっています。</p>
+<p>双方のバターンとも疎結合を基本としている。<br>という記事や、<br>そもそもDIは依存性の解決であって、依存が無くなるわけではない。<br>という記事があったりして正反対な意見があるようですが、ServiceLocaorをDIにすることで、サービスロケータ自体には依存しないようになるようです。</p>
+<p>そのため、ServiceLocaorがアンチパターンのような記事をいくつか見かけたのですが、マーティンファウラー先生によるとそれは違うようです。<br>先生によるとDIよりService Locatorが利用できるのであれば、それを利用するのはもっともだとおっしゃっています。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Service Locator と Dependency Injection とのどちらを採用するかの判断は、 ロケータへの依存性が問題になるかどうかにかかっている。</span><br></pre></td></tr></table></figure>
 <p>とありましたので、Laravelのフレームワークを利用する上で、フレームワークに依存すると問題のあるドメイン層以外では Service Locatorを採用したほうがよさそうです。</p>
+<p>また、同様の意見が「上田勲. プリンシプル オブ プログラミング 3年目までに身につけたい 一生役立つ101の原理原則」にも書かれていました。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">結合先モジュールの質にも着目しましょう。密な結合自体は問題ですが、本質的には、不安定な要素と密に結合するのが問題になります。安定的なライブラリに依存するのは特に問題ではありません。盲目的にデータ結合を目指すというより、相手によって付き合いの深さを判断しましょう。</span><br><span class="line">&#96;</span><br></pre></td></tr></table></figure>
+<p>「データ結合」とは、この本の中でもっとも疎結合であるという形です。<br>フレームワークとして提供されるサービスロケータの質は安定的しているといえるので、盲目的に疎結合を目指してDIを利用するということは良くないようです。</p>
 <h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><h3 id="マーティンファウラー"><a href="#マーティンファウラー" class="headerlink" title="マーティンファウラー"></a>マーティンファウラー</h3><p><a href="https://kakutani.com/trans/fowler/injection.html#ServiceLocatorVsDependencyInjection" target="_blank" rel="noopener">https://kakutani.com/trans/fowler/injection.html#ServiceLocatorVsDependencyInjection</a></p>
 <h3 id="マーティンファウラーとは反対の意見"><a href="#マーティンファウラーとは反対の意見" class="headerlink" title="マーティンファウラーとは反対の意見"></a>マーティンファウラーとは反対の意見</h3><p><a href="http://blog.a-way-out.net/blog/2015/08/31/your-dependency-injection-is-wrong-as-I-expected/" target="_blank" rel="noopener">http://blog.a-way-out.net/blog/2015/08/31/your-dependency-injection-is-wrong-as-I-expected/</a></p>
 
