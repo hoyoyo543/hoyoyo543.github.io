@@ -21,12 +21,12 @@
 <meta property="og:site_name" content="hoyoyo">
 <meta property="og:description" content="KotlinのSpring Bootでhello worldを出してみました。前提条件 JDKがインストール済み Intellij IDEAもインストール済み  Spring BootのフレームワークをダウンロードSpring Initializrのから設定してダウンロード 設定の参考urlhttps:&#x2F;&#x2F;qiita.com&#x2F;kawasaki_dev&#x2F;items&#x2F;1a188878eb6928880">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="http://hoyoyo543.github.io/kotlin-spring-boot.png">
+<meta property="og:image" content="http://hoyoyo543.github.io/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/kotlin-spring-boot.png">
 <meta property="article:published_time" content="2021-05-16T01:33:16.000Z">
-<meta property="article:modified_time" content="2021-05-16T03:10:14.123Z">
+<meta property="article:modified_time" content="2021-05-16T03:18:15.310Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://hoyoyo543.github.io/kotlin-spring-boot.png">
+<meta name="twitter:image" content="http://hoyoyo543.github.io/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/kotlin-spring-boot.png">
   
     <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
   
@@ -109,7 +109,9 @@
 <h3 id="設定の参考url"><a href="#設定の参考url" class="headerlink" title="設定の参考url"></a>設定の参考url</h3><p><a href="https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90" target="_blank" rel="noopener">https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90</a></p>
 <h2 id="GradleをインストールしてSpring-Bootを起動してみる"><a href="#GradleをインストールしてSpring-Bootを起動してみる" class="headerlink" title="GradleをインストールしてSpring Bootを起動してみる"></a>GradleをインストールしてSpring Bootを起動してみる</h2><p>Intellij IDEAからダウンロードしたSpring BootのフレームワークをOpenする。</p>
 <p>そうすると右下にGradleをインストールしますかのようなポップアップが現れるので、そこからインストールをしてもらう。</p>
-<p>GradleがインストールされるとProjectパネルに.gradelとbuildのディレクトリが作成され、main関数の横にrunボタンが表示されるのでrunボタンから起動してWEBアプリケーションを実行します。<br><img src="/kotlin-spring-boot.png" /></p>
+<p>GradleがインストールされるとProjectパネルに.gradelとbuildのディレクトリが作成され、main関数の横にrunボタンが表示されるのでrunボタンから起動してWEBアプリケーションを実行します。  </p>
+<img src="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/kotlin-spring-boot.png" class="" title="KotlinでSpring Bootでhello worldを出してみる">
+
 <h3 id="Spring-BootはWebサーバーが内包されている"><a href="#Spring-BootはWebサーバーが内包されている" class="headerlink" title="Spring BootはWebサーバーが内包されている"></a>Spring BootはWebサーバーが内包されている</h3><p>PHPですとnginxやapacheなどのWebサーバを用意する必要がありますが、Spring Bootのフレームワーク自体にWebサーバが内包されているのでmain関数の横にrunボタンを押すだけでwebアプリケーションを起動できます、便利ですね。<br>ちなみに、AWSのLambdaのようなものをサーバレスといいますが、このような「WEBサーバ」の用意が不要なこともサーバレスというようです。</p>
 <h2 id="hello-worldを表示するコード"><a href="#hello-worldを表示するコード" class="headerlink" title="hello worldを表示するコード"></a>hello worldを表示するコード</h2><p><a href="https://github.com/unamu1229/spring-boot-demo/pull/2/files" target="_blank" rel="noopener">https://github.com/unamu1229/spring-boot-demo/pull/2/files</a><br>のファイルを追加します。<br>再度main関数をrunすると <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> にhello worldと表示されました。</p>
 <h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><h3 id="Spring-Initializr"><a href="#Spring-Initializr" class="headerlink" title="Spring Initializr"></a>Spring Initializr</h3><p><a href="https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90" target="_blank" rel="noopener">https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90</a></p>
