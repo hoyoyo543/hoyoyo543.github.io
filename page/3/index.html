@@ -75,6 +75,96 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-何故プログラミングで少数の値がずれるのか" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" class="article-date">
+  <time datetime="2020-03-15T08:45:39.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/">何故プログラミングで小数の値がずれるのか</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>小数に2進数で表現できないものが多くあるから。</p>
+<h2 id="どうして2進数で表現できない少数があるのか"><a href="#どうして2進数で表現できない少数があるのか" class="headerlink" title="どうして2進数で表現できない少数があるのか"></a>どうして2進数で表現できない少数があるのか</h2><p>例えば十進数で0.9の場合にそれを2進数で表現しようとすると、<br>小数点第一位 だと 1/2(0.5) 小数点第二位 だと 1/4(0.25) 小数点第三位 だと 1/8(0.125)と  少しずつ 0.5 + 0.25 + 0.125 = 0.875と0.9に寄っては行くが、<br>それをfloat型（単精度浮動小数点形式）の仮数部23回をおこなっても0.9と一致することはない。</p>
+<h2 id="検証JSコード"><a href="#検証JSコード" class="headerlink" title="検証JSコード"></a>検証JSコード</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var n &#x3D; 0;</span><br><span class="line">var nishinsu &#x3D; 0.5;</span><br><span class="line">var amari &#x3D; 0.9;</span><br><span class="line">var counter &#x3D; 0;</span><br><span class="line">while (n !&#x3D;&#x3D; 0.9 &amp;&amp; counter &lt; 23) &#123;</span><br><span class="line">    counter +&#x3D; 1;</span><br><span class="line">    if (amari &gt;&#x3D; nishinsu) &#123;</span><br><span class="line">        n +&#x3D; nishinsu;</span><br><span class="line">    &#125;</span><br><span class="line">    amari &#x3D; amari % nishinsu;</span><br><span class="line">    nishinsu &#x3D; nishinsu &#x2F; 2</span><br><span class="line">    </span><br><span class="line">    console.table(&#123;&#39;counter&#39;:counter, &#39;number&#39;:n, &#39;amari&#39;:amari, &#39;nishinsu&#39;:nishinsu&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" data-id="ckoql52rh000mkv8zbvkhdlkt" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ビジネスロジックバリデーション" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" class="article-date">
+  <time datetime="2020-03-08T14:42:55.000Z" itemprop="datePublished">2020-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/">ビジネスロジックバリデーションの例外の種類</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ビジネスロジックのバリデーションは-DomainException-を継承したものを投げる"><a href="#ビジネスロジックのバリデーションは-DomainException-を継承したものを投げる" class="headerlink" title="ビジネスロジックのバリデーションは DomainException を継承したものを投げる"></a>ビジネスロジックのバリデーションは DomainException を継承したものを投げる</h1><p>バリューオブジェクトやエンティティやドメインサービスで投げられることの多いビジネスロジックのバリデーションの例外ですが、<br>その例外はphpstormのdocコメントにて<code>@throws</code>が必要な（Exceptionをextendしたもの）で投げるべきかコメントが必要ない<code>DomainException</code>を継承したもので投げるべきかを悩んでいたのですが、<br><code>DomainException</code>を継承したもので投げるべきだと私の中で答えがでました。</p>
+<p>入力フォームなどでビジネスロジックのバリデーションの例外をキャッチして、Viewに表示したいことがあり、<code>@throws</code>が必要な例外だとcatchすることが明示的なのでそっちかなと思ったのですが。<br>下記のスライドを見てビジネスロジックの例外を投げるクラスからしたら、システムを落とすように例外を投げることを推奨していたので <code>DomainException</code> を継承してビジネスロジックのバリデーションは投げるべきだなと決めました。<br>では、落とすように例外をなげたらそれをキャッチしてはいけないかというとそうではなくて、アーキテクチャ/フレームワーク等では逆に落とさないようにcatchすることを推奨しています。</p>
+<p><a href="https://speakerdeck.com/twada/php-conference-2016?slide=56" target="_blank" rel="noopener">https://speakerdeck.com/twada/php-conference-2016?slide=56</a><br>こちらのスライドである通り、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ミクロでは正当性を重視し、マクロでは堅牢性を重視する</span><br><span class="line">個々のクラスは正当性を重視し、堅牢性はアーキテクチャ&#x2F;フレームワーク等で保証するのがオススメ。</span><br><span class="line">例：個々のクラスはfail fast原則で書き、Webフレームワークやグローバルハンドラがキャッチして500エラー画面等を出す責務を負う</span><br></pre></td></tr></table></figure>
+<p>とありました。<br>正当性と堅牢性とか意味が分からなければ、このページの5ページ前ぐらいから読むといいと思います。</p>
+<p>また、Viewに表示したいから<code>@throws</code>が必要な例外を投げるとかドメインがViewに配慮する考え方もおかしいですよね。</p>
+<h1 id="ビジネスロジックのエラーは例外的状況である"><a href="#ビジネスロジックのエラーは例外的状況である" class="headerlink" title="ビジネスロジックのエラーは例外的状況である"></a>ビジネスロジックのエラーは例外的状況である</h1><p>そもそもビジネスロジックのバリデーションで例外を投げるのはおかしい、<br>例外は例外的な状況にだけ利用するべきだと意見されたことがあるのですが、<br>それは、<code>例外的な状況</code>の縮小解釈です。<br><a href="https://qiita.com/kata/items/bd129ba6113a61126389#%E9%A0%85%E7%9B%AE57-%E4%BE%8B%E5%A4%96%E7%9A%84%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A0%E3%81%91%E4%BE%8B%E5%A4%96%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B" target="_blank" rel="noopener">https://qiita.com/kata/items/bd129ba6113a61126389#%E9%A0%85%E7%9B%AE57-%E4%BE%8B%E5%A4%96%E7%9A%84%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A0%E3%81%91%E4%BE%8B%E5%A4%96%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B</a><br>に書かれている通り、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayIndexOutOfBoundsExceptionを使用して配列のループ処理の脱出するなどアホな事はしない</span><br></pre></td></tr></table></figure>
+<p>このレベルでの状況で例外を使うなということで、ビジネスロジックのバリデーションエラーについては例外的状況と捉えてよいと考えます。  </p>
+<p>また、こちらのスライドの14ページに<br><a href="https://www.slideshare.net/t_wada/exception-design-by-contract" target="_blank" rel="noopener">https://www.slideshare.net/t_wada/exception-design-by-contract</a>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例外は例外的な状況にだけ利用するべき</span><br><span class="line">例外は、その名が示す通り、例外的状況に対してのみ使用するべきです。</span><br><span class="line">通常の制御フローにたいしては、決して使用すべきではありません。</span><br></pre></td></tr></table></figure>
+<p>とありますが、この<code>通常の制御フロー</code>を示すものも前のページでのループを抜ける制御のレベルで使うなといっていますし。<br>15ページの</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例外は例外的な問題のみに使用すること</span><br><span class="line">「すべての例外ハンドラーを除去しても、このプログラムは動作することができるだろうか？」</span><br><span class="line">答えが「ノー」であれば、例外では無い状況下で例外が使われている</span><br></pre></td></tr></table></figure>
+<p>についても、ビジネスロジックの例外のキャッチをすべて行わなくても動作することはできます。<br>29ページにて</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">技術的例外とビジネス例外を明確に区別する</span><br><span class="line">技術的例外は貫通させてフレームワークに任せる。ビジネス例外は準正常系なので呼び出し側で対処する</span><br></pre></td></tr></table></figure>
+<p>ビジネスロジックのバリデーションの例外を準正常系として利用することを認めています。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" data-id="ckoql52rf000lkv8zcbi2djdu" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-DDDにおけるEntityについて" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/03/DDD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BEntity%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
@@ -328,6 +418,14 @@
       <ul>
         
           <li>
+            <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/">gradleでcomposer requireにあたることをする</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
+          </li>
+        
+          <li>
             <a href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/">KotlinでSpring Bootでhello worldを出してみる</a>
           </li>
         
@@ -337,14 +435,6 @@
         
           <li>
             <a href="/2021/04/11/Laravel%E3%81%AEapp-make-%E3%81%AF%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/">Laravelのapp()-&gt;make()はアンチパターンなの？</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/">日毎のlogrotateをテストで動かしたい</a>
-          </li>
-        
-          <li>
-            <a href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/">systemd Failed to execute command: Permission denied</a>
           </li>
         
       </ul>
