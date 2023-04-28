@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ビジネスロジックバリデーションの例外の種類 | hoyoyo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ビジネスロジックのバリデーションは DomainException を継承したものを投げるバリューオブジェクトやエンティティやドメインサービスで投げられることの多いビジネスロジックのバリデーションの例外ですが、その例外はphpstormのdocコメントにて@throwsが必要な（Exceptionをextendしたもの）で投げるべきかコメントが必要ないDomainExceptionを継承したもので">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ビジネスロジックバリデーションの例外の種類">
+<meta property="og:url" content="https://hoyoyo543.github.io/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/index.html">
+<meta property="og:site_name" content="hoyoyo">
+<meta property="og:description" content="ビジネスロジックのバリデーションは DomainException を継承したものを投げるバリューオブジェクトやエンティティやドメインサービスで投げられることの多いビジネスロジックのバリデーションの例外ですが、その例外はphpstormのdocコメントにて@throwsが必要な（Exceptionをextendしたもの）で投げるべきかコメントが必要ないDomainExceptionを継承したもので">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2020-03-08T14:42:55.000Z">
+<meta property="article:modified_time" content="2023-04-28T23:44:56.805Z">
+<meta property="article:author" content="hoyoyo">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hoyoyo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hoyoyo543.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ビジネスロジックバリデーション" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" class="article-date">
+  <time datetime="2020-03-08T14:42:55.000Z" itemprop="datePublished">2020-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ビジネスロジックバリデーションの例外の種類
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ビジネスロジックのバリデーションは-DomainException-を継承したものを投げる"><a href="#ビジネスロジックのバリデーションは-DomainException-を継承したものを投げる" class="headerlink" title="ビジネスロジックのバリデーションは DomainException を継承したものを投げる"></a>ビジネスロジックのバリデーションは DomainException を継承したものを投げる</h1><p>バリューオブジェクトやエンティティやドメインサービスで投げられることの多いビジネスロジックのバリデーションの例外ですが、<br>その例外はphpstormのdocコメントにて<code>@throws</code>が必要な（Exceptionをextendしたもの）で投げるべきかコメントが必要ない<code>DomainException</code>を継承したもので投げるべきかを悩んでいたのですが、<br><code>DomainException</code>を継承したもので投げるべきだと私の中で答えがでました。</p>
+<p>入力フォームなどでビジネスロジックのバリデーションの例外をキャッチして、Viewに表示したいことがあり、<code>@throws</code>が必要な例外だとcatchすることが明示的なのでそっちかなと思ったのですが。<br>下記のスライドを見てビジネスロジックの例外を投げるクラスからしたら、システムを落とすように例外を投げることを推奨していたので <code>DomainException</code> を継承してビジネスロジックのバリデーションは投げるべきだなと決めました。<br>では、落とすように例外をなげたらそれをキャッチしてはいけないかというとそうではなくて、アーキテクチャ/フレームワーク等では逆に落とさないようにcatchすることを推奨しています。</p>
+<p><a href="https://speakerdeck.com/twada/php-conference-2016?slide=56" target="_blank" rel="noopener">https://speakerdeck.com/twada/php-conference-2016?slide=56</a><br>こちらのスライドである通り、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ミクロでは正当性を重視し、マクロでは堅牢性を重視する</span><br><span class="line">個々のクラスは正当性を重視し、堅牢性はアーキテクチャ&#x2F;フレームワーク等で保証するのがオススメ。</span><br><span class="line">例：個々のクラスはfail fast原則で書き、Webフレームワークやグローバルハンドラがキャッチして500エラー画面等を出す責務を負う</span><br></pre></td></tr></table></figure>
+<p>とありました。<br>正当性と堅牢性とか意味が分からなければ、このページの5ページ前ぐらいから読むといいと思います。</p>
+<p>また、Viewに表示したいから<code>@throws</code>が必要な例外を投げるとかドメインがViewに配慮する考え方もおかしいですよね。</p>
+<h1 id="ビジネスロジックのエラーは例外的状況である"><a href="#ビジネスロジックのエラーは例外的状況である" class="headerlink" title="ビジネスロジックのエラーは例外的状況である"></a>ビジネスロジックのエラーは例外的状況である</h1><p>そもそもビジネスロジックのバリデーションで例外を投げるのはおかしい、<br>例外は例外的な状況にだけ利用するべきだと意見されたことがあるのですが、<br>それは、<code>例外的な状況</code>の縮小解釈です。<br><a href="https://qiita.com/kata/items/bd129ba6113a61126389#%E9%A0%85%E7%9B%AE57-%E4%BE%8B%E5%A4%96%E7%9A%84%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A0%E3%81%91%E4%BE%8B%E5%A4%96%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B" target="_blank" rel="noopener">https://qiita.com/kata/items/bd129ba6113a61126389#%E9%A0%85%E7%9B%AE57-%E4%BE%8B%E5%A4%96%E7%9A%84%E7%8A%B6%E6%85%8B%E3%81%AB%E3%81%A0%E3%81%91%E4%BE%8B%E5%A4%96%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B</a><br>に書かれている通り、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayIndexOutOfBoundsExceptionを使用して配列のループ処理の脱出するなどアホな事はしない</span><br></pre></td></tr></table></figure>
+<p>このレベルでの状況で例外を使うなということで、ビジネスロジックのバリデーションエラーについては例外的状況と捉えてよいと考えます。  </p>
+<p>また、こちらのスライドの14ページに<br><a href="https://www.slideshare.net/t_wada/exception-design-by-contract" target="_blank" rel="noopener">https://www.slideshare.net/t_wada/exception-design-by-contract</a>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例外は例外的な状況にだけ利用するべき</span><br><span class="line">例外は、その名が示す通り、例外的状況に対してのみ使用するべきです。</span><br><span class="line">通常の制御フローにたいしては、決して使用すべきではありません。</span><br></pre></td></tr></table></figure>
+<p>とありますが、この<code>通常の制御フロー</code>を示すものも前のページでのループを抜ける制御のレベルで使うなといっていますし。<br>15ページの</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例外は例外的な問題のみに使用すること</span><br><span class="line">「すべての例外ハンドラーを除去しても、このプログラムは動作することができるだろうか？」</span><br><span class="line">答えが「ノー」であれば、例外では無い状況下で例外が使われている</span><br></pre></td></tr></table></figure>
+<p>についても、ビジネスロジックの例外のキャッチをすべて行わなくても動作することはできます。<br>29ページにて</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">技術的例外とビジネス例外を明確に区別する</span><br><span class="line">技術的例外は貫通させてフレームワークに任せる。ビジネス例外は準正常系なので呼び出し側で対処する</span><br></pre></td></tr></table></figure>
+<p>ビジネスロジックのバリデーションの例外を準正常系として利用することを認めています。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" data-id="clh17kuhe000o8t8z8wcj22tu" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          何故プログラミングで小数の値がずれるのか
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/03/DDD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BEntity%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">DDDにおけるEntityについて</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/29/hoge/">hoge</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/28/AWS%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%88%E3%82%A2%E3%82%BD%E3%82%B7%E3%82%A8%E3%82%A4%E3%83%88%E5%90%91%E3%81%91%E3%81%AE%E5%95%8F%E9%A1%8C%E9%9B%86%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F/">AWSソリューションアーキテクトアソシエイト向けの問題集を作成した</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/28/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/">gradleでcomposer requireにあたることをする</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 hoyoyo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
