@@ -12,13 +12,17 @@
   
 
   
-  <title>hoyoyo</title>
+  <title>Elasticsearch 使い方 | hoyoyo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="hoyoyo">
-<meta property="og:url" content="http://hoyoyo543.github.io/index.html">
+  <meta name="description" content="実行環境 Elasticsearch 7.10.1 Kibana 7.10.1検索  完全一致検索データ項目のタイプがキーワードとして登録されている必要があります。検索対象のtypeがkeywordで、queryでtermを指定して行う必要があります。 request1234567891011121314#対象index作成 都道府県(pref)のtypeを完全一致の対象にする為にkeywordで">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch 使い方">
+<meta property="og:url" content="http://hoyoyo543.github.io/2020/12/19/Elasticsearch-%E4%BD%BF%E3%81%84%E6%96%B9/index.html">
 <meta property="og:site_name" content="hoyoyo">
+<meta property="og:description" content="実行環境 Elasticsearch 7.10.1 Kibana 7.10.1検索  完全一致検索データ項目のタイプがキーワードとして登録されている必要があります。検索対象のtypeがkeywordで、queryでtermを指定して行う必要があります。 request1234567891011121314#対象index作成 都道府県(pref)のtypeを完全一致の対象にする為にkeywordで">
 <meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2020-12-19T14:38:40.000Z">
+<meta property="article:modified_time" content="2020-12-20T08:27:46.462Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
   
@@ -73,428 +77,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-gradleでcomposer-requireにあたることをする" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2021-05-16T22:55:05.000Z" itemprop="datePublished">2021-05-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/">gradleでcomposer requireにあたることをする</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>build.gradle.ktsのdependensiesに追加したいパッケージを追記すると象のsyncボタンが現れるので、syncのボタンを押す。</p>
-<img src="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/gradle-composer-require.png" class="" title="gradleでcomposer requireにあたることをする">
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/" data-id="ckors66tb00014i8z3fh901fe" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Hexoで画像を表示する" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2021-05-16T03:20:37.000Z" itemprop="datePublished">2021-05-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>_config.ymlをpost_asset_folder: trueにする。</p>
-<p>hexo new {記事title}の時に source/_postsディレクトリ以下に{記事tile}のディレクトリができるので、<br>そのディレクトリ内に画像を配置。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img 画像名 記事名 %&#125;</span><br></pre></td></tr></table></figure>
-<p>のタグで表示できます。</p>
-<p>画像名や記事名にスペースがふくまれる場合、ダブルクォーテーションで囲ってください。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img &quot;画像名&quot; &quot;記事名&quot; %&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="https://hexo.io/docs/asset-folders#Tag-Plugins-For-Relative-Path-Referencing" target="_blank" rel="noopener">https://hexo.io/docs/asset-folders#Tag-Plugins-For-Relative-Path-Referencing</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/" data-id="ckors66si00004i8z7gwc5cdp" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-KotlinでSpring-Bootでhello-worldを出してみる" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/" class="article-date">
-  <time datetime="2021-05-16T01:33:16.000Z" itemprop="datePublished">2021-05-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/">KotlinでSpring Bootでhello worldを出してみる</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="KotlinのSpring-Bootでhello-worldを出してみました。"><a href="#KotlinのSpring-Bootでhello-worldを出してみました。" class="headerlink" title="KotlinのSpring Bootでhello worldを出してみました。"></a>KotlinのSpring Bootでhello worldを出してみました。</h1><h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><ul>
-<li>JDKがインストール済み</li>
-<li>Intellij IDEAもインストール済み</li>
-</ul>
-<h2 id="Spring-Bootのフレームワークをダウンロード"><a href="#Spring-Bootのフレームワークをダウンロード" class="headerlink" title="Spring Bootのフレームワークをダウンロード"></a>Spring Bootのフレームワークをダウンロード</h2><p><a href="https://start.spring.io/" target="_blank" rel="noopener">Spring Initializr</a>のから設定してダウンロード</p>
-<h3 id="設定の参考url"><a href="#設定の参考url" class="headerlink" title="設定の参考url"></a>設定の参考url</h3><p><a href="https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90" target="_blank" rel="noopener">https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90</a></p>
-<h2 id="GradleをインストールしてSpring-Bootを起動してみる"><a href="#GradleをインストールしてSpring-Bootを起動してみる" class="headerlink" title="GradleをインストールしてSpring Bootを起動してみる"></a>GradleをインストールしてSpring Bootを起動してみる</h2><p>Intellij IDEAからダウンロードしたSpring BootのフレームワークをOpenする。</p>
-<p>そうすると右下にGradleをインストールしますかのようなポップアップが現れるので、そこからインストールをしてもらう。</p>
-<p>GradleがインストールされるとProjectパネルに.gradelとbuildのディレクトリが作成され、main関数の横にrunボタンが表示されるのでrunボタンから起動してWEBアプリケーションを実行します。  </p>
-<img src="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/kotlin-spring-boot.png" class="" title="KotlinでSpring Bootでhello worldを出してみる">
-
-<h3 id="Spring-BootはWebサーバーが内包されている"><a href="#Spring-BootはWebサーバーが内包されている" class="headerlink" title="Spring BootはWebサーバーが内包されている"></a>Spring BootはWebサーバーが内包されている</h3><p>PHPですとnginxやapacheなどのWebサーバを用意する必要がありますが、Spring Bootのフレームワーク自体にWebサーバが内包されているのでmain関数の横にrunボタンを押すだけでwebアプリケーションを起動できます、便利ですね。<br>ちなみに、AWSのLambdaのようなものをサーバレスといいますが、このような「WEBサーバ」の用意が不要なこともサーバレスというようです。</p>
-<h2 id="hello-worldを表示するコード"><a href="#hello-worldを表示するコード" class="headerlink" title="hello worldを表示するコード"></a>hello worldを表示するコード</h2><p><a href="https://github.com/unamu1229/spring-boot-demo/pull/2/files" target="_blank" rel="noopener">https://github.com/unamu1229/spring-boot-demo/pull/2/files</a><br>のファイルを追加します。<br>再度main関数をrunすると <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> にhello worldと表示されました。</p>
-<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><h3 id="Spring-Initializr"><a href="#Spring-Initializr" class="headerlink" title="Spring Initializr"></a>Spring Initializr</h3><p><a href="https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90" target="_blank" rel="noopener">https://qiita.com/kawasaki_dev/items/1a188878eb6928880256#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E3%82%92%E4%BD%9C%E6%88%90</a></p>
-<h3 id="サーバレス"><a href="#サーバレス" class="headerlink" title="サーバレス"></a>サーバレス</h3><p><a href="https://qiita.com/kannkyo/items/c3d25553fc505150bfdf#31-%E3%82%B5%E3%83%BC%E3%83%90%E3%83%AC%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3" target="_blank" rel="noopener">https://qiita.com/kannkyo/items/c3d25553fc505150bfdf#31-%E3%82%B5%E3%83%BC%E3%83%90%E3%83%AC%E3%82%B9%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3</a></p>
-<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p><a href="https://spring.pleiades.io/guides/tutorials/spring-boot-kotlin/" target="_blank" rel="noopener">https://spring.pleiades.io/guides/tutorials/spring-boot-kotlin/</a></p>
-<p><a href="https://blog.qbist.co.jp/?p=2654" target="_blank" rel="noopener">https://blog.qbist.co.jp/?p=2654</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/" data-id="ckoql52qr0005kv8zb3m9brgu" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-インターフェイス名はクライアント側に由来する名前にする" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2021-05-09T23:31:19.000Z" itemprop="datePublished">2021-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/">インターフェイス名はクライアント側に由来する名前にする</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>インターフェイスの名前を命名する時に、サーバー側の名前ではなくクライアント側の名前をつける必要があるそうです。<br>このソースは、<code>アジャイルソフトウェア開発の奥義（ロバート・C・マーチン）</code>の<code>9.3 鍵は「抽象」にあり</code>の項目(P130)に書かれていました。<br>理由は、<code>抽象クラスはそれを実際に実装するクラスとの関係よりも、それを利用するクラスとの関係の方がずっと密接</code>だからだそうです。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/" data-id="ckoql52rc000ikv8z4pfaf2cr" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Laravelのapp-make-はアンチパターン" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/04/11/Laravel%E3%81%AEapp-make-%E3%81%AF%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/" class="article-date">
-  <time datetime="2021-04-11T13:05:41.000Z" itemprop="datePublished">2021-04-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/11/Laravel%E3%81%AEapp-make-%E3%81%AF%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/">Laravelのapp()-&gt;make()はアンチパターンなの？</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Laravelのapp()-&gt;make()はアンチパターンなのか調べてみました。</p>
-<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>フレームワークに依存すると問題のあるドメイン層以外ではapp()-&gt;make()を利用してもいい。</p>
-<h1 id="調査内容"><a href="#調査内容" class="headerlink" title="調査内容"></a>調査内容</h1><p>アプリケーションサービスのメソッド内でapp()-&gt;make()を利用していたら、<br>疎結合を意識してコンストラクタインジェクションを利用するようにコードレビューをもらったことがあったのですが、app()-&gt;make()は疎結合だし、コンストラクタからタイプヒンティングでプロパティに持たせるほうがインスタンスの作成時に必ず依存することで循環参照になりやすく結合度は高そうと思ったのでいろいろ調べて見ました。  </p>
-<p>パターンの種類でいうと<br>app()-&gt;make()はServiceLocaorで、<br>コンストラクタインジェクションはDIになります。</p>
-<p>双方のバターンとも疎結合を基本としている。<br>という記事や、<br>そもそもDIは依存性の解決であって、依存が無くなるわけではない。<br>という記事があったりして正反対な意見があるようですが、ServiceLocaorをDIにすることで、サービスロケータ自体には依存しないようになるようです。</p>
-<p>そのため、ServiceLocaorがアンチパターンのような記事をいくつか見かけたのですが、マーティンファウラー先生によるとそれは違うようです。<br>先生によるとDIよりService Locatorが利用できるのであれば、それを利用するのはもっともだとおっしゃっています。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Service Locator と Dependency Injection とのどちらを採用するかの判断は、 ロケータへの依存性が問題になるかどうかにかかっている。</span><br></pre></td></tr></table></figure>
-<p>とありましたので、Laravelのフレームワークを利用する上で、フレームワークに依存すると問題のあるドメイン層以外では Service Locatorを採用したほうがよさそうです。</p>
-<p>また、同様の意見が「上田勲. プリンシプル オブ プログラミング 3年目までに身につけたい 一生役立つ101の原理原則」にも書かれていました。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">結合先モジュールの質にも着目しましょう。密な結合自体は問題ですが、本質的には、不安定な要素と密に結合するのが問題になります。安定的なライブラリに依存するのは特に問題ではありません。盲目的にデータ結合を目指すというより、相手によって付き合いの深さを判断しましょう。</span><br><span class="line">&#96;</span><br></pre></td></tr></table></figure>
-<p>「データ結合」とは、この本の中でもっとも疎結合であるという形です。<br>フレームワークとして提供されるサービスロケータの質は安定的しているといえるので、盲目的に疎結合を目指してDIを利用するということは良くないようです。</p>
-<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><h3 id="マーティンファウラー"><a href="#マーティンファウラー" class="headerlink" title="マーティンファウラー"></a>マーティンファウラー</h3><p><a href="https://kakutani.com/trans/fowler/injection.html#ServiceLocatorVsDependencyInjection" target="_blank" rel="noopener">https://kakutani.com/trans/fowler/injection.html#ServiceLocatorVsDependencyInjection</a></p>
-<h3 id="マーティンファウラーとは反対の意見"><a href="#マーティンファウラーとは反対の意見" class="headerlink" title="マーティンファウラーとは反対の意見"></a>マーティンファウラーとは反対の意見</h3><p><a href="http://blog.a-way-out.net/blog/2015/08/31/your-dependency-injection-is-wrong-as-I-expected/" target="_blank" rel="noopener">http://blog.a-way-out.net/blog/2015/08/31/your-dependency-injection-is-wrong-as-I-expected/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/04/11/Laravel%E3%81%AEapp-make-%E3%81%AF%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/" data-id="ckoql52qx0009kv8zeuzh1upw" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-日毎のlogrotateをテストで動かしたい" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/" class="article-date">
-  <time datetime="2021-03-27T09:18:32.000Z" itemprop="datePublished">2021-03-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/">日毎のlogrotateをテストで動かしたい</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="日毎のlogrotateをテストで動かしたい"><a href="#日毎のlogrotateをテストで動かしたい" class="headerlink" title="日毎のlogrotateをテストで動かしたい"></a>日毎のlogrotateをテストで動かしたい</h1><p>AmazonLinuxで日毎の設定のlogrotateの動作確認をしたいと思い。<br>対象のファイルの日付をtouchで昨日にして、<br>/usr/sbin/logrotate /etc/logrotate.conf を実行してもログファイルが作成されませんでした。</p>
-<p>調べてみると<br>/var/lib/logrotate/logrotate.status<br>というファイルに前回のログローテートを行った時刻を記載しているとのこと。</p>
-<p>/var/lib/logrotate/logrotate.status に先程logrotateコマンドをした日時が記録されていたので、<br>その日時を昨日に変更して、再度 /usr/sbin/logrotate /etc/logrotate.conf を実行すると</p>
-<p>無事ログファイルがローテートされました。</p>
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><p>調べている際に、logrotateは/etc/cron.dailyで実行されていて。<br>cron.dailyの実行は/etc/anacrontabで設定されているということを知りました。</p>
-<h2 id="参考サイト"><a href="#参考サイト" class="headerlink" title="参考サイト"></a>参考サイト</h2><p><a href="https://www.khstasaba.com/?p=958" target="_blank" rel="noopener">https://www.khstasaba.com/?p=958</a><br><a href="https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/6/html/deployment_guide/ch-automating_system_tasks#s2-configuring-anacron-jobs" target="_blank" rel="noopener">https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/6/html/deployment_guide/ch-automating_system_tasks#s2-configuring-anacron-jobs</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/03/27/%E6%97%A5%E6%AF%8E%E3%81%AElogrotate%E3%82%92%E3%83%86%E3%82%B9%E3%83%88%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%97%E3%81%9F%E3%81%84/" data-id="ckoql52rd000jkv8z8kr0gdrl" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-systemd-Failed-to-execute-command-Permission-denied" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/" class="article-date">
-  <time datetime="2021-03-20T04:33:38.000Z" itemprop="datePublished">2021-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/">systemd Failed to execute command: Permission denied</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CentOS8にてsystemdのtest.serviceを作成してみてsystemd start testを行ってみると実行に失敗、<br>/var/log/messagesに下記のエラーが表示されていました。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mar 20 13:21:45 unamu systemd[1]: Started testscript.</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed to execute command: Permission denied</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed at step EXEC spawning &#x2F;tmp&#x2F;test: Permission denied</span><br></pre></td></tr></table></figure>
-<p>Permission deniedの表示からファイルのパーミッションを確認しましたが、問題無し。<br>SELinuxが邪魔をしていたようです。<br>有効になっているか確認</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ getenforce</span><br><span class="line">Enforcing</span><br></pre></td></tr></table></figure>
-<p>Permissiveモードにします。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ setenforce 0</span><br></pre></td></tr></table></figure>
-<p>その後、systemd start testで無事実行されました。</p>
-<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="https://fujiyasu.hatenablog.com/entry/2016/08/05/094804" target="_blank" rel="noopener">https://fujiyasu.hatenablog.com/entry/2016/08/05/094804</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/" data-id="ckoql52ra000gkv8z1ecdeiwt" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ファイアウォールでpingの疎通確認を拒否する" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/23/%E3%83%95%E3%82%A1%E3%82%A4%E3%82%A2%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%81%A7ping%E3%81%AE%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D%E3%82%92%E6%8B%92%E5%90%A6%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2021-02-23T11:43:19.000Z" itemprop="datePublished">2021-02-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/23/%E3%83%95%E3%82%A1%E3%82%A4%E3%82%A2%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%81%A7ping%E3%81%AE%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D%E3%82%92%E6%8B%92%E5%90%A6%E3%81%99%E3%82%8B/">ファイアウォールでpingの疎通確認を拒否する</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CentOS8のfirewall-cmdでpingの疎通確認を拒否を試してみました。<br>pingはicmpのプロトコルです。</p>
-<p>firewallの設定内容を確認します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
-
-<p>icmp-block-inversionがyesの時にicmp-blocksに記載されたICMP Typeを受け入れ、<br>noの時はicmp-blocksに記載されたICMP Typeを拒否します。<br>icmp-blocksに何も設定されていないので、icmp-block-inversionをyesにすることですべてのICMP Typeを拒否することで<br>pingを拒否できそうです。  </p>
-<p>icmp-block-inversionをyesにする。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --add-icmp-block-inversion</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: yes</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
-<p>icmp-block-inversionが yes になったので、pingを実行して拒否されるか確認します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;D&#x2F;g&#x2F;D&#x2F;laradock ❯❯❯ ping 192.168.11.17                                            (git)-[master]</span><br><span class="line">PING 192.168.11.17 (192.168.11.17): 56 data bytes</span><br><span class="line">92 bytes from 192.168.11.17: Communication prohibited by filter</span><br><span class="line">Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst</span><br><span class="line"> 4  5  00 5400 59d4   0 0000  40  01 896f 192.168.11.4  192.168.11.17</span><br><span class="line"></span><br><span class="line">Request timeout for icmp_seq 0</span><br><span class="line">92 bytes from 192.168.11.17: Communication prohibited by filter</span><br><span class="line">Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst</span><br><span class="line"> 4  5  00 5400 9edf   0 0000  40  01 4464 192.168.11.4  192.168.11.17</span><br><span class="line"></span><br><span class="line">Request timeout for icmp_seq 1</span><br><span class="line">92 bytes from 192.168.11.17: Communication prohibited by filter</span><br><span class="line">Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst</span><br><span class="line"> 4  5  00 5400 40eb   0 0000  40  01 a258 192.168.11.4  192.168.11.17</span><br><span class="line"></span><br><span class="line">^C</span><br><span class="line">--- 192.168.11.17 ping statistics ---</span><br><span class="line">3 packets transmitted, 0 packets received, 100.0% packet loss</span><br></pre></td></tr></table></figure>
-<p>100.0% packet loss となっているので拒否できているようです。</p>
-<p>icmp-block-inversionをnoに戻しておきます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --remove-icmp-block-inversion</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<p>応答自体を返さない場合はtargetをDROPにすることで可能です、<br>targetの設定を反映するにはreloadが必要なようです。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --set-target&#x3D;DROP --permanent</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br><span class="line">[root@localhost unamu]# firewall-cmd --reload</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: DROP</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
-
-<p>pingで応答が無いか確認</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;D&#x2F;g&#x2F;D&#x2F;laradock ❯❯❯ ping 192.168.11.17                                            (git)-[master]</span><br><span class="line">PING 192.168.11.17 (192.168.11.17): 56 data bytes</span><br><span class="line">Request timeout for icmp_seq 0</span><br><span class="line">Request timeout for icmp_seq 1</span><br><span class="line">Request timeout for icmp_seq 2</span><br><span class="line">Request timeout for icmp_seq 3</span><br><span class="line">^C</span><br><span class="line">--- 192.168.11.17 ping statistics ---</span><br><span class="line">5 packets transmitted, 0 packets received, 100.0% packet loss</span><br></pre></td></tr></table></figure>
-<p>AWSのサービスにpingを実行した時と同じ反応です、<br>これが応答が無い場合のリアクションなんですね。</p>
-<p>元に戻しておきます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --set-target&#x3D;default --permanent</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考サイト"><a href="#参考サイト" class="headerlink" title="参考サイト"></a>参考サイト</h2><p><a href="https://milestone-of-se.nesuke.com/sv-basic/linux-basic/firewall-cmd/" target="_blank" rel="noopener">https://milestone-of-se.nesuke.com/sv-basic/linux-basic/firewall-cmd/</a><br><a href="https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/security_guide/sec-managing_icmp_requests" target="_blank" rel="noopener">https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/security_guide/sec-managing_icmp_requests</a><br><a href="https://milestone-of-se.nesuke.com/sv-basic/linux-basic/drop-ping-on-linux/" target="_blank" rel="noopener">https://milestone-of-se.nesuke.com/sv-basic/linux-basic/drop-ping-on-linux/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2021/02/23/%E3%83%95%E3%82%A1%E3%82%A4%E3%82%A2%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%81%A7ping%E3%81%AE%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D%E3%82%92%E6%8B%92%E5%90%A6%E3%81%99%E3%82%8B/" data-id="ckoql52re000kkv8z07075r47" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Goの使い始めにハマったこと" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/" class="article-date">
-  <time datetime="2020-12-30T03:27:03.000Z" itemprop="datePublished">2020-12-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/">Goの使い始めにハマったこと</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="GOPATH-関係"><a href="#GOPATH-関係" class="headerlink" title="GOPATH 関係"></a>GOPATH 関係</h2><ul>
-<li><p>GOのファイルはGOPATH以下のsrcディレクトリに格納しなければならない。  </p>
-</li>
-<li><p>GoLandで自作のモジュールが補完でimportされないのは、GOPATH設定が正しくないから。</p>
-<h3 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://pleiades.io/help/go/configuring-goroot-and-gopath.html#gopath" target="_blank" rel="noopener">https://pleiades.io/help/go/configuring-goroot-and-gopath.html#gopath</a></p>
-</li>
-</ul>
-<h2 id="コードポイント-関係"><a href="#コードポイント-関係" class="headerlink" title="コードポイント 関係"></a>コードポイント 関係</h2><p>ElasticSearchでqueryの結果が下記の<code>\u6771\u4eac0</code>ように日本語がUTF16のコードポイントとして表示されていた。<br>本当はprefの項目は東京0と表示されて欲しかった。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">body, _ :&#x3D; ioutil.ReadAll(resp.Body)</span><br><span class="line">mt.Println(string(body))</span><br><span class="line"></span><br><span class="line"># コンソール出力</span><br><span class="line">&#123;&quot;took&quot;:27,&quot;timed_out&quot;:false,&quot;_shards&quot;:&#123;&quot;total&quot;:1,&quot;successful&quot;:1,&quot;skipped&quot;:0,&quot;failed&quot;:0&#125;,&quot;hits&quot;:&#123;&quot;total&quot;:&#123;&quot;value&quot;:1,&quot;relation&quot;:&quot;eq&quot;&#125;,&quot;max_score&quot;:1.0,&quot;hits&quot;:[&#123;&quot;_index&quot;:&quot;search_job&quot;,&quot;_type&quot;:&quot;_doc&quot;,&quot;_id&quot;:&quot;0&quot;,&quot;_score&quot;:1.0,&quot;_source&quot;:&#123;&quot;pref&quot;:&quot;\u6771\u4eac0&quot;,&quot;employment&quot;:&quot;full-time&quot;,&quot;line&quot;:&#123;&quot;name&quot;:&quot;\u5c71\u624b\u7dda&quot;,&quot;station&quot;:[&quot;\u6771\u4eac&quot;]&#125;&#125;&#125;]&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>日本語がUTF16のコードポイントとして表示されており、<br>tranceformパッケージでurf16のバイトのDecodeを試したが文字化けして失敗。<br>(失敗例)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">body, _ :&#x3D; ioutil.ReadAll(resp.Body)</span><br><span class="line">hoge, _, _ :&#x3D; transform.Bytes(</span><br><span class="line">    unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewDecoder(),</span><br><span class="line">    body,</span><br><span class="line">)</span><br><span class="line">fmt.Println(string(hoge))</span><br><span class="line"></span><br><span class="line"># コンソール出力</span><br><span class="line">≻潴歯㨢ⰵ琢浩摥潟瑵㨢慦獬ⱥ弢桳牡獤㨢≻潴慴≬ㄺ∬畳捣獥晳汵㨢ⰱ猢敲慬楴湯㨢攢≱ⱽ洢硡獟潣敲㨢⸱ⰰ栢瑩≳嬺≻楟摮硥㨢猢慥捲彨潪≢∬瑟≦∺畜㜶ㄷ畜攴捡∰∬浥汰祯敭瑮㨢昢汵⵬楴敭Ⱒ氢湩≥笺渢浡≥∺畜挵ㄷ畜㈶戴畜搷慤Ⱒ猢慴楴湯㨢≛畜㜶ㄷ畜攴捡崢絽嵽絽</span><br></pre></td></tr></table></figure>
-
-<p>structにqueryの結果を入れて表示すると、期待通り東京0と表示されました。<br>Unmarshalの中でdecodeがされているようです。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">type GetResponse struct &#123;</span><br><span class="line">	Took     int  &#96;json:&quot;took&quot;&#96;</span><br><span class="line">	TimedOut bool &#96;json:&quot;timed_out&quot;&#96;</span><br><span class="line">	Shards   struct &#123;</span><br><span class="line">		Total      int &#96;json:&quot;total&quot;&#96;</span><br><span class="line">		Successful int &#96;json:&quot;successful&quot;&#96;</span><br><span class="line">		Skipped    int &#96;json:&quot;skipped&quot;&#96;</span><br><span class="line">		Failed     int &#96;json:&quot;failed&quot;&#96;</span><br><span class="line">	&#125; &#96;json:&quot;_shards&quot;&#96;</span><br><span class="line">	Hits struct &#123;</span><br><span class="line">		Total struct &#123;</span><br><span class="line">			Value    int    &#96;json:&quot;value&quot;&#96;</span><br><span class="line">			Relation string &#96;json:&quot;relation&quot;&#96;</span><br><span class="line">		&#125; &#96;json:&quot;total&quot;&#96;</span><br><span class="line">		MaxScore float64 &#96;json:&quot;max_score&quot;&#96;</span><br><span class="line">		Hits     []struct &#123;</span><br><span class="line">			Index  string  &#96;json:&quot;_index&quot;&#96;</span><br><span class="line">			Type   string  &#96;json:&quot;_type&quot;&#96;</span><br><span class="line">			ID     string  &#96;json:&quot;_id&quot;&#96;</span><br><span class="line">			Score  float64 &#96;json:&quot;_score&quot;&#96;</span><br><span class="line">			Source struct &#123;</span><br><span class="line">				Pref       string &#96;json:&quot;pref&quot;&#96;</span><br><span class="line">				Employment string &#96;json:&quot;employment&quot;&#96;</span><br><span class="line">				Line       struct &#123;</span><br><span class="line">					Name    string   &#96;json:&quot;name&quot;&#96;</span><br><span class="line">					Station []string &#96;json:&quot;station&quot;&#96;</span><br><span class="line">				&#125; &#96;json:&quot;line&quot;&#96;</span><br><span class="line">			&#125; &#96;json:&quot;_source&quot;&#96;</span><br><span class="line">		&#125; &#96;json:&quot;hits&quot;&#96;</span><br><span class="line">	&#125; &#96;json:&quot;hits&quot;&#96;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    body, _ :&#x3D; ioutil.ReadAll(resp.Body)</span><br><span class="line">	var getResponse GetResponse</span><br><span class="line">	unmarshalErr :&#x3D; json.Unmarshal(body, &amp;getResponse)</span><br><span class="line">	if unmarshalErr !&#x3D; nil &#123;</span><br><span class="line">		fmt.Println(unmarshalErr)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for _, hit :&#x3D; range getResponse.Hits.Hits &#123;</span><br><span class="line">		fmt.Println(&quot;pref&quot;, hit.Source.Pref)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># コンソール出力</span><br><span class="line">pref 東京0</span><br></pre></td></tr></table></figure>
-
-<p>json全体ではなく、コードポイントの箇所のみであれば、Unquoteで文字に変換できました。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t :&#x3D; &quot;\\u6771\\u4eac0&quot;</span><br><span class="line">converted, _ :&#x3D; strconv.Unquote(&#96;&quot;&#96; + t + &#96;&quot;&#96;)</span><br><span class="line">fmt.Println(converted)</span><br><span class="line"># コンソール出力</span><br><span class="line">東京0</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/" data-id="ckoql52qm0002kv8z0j7eac4a" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Elasticsearch-使い方" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Elasticsearch-使い方" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/19/Elasticsearch-%E4%BD%BF%E3%81%84%E6%96%B9/" class="article-date">
   <time datetime="2020-12-19T14:38:40.000Z" itemprop="datePublished">2020-12-19</time>
@@ -507,8 +90,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/19/Elasticsearch-%E4%BD%BF%E3%81%84%E6%96%B9/">Elasticsearch 使い方</a>
+    <h1 class="article-title" itemprop="name">
+      Elasticsearch 使い方
     </h1>
   
 
@@ -575,16 +158,28 @@
     </footer>
   </div>
   
-</article>
-
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          Goの使い始めにハマったこと
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/06/core-dump%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">core dumpについて</div>
+    </a>
+  
+</nav>
 
   
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">次へ &amp;raquo;</a>
-  </nav>
+</article>
 
 </section>
         

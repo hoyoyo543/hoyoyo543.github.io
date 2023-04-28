@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TVTXT97');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  
+
+  
+  <title>hoyoyo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="hoyoyo">
+<meta property="og:url" content="http://hoyoyo543.github.io/page/2/index.html">
+<meta property="og:site_name" content="hoyoyo">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:author" content="hoyoyo">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTXT97"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hoyoyo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hoyoyo543.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-core-dumpについて" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/06/core-dump%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
+  <time datetime="2020-12-06T09:10:17.000Z" itemprop="datePublished">2020-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/06/core-dump%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">core dumpについて</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>php-fpmのログで下記のようなSIGSEGVのエラーがでており、原因を調査する場合にcore dumpという方法があるようなので試してみました。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARNING: [pool www] child 17248 exited on signal 11 (SIGSEGV)</span><br></pre></td></tr></table></figure>
+
+<h2 id="検証環境"><a href="#検証環境" class="headerlink" title="検証環境"></a>検証環境</h2><p>CentOS8</p>
+<h2 id="core-dumpとは"><a href="#core-dumpとは" class="headerlink" title="core dumpとは"></a>core dumpとは</h2><p>システムが異常終了した場合に、その時点のメモリの内容を記録したcoreファイルを吐き出すことを指すようです。</p>
+<h2 id="coreファイルの出力先を確認"><a href="#coreファイルの出力先を確認" class="headerlink" title="coreファイルの出力先を確認"></a>coreファイルの出力先を確認</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern</span><br><span class="line">core</span><br></pre></td></tr></table></figure>
+<p>coreとなっている場合、<br>プロセスの作業ディレクトリに作成されます。<br>プロセスの作業ディレクトリは、<br>ls -l /proc/{プロセスID}/cwd のリンク先になります。<br>プロセスが終了すると /proc/{プロセスID} のディレクトリは無くなるので、<br>確認する場合はプロセスが生きている間に確認する必要があります。<br>プロセスを生きている間に確認することが難しい場合は、<br>/proc/sys/kernel/core_patternに適当なディレクトリを作成することでcoreの出力先を指定できます。<br>osを再起動すると元の設定にもどります。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;&#x2F;tmp&#x2F;core-%e-%p&#39; &gt; &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern</span><br></pre></td></tr></table></figure>
+<p>%eは、プログラム名。%pはプロセスIDとして置き換わります。</p>
+<h3 id="CentOS8の場合"><a href="#CentOS8の場合" class="headerlink" title="CentOS8の場合"></a>CentOS8の場合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;core_pattern</span><br><span class="line">|&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;systemd-coredump %P %u %g %s %t %c %h %e</span><br></pre></td></tr></table></figure>
+<p>となっており、パイブでわたされた、/usr/lib/systemd/systemd-coredumpが<br>/var/lib/systemd/coredumpのディレクトリ直下にコアダンプが出力されるようになっていました。<br>また、coredumpctlでcoreの情報を見たりできます。</p>
+<p>最近作成されたcoreの一覧を表示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ coredumpctl list</span><br><span class="line">TIME                            PID   UID   GID SIG COREFILE  EXE</span><br><span class="line">Sun 2020-12-06 22:29:22 JST    3252  1000  1000  11 present   &#x2F;usr&#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+<p>coredumpctl info に pidを指定して情報を見る。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ coredumpctl info 3252</span><br><span class="line">           PID: 3252 (segv.sh)</span><br><span class="line">           UID: 1000 (unamu)</span><br><span class="line">           GID: 1000 (unamu)</span><br><span class="line">        Signal: 11 (SEGV)</span><br><span class="line">     Timestamp: Sun 2020-12-06 22:29:21 JST (6min ago)</span><br><span class="line">  Command Line: &#x2F;bin&#x2F;bash .&#x2F;segv.sh</span><br><span class="line">    Executable: &#x2F;usr&#x2F;bin&#x2F;bash</span><br><span class="line"> Control Group: &#x2F;user.slice&#x2F;user-1000.slice&#x2F;user@1000.service&#x2F;gnome-terminal-server.service</span><br><span class="line">          Unit: user@1000.service</span><br><span class="line">     User Unit: gnome-terminal-server.service</span><br><span class="line">         Slice: user-1000.slice</span><br><span class="line">     Owner UID: 1000 (unamu)</span><br><span class="line">       Boot ID: 35a2b597dc5a4a6ebe37fd3a7e97bd73</span><br><span class="line">    Machine ID: c4f822f021d5433ab143f054bca5b672</span><br><span class="line">      Hostname: localhost.localdomain</span><br><span class="line">       Storage: &#x2F;var&#x2F;lib&#x2F;systemd&#x2F;coredump&#x2F;core.segv\x2esh.1000.35a2b597dc5a4a6ebe37fd3a7e97bd73.3252.1607261361000000.lz4</span><br><span class="line">       Message: Process 3252 (segv.sh) of user 1000 dumped core.</span><br><span class="line">                </span><br><span class="line">                Stack trace of thread 3252:</span><br><span class="line">                #0  0x00007fe849946d79 _int_malloc (libc.so.6)</span><br><span class="line">                #1  0x00007fe84994850e malloc (libc.so.6)</span><br><span class="line">                #2  0x00005625a34934c2 xmalloc (bash)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="coreファイルのファイルサイズの変更"><a href="#coreファイルのファイルサイズの変更" class="headerlink" title="coreファイルのファイルサイズの変更"></a>coreファイルのファイルサイズの変更</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ cat &#x2F;proc&#x2F;self&#x2F;limits</span><br><span class="line">Limit                     Soft Limit           Hard Limit           Units     </span><br><span class="line">Max cpu time              unlimited            unlimited            seconds   </span><br><span class="line">Max file size             unlimited            unlimited            bytes     </span><br><span class="line">Max data size             unlimited            unlimited            bytes     </span><br><span class="line">Max stack size            8388608              unlimited            bytes     </span><br><span class="line">Max core file size        unlimited            unlimited            bytes     </span><br><span class="line">Max resident set          unlimited            unlimited            bytes     </span><br><span class="line">Max processes             3140                 3140                 processes </span><br><span class="line">Max open files            1024                 262144               files     </span><br><span class="line">Max locked memory         65536                65536                bytes     </span><br><span class="line">Max address space         unlimited            unlimited            bytes     </span><br><span class="line">Max file locks            unlimited            unlimited            locks     </span><br><span class="line">Max pending signals       3140                 3140                 signals   </span><br><span class="line">Max msgqueue size         819200               819200               bytes     </span><br><span class="line">Max nice priority         0                    0                    </span><br><span class="line">Max realtime priority     0                    0                    </span><br><span class="line">Max realtime timeout      unlimited            unlimited            us</span><br></pre></td></tr></table></figure>
+<p>の Max core file size の項目がCoreファイルサイズの設定になります。<br>softlimitが0だとcoreファイルが作成されません。</p>
+<p>unlimitedに設定すると上限なしで作成してくれます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ulimit -c unlimited</span><br></pre></td></tr></table></figure>
+<p>OSを再起動すると元の設定値に戻ります。</p>
+<h2 id="SIGSEGVエラーを出して、coreファイルが作成されている確認する"><a href="#SIGSEGVエラーを出して、coreファイルが作成されている確認する" class="headerlink" title="SIGSEGVエラーを出して、coreファイルが作成されている確認する"></a>SIGSEGVエラーを出して、coreファイルが作成されている確認する</h2><p>下記のシェルスクリプトを実行して、SIGSEGVエラーを出す。  </p>
+<p>segv.sh </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">function func &#123;</span><br><span class="line">    func</span><br><span class="line">&#125;</span><br><span class="line">func</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># .&#x2F;segv.sh </span><br><span class="line">Segmentation fault (コアダンプ)</span><br><span class="line"># ls &#x2F;tmp</span><br><span class="line">core-segv.sh-41856</span><br></pre></td></tr></table></figure>
+<p>(コアダンプ)と表示されて出力を指定した先にcoreファイルが作成されています。</p>
+<h2 id="coreファイルの中身を確認"><a href="#coreファイルの中身を確認" class="headerlink" title="coreファイルの中身を確認"></a>coreファイルの中身を確認</h2><p>gdb 実行プログラミング coreファイル でgdbでデバックできます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># gdb &#x2F;bin&#x2F;bash &#x2F;tmp&#x2F;core-segv.sh-41856</span><br><span class="line"></span><br><span class="line">GNU gdb (GDB) Red Hat Enterprise Linux 8.2-11.el8</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http:&#x2F;&#x2F;gnu.org&#x2F;licenses&#x2F;gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line">Type &quot;show copying&quot; and &quot;show warranty&quot; for details.</span><br><span class="line">This GDB was configured as &quot;x86_64-redhat-linux-gnu&quot;.</span><br><span class="line">Type &quot;show configuration&quot; for configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http:&#x2F;&#x2F;www.gnu.org&#x2F;software&#x2F;gdb&#x2F;bugs&#x2F;&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">    &lt;http:&#x2F;&#x2F;www.gnu.org&#x2F;software&#x2F;gdb&#x2F;documentation&#x2F;&gt;.</span><br><span class="line"></span><br><span class="line">For help, type &quot;help&quot;.</span><br><span class="line">Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;...</span><br><span class="line">Reading symbols from &#x2F;bin&#x2F;bash...Reading symbols from .gnu_debugdata for &#x2F;usr&#x2F;bin&#x2F;bash...(no debugging symbols found)...done.</span><br><span class="line">(no debugging symbols found)...done.</span><br><span class="line"></span><br><span class="line">warning: core file may not match specified executable file.</span><br><span class="line">[New LWP 41856]</span><br><span class="line"></span><br><span class="line">warning: Loadable section &quot;.note.gnu.property&quot; outside of ELF segments</span><br><span class="line">Core was generated by &#96;&#x2F;bin&#x2F;bash .&#x2F;segv.sh&#39;.</span><br><span class="line">Program terminated with signal SIGSEGV, Segmentation fault.</span><br><span class="line">#0  0x000055b592ffb6db in expand_word_list_internal ()</span><br><span class="line">Missing separate debuginfos, use: yum debuginfo-install bash-4.4.19-10.el8.x86_64</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+
+<p>gdbの対話モードになったら bt or backtrackでコアダンプされる前の状態をさかのぼって原因を調査できます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(gdb) bt</span><br><span class="line">#0  0x000055b592ffb6db in expand_word_list_internal ()</span><br><span class="line">#1  0x000055b592fd2fa7 in execute_simple_command ()</span><br><span class="line">#2  0x000055b592fd51a6 in execute_command_internal ()</span><br><span class="line">#3  0x000055b592fd4ab5 in execute_command_internal ()</span><br><span class="line">#4  0x000055b592fd7a79 in execute_function.isra ()</span><br><span class="line">#5  0x000055b592fd4124 in execute_simple_command ()</span><br><span class="line">#6  0x000055b592fd51a6 in execute_command_internal ()</span><br><span class="line">#7  0x000055b592fd4ab5 in execute_command_internal ()</span><br><span class="line">#8  0x000055b592fd7a79 in execute_function.isra ()</span><br><span class="line">#9  0x000055b592fd4124 in execute_simple_command ()</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="https://www2.filewo.net/wordpress/2019/12/16/centos%E3%81%A7%E3%81%AF%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%A7%E3%82%B3%E3%82%A2%E3%83%80%E3%83%B3%E3%83%97%E3%81%8C%E5%90%90%E3%81%8B%E3%82%8C%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A7/" target="_blank" rel="noopener">https://www2.filewo.net/wordpress/2019/12/16/centos%E3%81%A7%E3%81%AF%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%A7%E3%82%B3%E3%82%A2%E3%83%80%E3%83%B3%E3%83%97%E3%81%8C%E5%90%90%E3%81%8B%E3%82%8C%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A7/</a></p>
+<p><a href="https://rabbitfoot141.hatenablog.com/entry/2016/11/14/153101" target="_blank" rel="noopener">https://rabbitfoot141.hatenablog.com/entry/2016/11/14/153101</a></p>
+<p><a href="https://rheb.hatenablog.com/entry/systemd-coredump" target="_blank" rel="noopener">https://rheb.hatenablog.com/entry/systemd-coredump</a></p>
+<p><a href="https://qiita.com/suzutsuki0220/items/aa84d7e2e8f37e867f3d" target="_blank" rel="noopener">https://qiita.com/suzutsuki0220/items/aa84d7e2e8f37e867f3d</a></p>
+<p><a href="https://qiita.com/rarul/items/d33b664c8414f065e65e" target="_blank" rel="noopener">https://qiita.com/rarul/items/d33b664c8414f065e65e</a></p>
+<h3 id="php-fpm"><a href="#php-fpm" class="headerlink" title="php-fpm"></a>php-fpm</h3><p><a href="https://www.bit-hive.com/articles/20190206" target="_blank" rel="noopener">https://www.bit-hive.com/articles/20190206</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/12/06/core-dump%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" data-id="ckoql52qz000akv8z8ny34x3k" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-AWS-EKS-にnginxのPodをデプロイしてブラウザからアクセスする" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2020-07-26T05:18:47.000Z" itemprop="datePublished">2020-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/">AWS EKS にnginxのPodをデプロイしてブラウザからアクセスする</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Docker/Kubernetes実践コンテナ開発入門の本を読んでいて5.10.1のIngressを通じたアクセスをAmazon EKSで行う場合はどのようになるのか調べました。</p>
+<h2 id="利用しているdocker-image"><a href="#利用しているdocker-image" class="headerlink" title="利用しているdocker image"></a>利用しているdocker image</h2><p>gihyodocker/echo : Hollo Docker!!と表示するwebサーバー<br>gihyodocker/nginx-proxy : echoに対してリバースプロキシする</p>
+<h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><ul>
+<li><p>1 eksctlでcrusterを作成する<br><a href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/getting-started-eksctl.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/getting-started-eksctl.html</a><br>※Fargetポッドがデプロイされる</p>
+</li>
+<li><p>2 ALB Ingress Controllerを作成する<br><a href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/alb-ingress.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/alb-ingress.html</a></p>
+</li>
+<li><p>3 ReplicaSet Service Ingress を作成する<br>ブラウザでIngressのアドレスにアクセスする</p>
+</li>
+</ul>
+<h3 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h3><p>同じ仕様のPodを複数作成する</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: ReplicaSet</span><br><span class="line">metadata:</span><br><span class="line">  name: echo-summer</span><br><span class="line">  labels:</span><br><span class="line">    app: echo</span><br><span class="line">    release: summer</span><br><span class="line">spec:</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: echo</span><br><span class="line">      release: summer</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: echo</span><br><span class="line">        release: summer</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx</span><br><span class="line">        image: gihyodocker&#x2F;nginx:latest</span><br><span class="line">        env:</span><br><span class="line">        - name: BACKEND_HOST</span><br><span class="line">          value: localhost:8080</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line">      - name: echo</span><br><span class="line">        image: gihyodocker&#x2F;echo:latest</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 8080</span><br></pre></td></tr></table></figure>
+
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>Podの集合に対して、アクセス経路を作成する。typeをNodePortにすることでグローバルなポートを開ける。OSI参照モデルのレイヤー４までしか扱えない。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: &quot;echo&quot;</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  selector:</span><br><span class="line">    app: echo</span><br><span class="line">    release: summer</span><br><span class="line">  ports:</span><br><span class="line">    - port: 80</span><br><span class="line">      targetPort: 80</span><br><span class="line">      protocol: TCP</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h3><p>ServiceのKudernetesクラスタ外への公開。<br>VirtualHostやパスベースでのHTTP、HTTPSベースでのルーティングが可能。<br>Ingressが作成されると、EKSのALB Ingress ControllerがALBと必要なAWSサポートリソースを作成してくれる。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions&#x2F;v1beta1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: &quot;echo&quot;</span><br><span class="line">  annotations:</span><br><span class="line">    kubernetes.io&#x2F;ingress.class: alb # Ingress が ALB Ingress Controllerを使用することを設定</span><br><span class="line">    alb.ingress.kubernetes.io&#x2F;scheme: internet-facing</span><br><span class="line">    alb.ingress.kubernetes.io&#x2F;target-type: ip # Serviceでアクセス経路が作成されたPodにトラフィックをルーティングすることを設定</span><br><span class="line">  labels:</span><br><span class="line">    app: echo</span><br><span class="line">spec:</span><br><span class="line">  rules:</span><br><span class="line">    - http:</span><br><span class="line">        paths:</span><br><span class="line">          - path: &#x2F;*</span><br><span class="line">            backend:</span><br><span class="line">              serviceName: &quot;echo&quot;</span><br><span class="line">              servicePort: 80</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/" data-id="ckoql52ph0000kv8zcerfgvrx" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-AWS-EKS-にてno-endpoints-available-for-service-kubernetes-dashboardのエラー対応" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/19/AWS-EKS-%E3%81%AB%E3%81%A6no-endpoints-available-for-service-kubernetes-dashboard%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E5%AF%BE%E5%BF%9C/" class="article-date">
+  <time datetime="2020-07-19T07:35:33.000Z" itemprop="datePublished">2020-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/19/AWS-EKS-%E3%81%AB%E3%81%A6no-endpoints-available-for-service-kubernetes-dashboard%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E5%AF%BE%E5%BF%9C/">AWS EKS にてno endpoints available for service kubernetes-dashboardのエラー対応</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="エラーの出た場面"><a href="#エラーの出た場面" class="headerlink" title="エラーの出た場面"></a>エラーの出た場面</h1><p>AWSのチュートリアル: Kubernetes ダッシュボード (ウェブ UI) のデプロイをやっている時に、<br>「ウェブブラウザで以下のリンクを開いて、ダッシュボードエンドポイントにアクセスします。」という段階で下記urlにアクセスすると<br><a href="http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login" target="_blank" rel="noopener">http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login</a>  </p>
+<p>下記のエラーが画面に表示されダッシュボードエンドポイントにアクセスできなかった。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    kind: &quot;Status&quot;,</span><br><span class="line">    apiVersion: &quot;v1&quot;,</span><br><span class="line">    metadata: &#123; &#125;,</span><br><span class="line">    status: &quot;Failure&quot;,</span><br><span class="line">    message: &quot;no endpoints available for service &quot;kubernetes-dashboard&quot;&quot;,</span><br><span class="line">    reason: &quot;ServiceUnavailable&quot;,</span><br><span class="line">    code: 503</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="対応方法"><a href="#対応方法" class="headerlink" title="対応方法"></a>対応方法</h2><p>下記のコマンドを打って、Namespace kubernetes-dashboard を対象とするFargateプロファイルを追加で作成する。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">eksctl create fargateprofile \</span><br><span class="line">    --name fp-kubernetes-dashboard \</span><br><span class="line">    --namespace kubernetes-dashboard \</span><br><span class="line">    --cluster &#123;クラスター名&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="エラーの理由"><a href="#エラーの理由" class="headerlink" title="エラーの理由"></a>エラーの理由</h2><p><a href="https://dev.classmethod.jp/articles/fargate-for-eks-tutorial-kubernetes-dashboard/#toc-4" target="_blank" rel="noopener">https://dev.classmethod.jp/articles/fargate-for-eks-tutorial-kubernetes-dashboard/#toc-4</a><br>の「「Fargate for EKS」の場合に必要な追加手順」項目を参照</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/07/19/AWS-EKS-%E3%81%AB%E3%81%A6no-endpoints-available-for-service-kubernetes-dashboard%E3%81%AE%E3%82%A8%E3%83%A9%E3%83%BC%E5%AF%BE%E5%BF%9C/" data-id="ckoql52qj0001kv8zg43i0jdm" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-moduleのimport-fromのルートとなる起点を指定したい" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/" class="article-date">
+  <time datetime="2020-06-21T07:51:06.000Z" itemprop="datePublished">2020-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/">python moduleのimport fromのルートとなる起点を指定したい</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="実行スクリプトのディレクトリ階層に関係なくfrom-importをさせたい"><a href="#実行スクリプトのディレクトリ階層に関係なくfrom-importをさせたい" class="headerlink" title="実行スクリプトのディレクトリ階層に関係なくfrom importをさせたい"></a>実行スクリプトのディレクトリ階層に関係なくfrom importをさせたい</h1><p>pythonを実行するスクリプトのディレクトリ階層によってfrom importが失敗することがあります。<br>実行するスクリプトのディレクトリ階層の位置に関係なくfrom importをできるようにする方法を調べました。</p>
+<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><p>このようなディレクトリ構成で普段は、python main.pyからitem_service.py item.py が呼び出され実行される内容だとします。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── main.py</span><br><span class="line">├── models</span><br><span class="line">│   └── item.py</span><br><span class="line">└──services</span><br><span class="line">    └── item_service.py</span><br></pre></td></tr></table></figure>
+<p>下記のようにitem_service.pyはmain.pyをルートとしてmodels/item.pyをfrom importしています。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">item_service.py</span><br><span class="line"></span><br><span class="line">from models.item import Item</span><br><span class="line"></span><br><span class="line">class ItemServiceModel:</span><br><span class="line">    def search():</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    ItemServiceModel.search()</span><br></pre></td></tr></table></figure>
+
+<p>この場合に python item_service.py をすると<br>ModuleNotFoundError: No module named ‘models’<br>のようなエラーが出てimportに失敗します。  </p>
+<h2 id="なぜ失敗するか"><a href="#なぜ失敗するか" class="headerlink" title="なぜ失敗するか"></a>なぜ失敗するか</h2><p><a href="https://docs.python.org/ja/3/tutorial/modules.html" target="_blank" rel="noopener">https://docs.python.org/ja/3/tutorial/modules.html</a><br>html#the-module-search-path<br>公式ドキュメントによると、「入力されたスクリプトのあるディレクトリ」がモジュールの探索パスになるということです。<br>python main.pyでは成功し、python item_service.pyでは失敗するようになることの理解はできました。</p>
+<h2 id="入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom-importさせたい"><a href="#入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom-importさせたい" class="headerlink" title="入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom importさせたい"></a>入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom importさせたい</h2><p>先程の公式ドキュメントの同じところに<br>「PYTHONPATH (ディレクトリ名のリスト。シェル変数の PATH と同じ構文)。」がモジュールの探索パス（import from の起点ルート）になると書いています。<br>なので、.zshrc や .bshrc に<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PYTHONPATH&#x3D;$PYTHONPATH:&#123;main.pyのあるディレクトリの絶対パス&#125;</span><br></pre></td></tr></table></figure><br> とすれば、python item_service.pyでもfrom importが成功するようになりました。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/" data-id="ckoql52r7000ekv8zabxg8zg8" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-リスト内の＊について" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/16/python-%E3%83%AA%E3%82%B9%E3%83%88%E5%86%85%E3%81%AE%EF%BC%8A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
+  <time datetime="2020-06-15T23:10:53.000Z" itemprop="datePublished">2020-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/16/python-%E3%83%AA%E3%82%B9%E3%83%88%E5%86%85%E3%81%AE%EF%BC%8A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">python リスト内の＊について</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def test(x):</span><br><span class="line">    return x * 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a &#x3D; [[3,2,1],[5,4,6],[5,4,6]]</span><br><span class="line">a &#x3D; [*map(lambda x: test(x), a)]</span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line"># print出力</span><br><span class="line">[[3, 2, 1, 3, 2, 1], [5, 4, 6, 5, 4, 6], [5, 4, 6, 5, 4, 6]]</span><br></pre></td></tr></table></figure>
+
+<p>このようなコードがあって、<code>[*map(</code>の部分が何をしているのか分からなかったので調べました。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>map()の返り値のリストを引数展開して、リストを定義している。</p>
+<h2 id="詳細"><a href="#詳細" class="headerlink" title="詳細"></a>詳細</h2><p>リストの前に*をつけると引数展開される</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(*[1, 2, 3])</span><br><span class="line"># print出力</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="http://pixelbeat.jp/variable_length_arguments_and_argument_unpacking/" target="_blank" rel="noopener">http://pixelbeat.jp/variable_length_arguments_and_argument_unpacking/</a></p>
+<h2 id="他の-系-の変則的な書き方"><a href="#他の-系-の変則的な書き方" class="headerlink" title="他の [ ]系 の変則的な書き方"></a>他の [ ]系 の変則的な書き方</h2><h3 id="Numpy-Boolean-Index"><a href="#Numpy-Boolean-Index" class="headerlink" title="Numpy Boolean Index"></a>Numpy Boolean Index</h3><p>Numpy arrayのIndexにBooleanのリストを渡すと、リストのTrueの位置と一致する値だけにできる。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">test &#x3D; np.array([1000, 2000, None])</span><br><span class="line">print(test[[False, True, True]])</span><br><span class="line"></span><br><span class="line"># print出力</span><br><span class="line">[2000 None]</span><br></pre></td></tr></table></figure>
+<h3 id="参考url-1"><a href="#参考url-1" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://qiita.com/junjis0203/items/4136f9ae4f07c452ceb6#boolean-index%E3%81%A8%E5%80%A4%E8%A8%AD%E5%AE%9A" target="_blank" rel="noopener">https://qiita.com/junjis0203/items/4136f9ae4f07c452ceb6#boolean-index%E3%81%A8%E5%80%A4%E8%A8%AD%E5%AE%9A</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/06/16/python-%E3%83%AA%E3%82%B9%E3%83%88%E5%86%85%E3%81%AE%EF%BC%8A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" data-id="ckoql52r3000dkv8ze6w3dpq4" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-コマンドラインインターフェイスのオプションについて" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/06/14/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
+  <time datetime="2020-06-14T03:09:06.000Z" itemprop="datePublished">2020-06-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/14/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">コマンドラインインターフェイスのオプションについて</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>コマンドラインでオプションの引数を指定する時に、<code>半角スペース</code>と<code>=</code>を利用する違いについて気になったので調べました。</p>
+<h2 id="調査結果"><a href="#調査結果" class="headerlink" title="調査結果"></a>調査結果</h2><p>オプションの引数が省略できる場合だと<code>半角スペース</code>が、オプション引数を省略した形かコマンドの引数か曖昧なので<code>=</code>の指定が必要。</p>
+<h2 id="詳細内容"><a href="#詳細内容" class="headerlink" title="詳細内容"></a>詳細内容</h2><p>コマンドラインアプリケーションごとに違いはありますので <code>grep</code> を基準にします。</p>
+<p>まずファイルを作成します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; test.txt</span><br><span class="line">test</span><br><span class="line">hoge</span><br><span class="line">poyo</span><br><span class="line">poke</span><br><span class="line">111</span><br><span class="line">control+d</span><br></pre></td></tr></table></figure>
+
+<p>man grep をすると、–after-context<code>=</code>num でnum行分を一致した行以降も表示しれくれるとなっています。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-A num, --after-context&#x3D;num</span><br><span class="line">             Print num lines of trailing context after each match.  See also the -B and -C options.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --after-context&#x3D;3</span><br><span class="line">test</span><br><span class="line">hoge</span><br><span class="line">poyo</span><br><span class="line">poke</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --after-context 3</span><br><span class="line">test</span><br><span class="line">hoge</span><br><span class="line">poyo</span><br><span class="line">poke</span><br></pre></td></tr></table></figure>
+<p>–after-context<code>=</code>num 、–after-context<code></code>num のどちらでも受け付けてくれます。</p>
+<p>man grep をすると、–colour<code>=</code>never で一致した箇所の色付けを消してくれるとなっています。[when]になっているのでオプションの引数は省略できます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--colour&#x3D;[when, --color&#x3D;[when]]</span><br><span class="line">             Mark up the matching text with the expression stored in GREP_COLOR environment variable.  The possible</span><br><span class="line">             values of when can be &#96;never&#39;, &#96;always&#39; or &#96;auto&#39;.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --colour&#x3D;never</span><br><span class="line">test</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test test.txt --colour never</span><br><span class="line">test.txt:test</span><br><span class="line">grep: never: No such file or directory</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;Desktop ❯❯❯ grep test --colour test.txt</span><br><span class="line">test</span><br></pre></td></tr></table></figure>
+<p>–colour<code>=</code>never は受け付けてくれますが、–colour<code></code>never はneverがオプションの引数とは認識されずに検索対象のファイル名と認識されました。<br>確かにオプションの引数が省略できる場合だとそれが、オプションの引数かコマンドの引数か曖昧なので<code>=</code>の指定が必要なことは納得できますね。</p>
+<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="http://docopt.org/" target="_blank" rel="noopener">http://docopt.org/</a> : <code>-o --option</code> の項目<br><a href="https://qiita.com/rubytomato@github/items/2ee2fd4127eadc1f1193" target="_blank" rel="noopener">https://qiita.com/rubytomato@github/items/2ee2fd4127eadc1f1193</a><br><a href="https://qiita.com/aosho235/items/0f2b73d08eb645c05208" target="_blank" rel="noopener">https://qiita.com/aosho235/items/0f2b73d08eb645c05208</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/06/14/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" data-id="ckoql52rb000hkv8z0fji3pqf" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-This-version-of-ChromeDriver-only-supports-Chrome-version-vesion番号" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/04/This-version-of-ChromeDriver-only-supports-Chrome-version-vesion%E7%95%AA%E5%8F%B7/" class="article-date">
+  <time datetime="2020-05-04T08:08:26.000Z" itemprop="datePublished">2020-05-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/04/This-version-of-ChromeDriver-only-supports-Chrome-version-vesion%E7%95%AA%E5%8F%B7/">This version of ChromeDriver only supports Chrome version {vesion番号}</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="エラー-This-version-of-ChromeDriver-only-supports-Chrome-version-〇〇"><a href="#エラー-This-version-of-ChromeDriver-only-supports-Chrome-version-〇〇" class="headerlink" title="エラー This version of ChromeDriver only supports Chrome version 〇〇"></a>エラー This version of ChromeDriver only supports Chrome version 〇〇</h1><p>SeleniumのWebdriverでChromeを動かしていると<code>This version of ChromeDriver only supports Chrome version 81</code>とエラーメッセージが表示されました。<br>chromeのバージョンが自動アップデートされて、webdriverとchromeのバージョンが合わなくなったので表示されたようです。<br>ですので普段利用するchromeとは別に、seleniumで利用するchromeをインストールしてchromeの自動アップデートを無効にする方法を調べたのですが、個別にアップデートを抑制する方法が見つからず。  </p>
+<h2 id="ChromiunだとChromeと同じ機能で自動アップデートされない"><a href="#ChromiunだとChromeと同じ機能で自動アップデートされない" class="headerlink" title="ChromiunだとChromeと同じ機能で自動アップデートされない"></a>ChromiunだとChromeと同じ機能で自動アップデートされない</h2><p>そんな時に、<code>Chromium</code>だとChromeとほぼ同じ機能で自動アップデートされないという情報を見つけたので、<br>Webdriverのversionに対応する、Chromiumをダウンロードして解決しました。  </p>
+<h2 id="Chromiumの過去バージョンのダウンロードurl"><a href="#Chromiumの過去バージョンのダウンロードurl" class="headerlink" title="Chromiumの過去バージョンのダウンロードurl"></a>Chromiumの過去バージョンのダウンロードurl</h2><p><a href="https://chromium.woolyss.com/" target="_blank" rel="noopener">https://chromium.woolyss.com/</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/05/04/This-version-of-ChromeDriver-only-supports-Chrome-version-vesion%E7%95%AA%E5%8F%B7/" data-id="ckoql52qt0006kv8z42gi11hm" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-GoogleIME変換候補登録" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/" class="article-date">
+  <time datetime="2020-04-29T00:40:15.000Z" itemprop="datePublished">2020-04-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/">GoogleIME変換候補登録</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>GoogleIMEで「餘根津」という旧字体を含んでいたり特殊な名字を「よねず」から変換しようとしても<br>候補には「米津」とか「米酢」しかでてこないと思います。<br>それがよく利用する単語なのに変換ででてこないと面倒ですよね。<br>そんな時の解決方法として<code>GoogleIME</code>の<code>単語登録</code>があります。<br>変換候補の単語を登録すると、変換候補に出てくるようになります。<br><img src="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//word-add.png" /><br><img src="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//dictionaly.png" /></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/" data-id="ckoql52qp0003kv8z2kyuaxsc" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CQRSとマテリアライズドビュー" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/" class="article-date">
+  <time datetime="2020-04-07T14:55:41.000Z" itemprop="datePublished">2020-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/">CQRSとマテリアライズドビュー</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>検索の一覧ページでパフォーマンスが問題になることがありますが、<br>マテリアライズドビューを利用することでパフォーマンス改善ができます。<br>mysqlではマテリアライズドビューの機能が無いので、<br><code>マテリアライズドビュー</code>のようなSQL結果を保存するテーブルを作成し、<code>CQRS</code>で更新をおこない利用することでパフォーマンスを改善することができます。</p>
+<p>（例）SNSでユーザーに多くの投稿があって最新の投稿内容について検索内容が一致するユーザーを一覧で表示する場合に、<br>マテリアライズドビューをユーザーと最新の投稿の中間テーブルとすると<br>下記のような最新の投稿を特定するクエリが必要なくなることでパフォーマンス改善になる。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left join posts as p2 on posts.created_at &lt; p2.created_at where p2.id is null</span><br></pre></td></tr></table></figure>
+
+<p>CQRS マテリアライズドビュー 更新フロー図<br><img src="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png" alt="CQRSとマテリアライズドビューの更新フロー図"></p>
+<h3 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8" target="_blank" rel="noopener">https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8</a><br><a href="http://nippondanji.blogspot.com/2015/06/rdb.html" target="_blank" rel="noopener">http://nippondanji.blogspot.com/2015/06/rdb.html</a><br><a href="https://blog.spacemarket.com/code/room-search-speed/" target="_blank" rel="noopener">https://blog.spacemarket.com/code/room-search-speed/</a><br><a href="https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view</a><br><a href="http://qcontokyo.com/data_2016/pdf/B-2_2_JunichiKato.pdf" target="_blank" rel="noopener">http://qcontokyo.com/data_2016/pdf/B-2_2_JunichiKato.pdf</a><br><img src="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC//cqrs-img.png" /><br><a href="https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view</a></p>
+<h1 id="Laravel-で参考のコードを書いてみました。"><a href="#Laravel-で参考のコードを書いてみました。" class="headerlink" title="Laravel で参考のコードを書いてみました。"></a>Laravel で参考のコードを書いてみました。</h1><p><a href="https://github.com/unamu1229/sampleapp/commit/948a6a6809ecf421629ddf18ca54bef44195e94c" target="_blank" rel="noopener">https://github.com/unamu1229/sampleapp/commit/948a6a6809ecf421629ddf18ca54bef44195e94c</a>  </p>
+<h2 id="処理の流れ"><a href="#処理の流れ" class="headerlink" title="処理の流れ"></a>処理の流れ</h2><p>CommandSelectionエンティティ（コマンド用エンティティ）が CommandSelectionRepositoryリポジトリ（コマンド用リポジトリ）で永続化される<br>↓<br>CommandSelectionRepositoryリポジトリがイベントを発生させる（新規作成時：PushCommandSelection 更新時：PutCommandSelection）<br>※ドメインイベントではないので、リポジトリでイベントを発生させてよいのではないかと思いました。<br>識別子からクエリ用のエンティティを作成する時も永続化されてからでなければ、最新の状態をとってこれないこともありますし。<br>↓<br>リスナーでイベントを受ける（イベントPushCommandSelectionの場合、PushQuerySelection。イベントPutCommandSelectionの場合、PutQuerySelection。）<br>↓<br>リスナーがQuerySelectionエンティティ（クエリ用のエンティティ）を作成し、QuerySelectionRepositoryリポジトリ（クエリ用リポジトリ）でマテリアライズドビュー的な永続化を行う。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/" data-id="ckoql52qq0004kv8z84n6022k" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-amazonアフェリエイト知り合いのリンクを通して購入すると知り合いは紹介料を貰えるのか？" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/21/amazon%E3%82%A2%E3%83%95%E3%82%A7%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%88%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E9%80%9A%E3%81%97%E3%81%A6%E8%B3%BC%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A8%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AF%E7%B4%B9%E4%BB%8B%E6%96%99%E3%82%92%E8%B2%B0%E3%81%88%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F/" class="article-date">
+  <time datetime="2020-03-21T03:20:23.000Z" itemprop="datePublished">2020-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/21/amazon%E3%82%A2%E3%83%95%E3%82%A7%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%88%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E9%80%9A%E3%81%97%E3%81%A6%E8%B3%BC%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A8%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AF%E7%B4%B9%E4%BB%8B%E6%96%99%E3%82%92%E8%B2%B0%E3%81%88%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F/">amazonアフェリエイト 知り合いのリンクを通して購入すると知り合いは紹介料を貰えるのか？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="推測：貰えるのではないか？-→-結果：貰えません"><a href="#推測：貰えるのではないか？-→-結果：貰えません" class="headerlink" title="推測：貰えるのではないか？ → 結果：貰えません"></a>推測：貰えるのではないか？ → 結果：貰えません</h1><p>アマゾンアフェリエイトの利用規約では、自己購入は禁止されていることは自明なのですが、知人からアフェリエイト購入した時に知人に紹介料金がつくことは禁止されていなさそうです。</p>
+<h2 id="Amazonアソシエイト・プログラム運営規約"><a href="#Amazonアソシエイト・プログラム運営規約" class="headerlink" title="Amazonアソシエイト・プログラム運営規約"></a>Amazonアソシエイト・プログラム運営規約</h2><p><a href="https://affiliate.amazon.co.jp/help/operating/agreement" target="_blank" rel="noopener">https://affiliate.amazon.co.jp/help/operating/agreement</a>  </p>
+<p>運営規約の<code>紹介料</code>の項目を見る限り、<code>紹介料を支払いしない条件</code>について知人や家族のために自己購入した場合は紹介料の発生はしないと明記されていますが、知人のリンクを通して購入することに関しては触れられていません。</p>
+<blockquote>
+<p>乙自身、友人、親類その他の関係者のため乙が特別リンク経由で購入した商品など、乙によりまたは乙を代理して、特別リンク経由で購入された商品（例えば、個人的注文、乙自身の使用のための注文および他の個人もしくは企業のためまたはこれらを代理して、乙により発注された注文）。</p>
+</blockquote>
+<h3 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h3><p>「乙」は、加入申込者を意味します。</p>
+<h1 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h1><p>amazonから下記のメールが来てアフェリエイトアカウントが削除されました。<br>知人からアフェリエイト購入してあげることは規約違反になりました。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">いつもAmazon アソシエイト・プログラムをご利用いただき、誠にありがとうございます。</span><br><span class="line"></span><br><span class="line">本日付で、お客様のアソシエイト・プログラムアカウントを閉鎖させていただきました。</span><br><span class="line"></span><br><span class="line">お客様のアカウントが閉鎖となった理由：</span><br><span class="line">Amazonアソシエイト・プログラムの継続的監視の一環として、当社はお客様のアカウントを再調査しました。</span><br><span class="line">調査により、当社は、お客様が以下に記載の運営規約を遵守していないと判断しました。</span><br><span class="line"></span><br><span class="line">Amazonアソシエイト・プログラム運営規約: &lt;https:&#x2F;&#x2F;affiliate.amazon.co.jp&#x2F;help&#x2F;operating&#x2F;agreement&gt;</span><br><span class="line"></span><br><span class="line">違反には以下が含まれます：</span><br><span class="line"></span><br><span class="line">-貴殿のサイトの特別リンク経由で行われた購入は、個人的な使用、再販、商業的使用、または貴殿の友人、親戚、従業員、請負業者、ビジネス関係者によるものです。</span><br><span class="line"></span><br><span class="line">お客様にご対応いただきたい内容：</span><br><span class="line">お客様のサイト内にあるAmazonマークの使用を中止し、Amazonサイトへのすべてのリンクを速やかに削除しなければなりません。</span><br><span class="line"></span><br><span class="line">運営規約違反と判断致しましたので、閉鎖されたアカウントの再開、および該当のアカウントについての紹介料の支払いは行われません。また、Amazonは、その裁量で予告なく、ご利用中の別アカウントまたは今後作成されるアカウントを閉鎖し、紹介料の支払いを停止する権利を留保します。</span><br><span class="line"></span><br><span class="line">なお、限定的ではありますが、本閉鎖については不服申立が可能である場合がございます。詳細については、ここに記載の「不服申立」のヘルプを参照してください。&lt;https:&#x2F;&#x2F;affiliate.amazon.co.jp&#x2F;help&#x2F;node&#x2F;topic&#x2F;GACDBRFKVDTXSPTH&gt;.</span><br><span class="line"></span><br><span class="line">Amazon.co.jp カスタマーサービス　アソシエイト・プログラムスタッフ</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/03/21/amazon%E3%82%A2%E3%83%95%E3%82%A7%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%88%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E9%80%9A%E3%81%97%E3%81%A6%E8%B3%BC%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A8%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AF%E7%B4%B9%E4%BB%8B%E6%96%99%E3%82%92%E8%B2%B0%E3%81%88%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F/" data-id="ckoql52r9000fkv8z0wnu2uw3" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&amp;laquo; 戻る</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">次へ &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/">gradleでcomposer requireにあたることをする</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/">KotlinでSpring Bootでhello worldを出してみる</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/">インターフェイス名はクライアント側に由来する名前にする</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/11/Laravel%E3%81%AEapp-make-%E3%81%AF%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/">Laravelのapp()-&gt;make()はアンチパターンなの？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 hoyoyo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

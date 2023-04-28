@@ -12,19 +12,21 @@
   
 
   
-  <title>検索で不要な記事を除外する | hoyoyo</title>
+  <title>gradleでcomposer requireにあたることをする | hoyoyo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="検索を行う時に不要なものが表示されて目的の記事を探しづらい時に、不要な記事に一致するキーワードを -不要 キーワード とすることで検索から除外するキーワードを設定できます。例えば iPhone11の記事を探している時にiPhone8の記事が沢山でてきて、iPhone8を除外したい場合は、iPhone11 -iPhone8 と検索すると、iPhone8が除外された記事がでてきます。   また検索エン">
+  <meta name="description" content="build.gradle.ktsのdependensiesに追加したいパッケージを追記すると象のsyncボタンが現れるので、syncのボタンを押す。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="検索で不要な記事を除外する">
-<meta property="og:url" content="http://hoyoyo543.github.io/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/index.html">
+<meta property="og:title" content="gradleでcomposer requireにあたることをする">
+<meta property="og:url" content="http://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/index.html">
 <meta property="og:site_name" content="hoyoyo">
-<meta property="og:description" content="検索を行う時に不要なものが表示されて目的の記事を探しづらい時に、不要な記事に一致するキーワードを -不要 キーワード とすることで検索から除外するキーワードを設定できます。例えば iPhone11の記事を探している時にiPhone8の記事が沢山でてきて、iPhone8を除外したい場合は、iPhone11 -iPhone8 と検索すると、iPhone8が除外された記事がでてきます。   また検索エン">
+<meta property="og:description" content="build.gradle.ktsのdependensiesに追加したいパッケージを追記すると象のsyncボタンが現れるので、syncのボタンを押す。">
 <meta property="og:locale" content="ja_JP">
-<meta property="article:published_time" content="2020-02-24T23:01:33.000Z">
-<meta property="article:modified_time" content="2020-02-24T23:11:52.314Z">
+<meta property="og:image" content="http://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/gradle-composer-require.png">
+<meta property="article:published_time" content="2021-05-16T22:55:05.000Z">
+<meta property="article:modified_time" content="2021-05-16T22:58:50.773Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/gradle-composer-require.png">
   
     <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
   
@@ -77,10 +79,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-検索で不要な記事を除外する" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-gradleでcomposer-requireにあたることをする" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2020-02-24T23:01:33.000Z" itemprop="datePublished">2020-02-25</time>
+    <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2021-05-16T22:55:05.000Z" itemprop="datePublished">2021-05-17</time>
 </a>
     
   </div>
@@ -91,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      検索で不要な記事を除外する
+      gradleでcomposer requireにあたることをする
     </h1>
   
 
@@ -99,13 +101,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>検索を行う時に不要なものが表示されて目的の記事を探しづらい時に、不要な記事に一致するキーワードを <code>-不要 キーワード</code> とすることで<br>検索から除外するキーワードを設定できます。<br>例えば iPhone11の記事を探している時にiPhone8の記事が沢山でてきて、iPhone8を除外したい場合は、<br>iPhone11 -iPhone8 と検索すると、iPhone8が除外された記事がでてきます。  </p>
-<p>また検索エンジンで、サイト内検索を行う方法もあります。<br><code>site:サイトURL</code>とおこなうことでサイト内検索ができます。<br>例えば amazon内でiphone11を探したい場合は下記のように、<br>iphone11 site:<a href="https://www.amazon.co.jp/" target="_blank" rel="noopener">https://www.amazon.co.jp/</a><br>とすると、amazonサイト内でのiphone11の記事に絞り込むことができます。</p>
-
+        <p>build.gradle.ktsのdependensiesに追加したいパッケージを追記すると象のsyncボタンが現れるので、syncのボタンを押す。</p>
+<img src="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/gradle-composer-require.png" class="" title="gradleでcomposer requireにあたることをする">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://hoyoyo543.github.io/2020/02/25/%E6%A4%9C%E7%B4%A2%E3%81%A7%E4%B8%8D%E8%A6%81%E3%81%AA%E8%A8%98%E4%BA%8B%E3%82%92%E9%99%A4%E5%A4%96%E3%81%99%E3%82%8B/" data-id="ckoql52rj000okv8z2e5x7587" class="article-share-link">共有</a>
+      <a data-url="http://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/" data-id="ckors66tb00014i8z3fh901fe" class="article-share-link">共有</a>
       
       
     </footer>
@@ -114,19 +115,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/03/03/DDD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BEntity%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          DDDにおけるEntityについて
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/02/11/Hexo%E3%83%86%E3%83%BC%E3%83%9E%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Hexoテーマカスタマイズ</div>
+      <div class="article-nav-title">Hexoで画像を表示する</div>
     </a>
   
 </nav>

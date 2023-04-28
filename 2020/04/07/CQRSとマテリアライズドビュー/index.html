@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TVTXT97');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  
+
+  
+  <title>CQRSとマテリアライズドビュー | hoyoyo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="検索の一覧ページでパフォーマンスが問題になることがありますが、マテリアライズドビューを利用することでパフォーマンス改善ができます。mysqlではマテリアライズドビューの機能が無いので、マテリアライズドビューのようなSQL結果を保存するテーブルを作成し、CQRSで更新をおこない利用することでパフォーマンスを改善することができます。 （例）SNSでユーザーに多くの投稿があって最新の投稿内容について検索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CQRSとマテリアライズドビュー">
+<meta property="og:url" content="http://hoyoyo543.github.io/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/index.html">
+<meta property="og:site_name" content="hoyoyo">
+<meta property="og:description" content="検索の一覧ページでパフォーマンスが問題になることがありますが、マテリアライズドビューを利用することでパフォーマンス改善ができます。mysqlではマテリアライズドビューの機能が無いので、マテリアライズドビューのようなSQL結果を保存するテーブルを作成し、CQRSで更新をおこない利用することでパフォーマンスを改善することができます。 （例）SNSでユーザーに多くの投稿があって最新の投稿内容について検索">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png">
+<meta property="og:image" content="http://hoyoyo543.github.io/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC//cqrs-img.png">
+<meta property="article:published_time" content="2020-04-07T14:55:41.000Z">
+<meta property="article:modified_time" content="2020-04-29T00:35:41.263Z">
+<meta property="article:author" content="hoyoyo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png">
+  
+    <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTXT97"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hoyoyo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hoyoyo543.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CQRSとマテリアライズドビュー" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/" class="article-date">
+  <time datetime="2020-04-07T14:55:41.000Z" itemprop="datePublished">2020-04-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CQRSとマテリアライズドビュー
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>検索の一覧ページでパフォーマンスが問題になることがありますが、<br>マテリアライズドビューを利用することでパフォーマンス改善ができます。<br>mysqlではマテリアライズドビューの機能が無いので、<br><code>マテリアライズドビュー</code>のようなSQL結果を保存するテーブルを作成し、<code>CQRS</code>で更新をおこない利用することでパフォーマンスを改善することができます。</p>
+<p>（例）SNSでユーザーに多くの投稿があって最新の投稿内容について検索内容が一致するユーザーを一覧で表示する場合に、<br>マテリアライズドビューをユーザーと最新の投稿の中間テーブルとすると<br>下記のような最新の投稿を特定するクエリが必要なくなることでパフォーマンス改善になる。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left join posts as p2 on posts.created_at &lt; p2.created_at where p2.id is null</span><br></pre></td></tr></table></figure>
+
+<p>CQRS マテリアライズドビュー 更新フロー図<br><img src="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png" alt="CQRSとマテリアライズドビューの更新フロー図"></p>
+<h3 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8" target="_blank" rel="noopener">https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8</a><br><a href="http://nippondanji.blogspot.com/2015/06/rdb.html" target="_blank" rel="noopener">http://nippondanji.blogspot.com/2015/06/rdb.html</a><br><a href="https://blog.spacemarket.com/code/room-search-speed/" target="_blank" rel="noopener">https://blog.spacemarket.com/code/room-search-speed/</a><br><a href="https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view</a><br><a href="http://qcontokyo.com/data_2016/pdf/B-2_2_JunichiKato.pdf" target="_blank" rel="noopener">http://qcontokyo.com/data_2016/pdf/B-2_2_JunichiKato.pdf</a><br><img src="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC//cqrs-img.png" /><br><a href="https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view</a></p>
+<h1 id="Laravel-で参考のコードを書いてみました。"><a href="#Laravel-で参考のコードを書いてみました。" class="headerlink" title="Laravel で参考のコードを書いてみました。"></a>Laravel で参考のコードを書いてみました。</h1><p><a href="https://github.com/unamu1229/sampleapp/commit/948a6a6809ecf421629ddf18ca54bef44195e94c" target="_blank" rel="noopener">https://github.com/unamu1229/sampleapp/commit/948a6a6809ecf421629ddf18ca54bef44195e94c</a>  </p>
+<h2 id="処理の流れ"><a href="#処理の流れ" class="headerlink" title="処理の流れ"></a>処理の流れ</h2><p>CommandSelectionエンティティ（コマンド用エンティティ）が CommandSelectionRepositoryリポジトリ（コマンド用リポジトリ）で永続化される<br>↓<br>CommandSelectionRepositoryリポジトリがイベントを発生させる（新規作成時：PushCommandSelection 更新時：PutCommandSelection）<br>※ドメインイベントではないので、リポジトリでイベントを発生させてよいのではないかと思いました。<br>識別子からクエリ用のエンティティを作成する時も永続化されてからでなければ、最新の状態をとってこれないこともありますし。<br>↓<br>リスナーでイベントを受ける（イベントPushCommandSelectionの場合、PushQuerySelection。イベントPutCommandSelectionの場合、PutQuerySelection。）<br>↓<br>リスナーがQuerySelectionエンティティ（クエリ用のエンティティ）を作成し、QuerySelectionRepositoryリポジトリ（クエリ用リポジトリ）でマテリアライズドビュー的な永続化を行う。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://hoyoyo543.github.io/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/" data-id="ckoql52qq0004kv8z84n6022k" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          GoogleIME変換候補登録
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/21/amazon%E3%82%A2%E3%83%95%E3%82%A7%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%88%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AE%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%92%E9%80%9A%E3%81%97%E3%81%A6%E8%B3%BC%E5%85%A5%E3%81%99%E3%82%8B%E3%81%A8%E7%9F%A5%E3%82%8A%E5%90%88%E3%81%84%E3%81%AF%E7%B4%B9%E4%BB%8B%E6%96%99%E3%82%92%E8%B2%B0%E3%81%88%E3%82%8B%E3%81%AE%E3%81%8B%EF%BC%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">amazonアフェリエイト 知り合いのリンクを通して購入すると知り合いは紹介料を貰えるのか？</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/">gradleでcomposer requireにあたることをする</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/">KotlinでSpring Bootでhello worldを出してみる</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/">インターフェイス名はクライアント側に由来する名前にする</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/11/Laravel%E3%81%AEapp-make-%E3%81%AF%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/">Laravelのapp()-&gt;make()はアンチパターンなの？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 hoyoyo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
