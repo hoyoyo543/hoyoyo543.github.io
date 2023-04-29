@@ -75,65 +75,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-ファイアウォールでpingの疎通確認を拒否する" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/02/23/%E3%83%95%E3%82%A1%E3%82%A4%E3%82%A2%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%81%A7ping%E3%81%AE%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D%E3%82%92%E6%8B%92%E5%90%A6%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2021-02-23T11:43:19.000Z" itemprop="datePublished">2021-02-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/23/%E3%83%95%E3%82%A1%E3%82%A4%E3%82%A2%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%81%A7ping%E3%81%AE%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D%E3%82%92%E6%8B%92%E5%90%A6%E3%81%99%E3%82%8B/">ファイアウォールでpingの疎通確認を拒否する</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CentOS8のfirewall-cmdでpingの疎通確認を拒否を試してみました。<br>pingはicmpのプロトコルです。</p>
-<p>firewallの設定内容を確認します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
-
-<p>icmp-block-inversionがyesの時にicmp-blocksに記載されたICMP Typeを受け入れ、<br>noの時はicmp-blocksに記載されたICMP Typeを拒否します。<br>icmp-blocksに何も設定されていないので、icmp-block-inversionをyesにすることですべてのICMP Typeを拒否することで<br>pingを拒否できそうです。  </p>
-<p>icmp-block-inversionをyesにする。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --add-icmp-block-inversion</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: yes</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
-<p>icmp-block-inversionが yes になったので、pingを実行して拒否されるか確認します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;D&#x2F;g&#x2F;D&#x2F;laradock ❯❯❯ ping 192.168.11.17                                            (git)-[master]</span><br><span class="line">PING 192.168.11.17 (192.168.11.17): 56 data bytes</span><br><span class="line">92 bytes from 192.168.11.17: Communication prohibited by filter</span><br><span class="line">Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst</span><br><span class="line"> 4  5  00 5400 59d4   0 0000  40  01 896f 192.168.11.4  192.168.11.17</span><br><span class="line"></span><br><span class="line">Request timeout for icmp_seq 0</span><br><span class="line">92 bytes from 192.168.11.17: Communication prohibited by filter</span><br><span class="line">Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst</span><br><span class="line"> 4  5  00 5400 9edf   0 0000  40  01 4464 192.168.11.4  192.168.11.17</span><br><span class="line"></span><br><span class="line">Request timeout for icmp_seq 1</span><br><span class="line">92 bytes from 192.168.11.17: Communication prohibited by filter</span><br><span class="line">Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst</span><br><span class="line"> 4  5  00 5400 40eb   0 0000  40  01 a258 192.168.11.4  192.168.11.17</span><br><span class="line"></span><br><span class="line">^C</span><br><span class="line">--- 192.168.11.17 ping statistics ---</span><br><span class="line">3 packets transmitted, 0 packets received, 100.0% packet loss</span><br></pre></td></tr></table></figure>
-<p>100.0% packet loss となっているので拒否できているようです。</p>
-<p>icmp-block-inversionをnoに戻しておきます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --remove-icmp-block-inversion</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<p>応答自体を返さない場合はtargetをDROPにすることで可能です、<br>targetの設定を反映するにはreloadが必要なようです。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --set-target&#x3D;DROP --permanent</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br><span class="line">[root@localhost unamu]# firewall-cmd --reload</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: DROP</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: enp0s3</span><br><span class="line">  sources:</span><br><span class="line">  services: cockpit dhcpv6-client http ssh</span><br><span class="line">  ports:</span><br><span class="line">  protocols:</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
-
-<p>pingで応答が無いか確認</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;D&#x2F;g&#x2F;D&#x2F;laradock ❯❯❯ ping 192.168.11.17                                            (git)-[master]</span><br><span class="line">PING 192.168.11.17 (192.168.11.17): 56 data bytes</span><br><span class="line">Request timeout for icmp_seq 0</span><br><span class="line">Request timeout for icmp_seq 1</span><br><span class="line">Request timeout for icmp_seq 2</span><br><span class="line">Request timeout for icmp_seq 3</span><br><span class="line">^C</span><br><span class="line">--- 192.168.11.17 ping statistics ---</span><br><span class="line">5 packets transmitted, 0 packets received, 100.0% packet loss</span><br></pre></td></tr></table></figure>
-<p>AWSのサービスにpingを実行した時と同じ反応です、<br>これが応答が無い場合のリアクションなんですね。</p>
-<p>元に戻しておきます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost unamu]# firewall-cmd --set-target&#x3D;default --permanent</span><br><span class="line">success</span><br><span class="line">[root@localhost unamu]# firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考サイト"><a href="#参考サイト" class="headerlink" title="参考サイト"></a>参考サイト</h2><p><a href="https://milestone-of-se.nesuke.com/sv-basic/linux-basic/firewall-cmd/" target="_blank" rel="noopener">https://milestone-of-se.nesuke.com/sv-basic/linux-basic/firewall-cmd/</a><br><a href="https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/security_guide/sec-managing_icmp_requests" target="_blank" rel="noopener">https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/security_guide/sec-managing_icmp_requests</a><br><a href="https://milestone-of-se.nesuke.com/sv-basic/linux-basic/drop-ping-on-linux/" target="_blank" rel="noopener">https://milestone-of-se.nesuke.com/sv-basic/linux-basic/drop-ping-on-linux/</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hoyoyo543.github.io/2021/02/23/%E3%83%95%E3%82%A1%E3%82%A4%E3%82%A2%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%81%A7ping%E3%81%AE%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D%E3%82%92%E6%8B%92%E5%90%A6%E3%81%99%E3%82%8B/" data-id="clh17kuhf000p8t8z1mgr7b35" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-Goの使い始めにハマったこと" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/" class="article-date">
@@ -633,6 +574,43 @@
 
 
   
+    <article id="post-GoogleIME変換候補登録" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/" class="article-date">
+  <time datetime="2020-04-29T00:40:15.000Z" itemprop="datePublished">2020-04-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/">GoogleIME変換候補登録</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>GoogleIMEで「餘根津」という旧字体を含んでいたり特殊な名字を「よねず」から変換しようとしても<br>候補には「米津」とか「米酢」しかでてこないと思います。<br>それがよく利用する単語なのに変換ででてこないと面倒ですよね。<br>そんな時の解決方法として<code>GoogleIME</code>の<code>単語登録</code>があります。<br>変換候補の単語を登録すると、変換候補に出てくるようになります。<br><img src="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//word-add.png" /><br><img src="/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2//dictionaly.png" /></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2020/04/29/GoogleIME%E5%A4%89%E6%8F%9B%E5%80%99%E8%A3%9C%E7%99%BB%E9%8C%B2/" data-id="clh17kugr00068t8zgikh66iz" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -669,10 +647,6 @@
       <ul>
         
           <li>
-            <a href="/2023/04/29/hoge/">hoge</a>
-          </li>
-        
-          <li>
             <a href="/2023/04/28/AWS%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%88%E3%82%A2%E3%82%BD%E3%82%B7%E3%82%A8%E3%82%A4%E3%83%88%E5%90%91%E3%81%91%E3%81%AE%E5%95%8F%E9%A1%8C%E9%9B%86%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F/">AWSソリューションアーキテクトアソシエイト向けの問題集を作成した</a>
           </li>
         
@@ -686,6 +660,10 @@
         
           <li>
             <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/">KotlinでSpring Bootでhello worldを出してみる</a>
           </li>
         
       </ul>
