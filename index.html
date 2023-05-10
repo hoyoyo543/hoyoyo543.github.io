@@ -97,7 +97,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>terraform applyを行うと、このようなエラーがでました。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: reading ELBv2 Load Balancer (arn:aws:elasticloadbalancing:〇〇〇): ValidationError: &#39;arn:aws:elasticloadbalancing:〇〇〇&#39; is not a valid load balancer ARN status code: 400, request id: 〇〇〇</span><br></pre></td></tr></table></figure>
+<p>原因は、私がterraformのデプロイ先のawsアカウントを、以前のものとは別の新しいawsアカウントに新たにデプロイを作成しようとしている為でした。<br>terraformが以前のアカウントで作成したelbを確認しようとしているけど、新しいawsアカウントにそのリソースが無いので、status code 400でエラーになっているのだと思います。<br>ですので、ローカルのterraform.tfstateを削除して、以前の構築した状態を削除すると新しいawsアカウントにデプロイができるようになりました。</p>
+
       
     </div>
     <footer class="article-footer">
@@ -133,7 +136,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="“terraform”を開くとコンピュータが破損します。-ゴミ箱に入れる必要があります。"><a href="#“terraform”を開くとコンピュータが破損します。-ゴミ箱に入れる必要があります。" class="headerlink" title="“terraform”を開くとコンピュータが破損します。 ゴミ箱に入れる必要があります。"></a>“terraform”を開くとコンピュータが破損します。 ゴミ箱に入れる必要があります。</h1><p>macでterraformを実行しようとすると、急にこの警告が出てくるようになりました。<br>terraformを再インストールすることで警告が出なくなりました。<br>tfenvでterraformをインストールしていたので、<br>tfenv listでバージョンを確認して、1.2.3だったので<br>tfenv uninstall 1.2.3<br>tfenv install 1.2.3<br>で再インストールすることでエラーが表示されなくなりました。</p>
+        <p>macでterraformを実行しようとすると、急にこの警告が出てくるようになりました。</p>
+<img src="/2023/05/11/%E2%80%9Cterraform%E2%80%9D%E3%82%92%E9%96%8B%E3%81%8F%E3%81%A8%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%81%8C%E7%A0%B4%E6%90%8D%E3%81%97%E3%81%BE%E3%81%99%E3%80%82-%E3%82%B4%E3%83%9F%E7%AE%B1%E3%81%AB%E5%85%A5%E3%82%8C%E3%82%8B%E5%BF%85%E8%A6%81%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82/terraform-maruware.png" class="" title="“terraform”を開くとコンピュータが破損します。 ゴミ箱に入れる必要があります。">
+<p>terraformを再インストールすることで警告が出なくなりました。<br>tfenvでterraformをインストールしていたので、<br>tfenv listでバージョンを確認して、1.2.3だったので</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tfenv uninstall 1.2.3</span><br><span class="line"></span><br><span class="line">tfenv install 1.2.3</span><br></pre></td></tr></table></figure>
+<p>で再インストールすることでエラーが表示されなくなりました。</p>
 
       
     </div>
