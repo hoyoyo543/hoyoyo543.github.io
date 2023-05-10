@@ -75,6 +75,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Goの使い始めにハマったこと" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/" class="article-date">
+  <time datetime="2020-12-30T03:27:03.000Z" itemprop="datePublished">2020-12-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/">Goの使い始めにハマったこと</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="GOPATH-関係"><a href="#GOPATH-関係" class="headerlink" title="GOPATH 関係"></a>GOPATH 関係</h2><ul>
+<li><p>GOのファイルはGOPATH以下のsrcディレクトリに格納しなければならない。  </p>
+</li>
+<li><p>GoLandで自作のモジュールが補完でimportされないのは、GOPATH設定が正しくないから。</p>
+<h3 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://pleiades.io/help/go/configuring-goroot-and-gopath.html#gopath" target="_blank" rel="noopener">https://pleiades.io/help/go/configuring-goroot-and-gopath.html#gopath</a></p>
+</li>
+</ul>
+<h2 id="コードポイント-関係"><a href="#コードポイント-関係" class="headerlink" title="コードポイント 関係"></a>コードポイント 関係</h2><p>ElasticSearchでqueryの結果が下記の<code>\u6771\u4eac0</code>ように日本語がUTF16のコードポイントとして表示されていた。<br>本当はprefの項目は東京0と表示されて欲しかった。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">body, _ :&#x3D; ioutil.ReadAll(resp.Body)</span><br><span class="line">mt.Println(string(body))</span><br><span class="line"></span><br><span class="line"># コンソール出力</span><br><span class="line">&#123;&quot;took&quot;:27,&quot;timed_out&quot;:false,&quot;_shards&quot;:&#123;&quot;total&quot;:1,&quot;successful&quot;:1,&quot;skipped&quot;:0,&quot;failed&quot;:0&#125;,&quot;hits&quot;:&#123;&quot;total&quot;:&#123;&quot;value&quot;:1,&quot;relation&quot;:&quot;eq&quot;&#125;,&quot;max_score&quot;:1.0,&quot;hits&quot;:[&#123;&quot;_index&quot;:&quot;search_job&quot;,&quot;_type&quot;:&quot;_doc&quot;,&quot;_id&quot;:&quot;0&quot;,&quot;_score&quot;:1.0,&quot;_source&quot;:&#123;&quot;pref&quot;:&quot;\u6771\u4eac0&quot;,&quot;employment&quot;:&quot;full-time&quot;,&quot;line&quot;:&#123;&quot;name&quot;:&quot;\u5c71\u624b\u7dda&quot;,&quot;station&quot;:[&quot;\u6771\u4eac&quot;]&#125;&#125;&#125;]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>日本語がUTF16のコードポイントとして表示されており、<br>tranceformパッケージでurf16のバイトのDecodeを試したが文字化けして失敗。<br>(失敗例)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">body, _ :&#x3D; ioutil.ReadAll(resp.Body)</span><br><span class="line">hoge, _, _ :&#x3D; transform.Bytes(</span><br><span class="line">    unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewDecoder(),</span><br><span class="line">    body,</span><br><span class="line">)</span><br><span class="line">fmt.Println(string(hoge))</span><br><span class="line"></span><br><span class="line"># コンソール出力</span><br><span class="line">≻潴歯㨢ⰵ琢浩摥潟瑵㨢慦獬ⱥ弢桳牡獤㨢≻潴慴≬ㄺ∬畳捣獥晳汵㨢ⰱ猢敲慬楴湯㨢攢≱ⱽ洢硡獟潣敲㨢⸱ⰰ栢瑩≳嬺≻楟摮硥㨢猢慥捲彨潪≢∬瑟≦∺畜㜶ㄷ畜攴捡∰∬浥汰祯敭瑮㨢昢汵⵬楴敭Ⱒ氢湩≥笺渢浡≥∺畜挵ㄷ畜㈶戴畜搷慤Ⱒ猢慴楴湯㨢≛畜㜶ㄷ畜攴捡崢絽嵽絽</span><br></pre></td></tr></table></figure>
+
+<p>structにqueryの結果を入れて表示すると、期待通り東京0と表示されました。<br>Unmarshalの中でdecodeがされているようです。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">type GetResponse struct &#123;</span><br><span class="line">	Took     int  &#96;json:&quot;took&quot;&#96;</span><br><span class="line">	TimedOut bool &#96;json:&quot;timed_out&quot;&#96;</span><br><span class="line">	Shards   struct &#123;</span><br><span class="line">		Total      int &#96;json:&quot;total&quot;&#96;</span><br><span class="line">		Successful int &#96;json:&quot;successful&quot;&#96;</span><br><span class="line">		Skipped    int &#96;json:&quot;skipped&quot;&#96;</span><br><span class="line">		Failed     int &#96;json:&quot;failed&quot;&#96;</span><br><span class="line">	&#125; &#96;json:&quot;_shards&quot;&#96;</span><br><span class="line">	Hits struct &#123;</span><br><span class="line">		Total struct &#123;</span><br><span class="line">			Value    int    &#96;json:&quot;value&quot;&#96;</span><br><span class="line">			Relation string &#96;json:&quot;relation&quot;&#96;</span><br><span class="line">		&#125; &#96;json:&quot;total&quot;&#96;</span><br><span class="line">		MaxScore float64 &#96;json:&quot;max_score&quot;&#96;</span><br><span class="line">		Hits     []struct &#123;</span><br><span class="line">			Index  string  &#96;json:&quot;_index&quot;&#96;</span><br><span class="line">			Type   string  &#96;json:&quot;_type&quot;&#96;</span><br><span class="line">			ID     string  &#96;json:&quot;_id&quot;&#96;</span><br><span class="line">			Score  float64 &#96;json:&quot;_score&quot;&#96;</span><br><span class="line">			Source struct &#123;</span><br><span class="line">				Pref       string &#96;json:&quot;pref&quot;&#96;</span><br><span class="line">				Employment string &#96;json:&quot;employment&quot;&#96;</span><br><span class="line">				Line       struct &#123;</span><br><span class="line">					Name    string   &#96;json:&quot;name&quot;&#96;</span><br><span class="line">					Station []string &#96;json:&quot;station&quot;&#96;</span><br><span class="line">				&#125; &#96;json:&quot;line&quot;&#96;</span><br><span class="line">			&#125; &#96;json:&quot;_source&quot;&#96;</span><br><span class="line">		&#125; &#96;json:&quot;hits&quot;&#96;</span><br><span class="line">	&#125; &#96;json:&quot;hits&quot;&#96;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    body, _ :&#x3D; ioutil.ReadAll(resp.Body)</span><br><span class="line">	var getResponse GetResponse</span><br><span class="line">	unmarshalErr :&#x3D; json.Unmarshal(body, &amp;getResponse)</span><br><span class="line">	if unmarshalErr !&#x3D; nil &#123;</span><br><span class="line">		fmt.Println(unmarshalErr)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for _, hit :&#x3D; range getResponse.Hits.Hits &#123;</span><br><span class="line">		fmt.Println(&quot;pref&quot;, hit.Source.Pref)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># コンソール出力</span><br><span class="line">pref 東京0</span><br></pre></td></tr></table></figure>
+
+<p>json全体ではなく、コードポイントの箇所のみであれば、Unquoteで文字に変換できました。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t :&#x3D; &quot;\\u6771\\u4eac0&quot;</span><br><span class="line">converted, _ :&#x3D; strconv.Unquote(&#96;&quot;&#96; + t + &#96;&quot;&#96;)</span><br><span class="line">fmt.Println(converted)</span><br><span class="line"># コンソール出力</span><br><span class="line">東京0</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2020/12/30/Go%E3%81%AE%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F%E3%81%93%E3%81%A8/" data-id="clh1aofoq00056u8zbisv9647" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Elasticsearch-使い方" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/12/19/Elasticsearch-%E4%BD%BF%E3%81%84%E6%96%B9/" class="article-date">
@@ -557,50 +611,6 @@
 
 
   
-    <article id="post-CQRSとマテリアライズドビュー" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/" class="article-date">
-  <time datetime="2020-04-07T14:55:41.000Z" itemprop="datePublished">2020-04-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/">CQRSとマテリアライズドビュー</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>検索の一覧ページでパフォーマンスが問題になることがありますが、<br>マテリアライズドビューを利用することでパフォーマンス改善ができます。<br>mysqlではマテリアライズドビューの機能が無いので、<br><code>マテリアライズドビュー</code>のようなSQL結果を保存するテーブルを作成し、<code>CQRS</code>で更新をおこない利用することでパフォーマンスを改善することができます。</p>
-<p>（例）SNSでユーザーに多くの投稿があって最新の投稿内容について検索内容が一致するユーザーを一覧で表示する場合に、<br>マテリアライズドビューをユーザーと最新の投稿の中間テーブルとすると<br>下記のような最新の投稿を特定するクエリが必要なくなることでパフォーマンス改善になる。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left join posts as p2 on posts.created_at &lt; p2.created_at where p2.id is null</span><br></pre></td></tr></table></figure>
-
-<p>CQRS マテリアライズドビュー 更新フロー図<br><img src="https://cdn.slideship.com/users/J5fayUq9zL8BBesWpreNDm/img/2018/04/8tDAoBRRmWD9QDHzt73qts.png" alt="CQRSとマテリアライズドビューの更新フロー図"></p>
-<h3 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h3><p><a href="https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8" target="_blank" rel="noopener">https://slideship.com/users/@miyake/presentations/2018/04/5JgW9hp3kHDDZi6zzDRxbm/?p=8</a><br><a href="http://nippondanji.blogspot.com/2015/06/rdb.html" target="_blank" rel="noopener">http://nippondanji.blogspot.com/2015/06/rdb.html</a><br><a href="https://blog.spacemarket.com/code/room-search-speed/" target="_blank" rel="noopener">https://blog.spacemarket.com/code/room-search-speed/</a><br><a href="https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view</a><br><a href="http://qcontokyo.com/data_2016/pdf/B-2_2_JunichiKato.pdf" target="_blank" rel="noopener">http://qcontokyo.com/data_2016/pdf/B-2_2_JunichiKato.pdf</a><br><img src="/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC//cqrs-img.png" /><br><a href="https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/architecture/patterns/materialized-view</a></p>
-<h1 id="Laravel-で参考のコードを書いてみました。"><a href="#Laravel-で参考のコードを書いてみました。" class="headerlink" title="Laravel で参考のコードを書いてみました。"></a>Laravel で参考のコードを書いてみました。</h1><p><a href="https://github.com/unamu1229/sampleapp/commit/948a6a6809ecf421629ddf18ca54bef44195e94c" target="_blank" rel="noopener">https://github.com/unamu1229/sampleapp/commit/948a6a6809ecf421629ddf18ca54bef44195e94c</a>  </p>
-<h2 id="処理の流れ"><a href="#処理の流れ" class="headerlink" title="処理の流れ"></a>処理の流れ</h2><p>CommandSelectionエンティティ（コマンド用エンティティ）が CommandSelectionRepositoryリポジトリ（コマンド用リポジトリ）で永続化される<br>↓<br>CommandSelectionRepositoryリポジトリがイベントを発生させる（新規作成時：PushCommandSelection 更新時：PutCommandSelection）<br>※ドメインイベントではないので、リポジトリでイベントを発生させてよいのではないかと思いました。<br>識別子からクエリ用のエンティティを作成する時も永続化されてからでなければ、最新の状態をとってこれないこともありますし。<br>↓<br>リスナーでイベントを受ける（イベントPushCommandSelectionの場合、PushQuerySelection。イベントPutCommandSelectionの場合、PutQuerySelection。）<br>↓<br>リスナーがQuerySelectionエンティティ（クエリ用のエンティティ）を作成し、QuerySelectionRepositoryリポジトリ（クエリ用リポジトリ）でマテリアライズドビュー的な永続化を行う。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hoyoyo543.github.io/2020/04/07/CQRS%E3%81%A8%E3%83%9E%E3%83%86%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%83%89%E3%83%93%E3%83%A5%E3%83%BC/" data-id="clh1aofoo00036u8z6kqaaqct" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -624,7 +634,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">アーカイブ</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
     </div>
   </div>
 
@@ -635,6 +645,10 @@
     <h3 class="widget-title">最近の投稿</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/05/11/%E2%80%9Cterraform%E2%80%9D%E3%82%92%E9%96%8B%E3%81%8F%E3%81%A8%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%81%8C%E7%A0%B4%E6%90%8D%E3%81%97%E3%81%BE%E3%81%99%E3%80%82-%E3%82%B4%E3%83%9F%E7%AE%B1%E3%81%AB%E5%85%A5%E3%82%8C%E3%82%8B%E5%BF%85%E8%A6%81%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82/">“terraform”を開くとコンピュータが破損します。 ゴミ箱に入れる必要があります。</a>
+          </li>
         
           <li>
             <a href="/2023/04/28/AWS%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%88%E3%82%A2%E3%82%BD%E3%82%B7%E3%82%A8%E3%82%A4%E3%83%88%E5%90%91%E3%81%91%E3%81%AE%E5%95%8F%E9%A1%8C%E9%9B%86%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F/">AWSソリューションアーキテクトアソシエイト向けの問題集を作成した</a>
@@ -650,10 +664,6 @@
         
           <li>
             <a href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/">KotlinでSpring Bootでhello worldを出してみる</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/">インターフェイス名はクライアント側に由来する名前にする</a>
           </li>
         
       </ul>
