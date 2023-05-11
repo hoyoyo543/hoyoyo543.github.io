@@ -22,7 +22,7 @@
 <meta property="og:description" content="terraform でACMをALBのリスナーに設定する下記のようなコードの一部があり、 123456789101112131415〜〜〜resource &quot;aws_lb_listener&quot; &quot;https&quot; &amp;#123;    load_balancer_arn &#x3D; aws_lb.alb.arn    port &#x3D; &quot;443&amp;q">
 <meta property="og:locale" content="ja_JP">
 <meta property="article:published_time" content="2023-05-10T23:09:40.000Z">
-<meta property="article:modified_time" content="2023-05-11T01:02:46.790Z">
+<meta property="article:modified_time" content="2023-05-11T01:08:19.983Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
   
@@ -107,7 +107,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">〜〜〜</span><br><span class="line"></span><br><span class="line">resource &quot;aws_lb_listener&quot; &quot;https&quot; &#123;</span><br><span class="line">    load_balancer_arn &#x3D; aws_lb.alb.arn</span><br><span class="line">    port &#x3D; &quot;443&quot;</span><br><span class="line">    protocol &#x3D; &quot;HTTPS&quot;</span><br><span class="line">    certificate_arn &#x3D; aws_acm_certificate.aws-qualification.arn</span><br><span class="line">    ssl_policy &#x3D; &quot;ELBSecurityPolicy-2016-08&quot;</span><br><span class="line">    default_action &#123;</span><br><span class="line">        type &#x3D; &quot;forward&quot;</span><br><span class="line">        target_group_arn &#x3D; aws_lb_target_group.ec2.arn</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    depends_on &#x3D; [aws_acm_certificate_validation.standby]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_acm_certificate_validation&quot; &quot;standby&quot; &#123;</span><br><span class="line">    certificate_arn &#x3D; aws_acm_certificate.aws-qualification.arn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">〜〜〜</span><br></pre></td></tr></table></figure>
 <p>そうして、terraform applyをすると、下記のようなメッセージが出力されACMの検証済みとなることを待つようになります。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aws_acm_certificate_validation.standby: Creating...</span><br><span class="line">aws_acm_certificate_validation.standby: Still creating... [10s elapsed]</span><br><span class="line">aws_acm_certificate_validation.standby: Still creating... [20s elapsed]</span><br></pre></td></tr></table></figure>
-<p>待っている間に、作成されたACMの<code>ドメイン、タイプ、CNAME名、CNAME値</code>の内容で、Route53のホストゾーンの対象のドメインにレコードを作成する。</p>
+<p>待っている間に、作成されたACMの<code>ドメイン、タイプ、CNAME名、CNAME値</code>の内容で、Route53の対象のホストゾーンにレコードを作成する。<br>そうすると、検証が成功し、terraform applyの処理が最後まで進む。</p>
 
       
     </div>
