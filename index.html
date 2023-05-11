@@ -75,6 +75,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Error-creating-ELBv2-Listener-〇〇〇-UnsupportedCertificate-The-certificate-〇〇〇-must-have-a-fully-qualified-domain-name-a-supported-signature-and-a-supported-key-size" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/11/Error-creating-ELBv2-Listener-%E3%80%87%E3%80%87%E3%80%87-UnsupportedCertificate-The-certificate-%E3%80%87%E3%80%87%E3%80%87-must-have-a-fully-qualified-domain-name-a-supported-signature-and-a-supported-key-size/" class="article-date">
+  <time datetime="2023-05-10T23:09:40.000Z" itemprop="datePublished">2023-05-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/05/11/Error-creating-ELBv2-Listener-%E3%80%87%E3%80%87%E3%80%87-UnsupportedCertificate-The-certificate-%E3%80%87%E3%80%87%E3%80%87-must-have-a-fully-qualified-domain-name-a-supported-signature-and-a-supported-key-size/">Error: creating ELBv2 Listener 〇〇〇: UnsupportedCertificate: The certificate 〇〇〇 must have a fully-qualified domain name, a supported signature, and a supported key size.</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>terraform でACMをALBのリスナーに設定する下記のようなコードの一部があり、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">〜〜〜</span><br><span class="line"></span><br><span class="line">resource &quot;aws_lb_listener&quot; &quot;https&quot; &#123;</span><br><span class="line">    load_balancer_arn &#x3D; aws_lb.alb.arn</span><br><span class="line">    port &#x3D; &quot;443&quot;</span><br><span class="line">    protocol &#x3D; &quot;HTTPS&quot;</span><br><span class="line">    certificate_arn &#x3D; aws_acm_certificate.aws-qualification.arn</span><br><span class="line">    ssl_policy &#x3D; &quot;ELBSecurityPolicy-2016-08&quot;</span><br><span class="line">    default_action &#123;</span><br><span class="line">        type &#x3D; &quot;forward&quot;</span><br><span class="line">        target_group_arn &#x3D; aws_lb_target_group.ec2.arn</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">〜〜〜</span><br></pre></td></tr></table></figure>
+<p>terraform applyをすると、下記のようなエラーが表示されました。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Error: creating ELBv2 Listener 〇〇〇: UnsupportedCertificate: The certificate</span><br><span class="line">  〇〇〇 must have a fully-qualified domain name, a supported signature, and a</span><br><span class="line">  supported key size.</span><br><span class="line">│ 	status code: 400, request id: 〇〇〇</span><br><span class="line">│</span><br><span class="line">│   with aws_lb_listener.https,</span><br><span class="line">│   on alb.tf line 71, in resource &quot;aws_lb_listener&quot; &quot;https&quot;:</span><br><span class="line">│   71: resource &quot;aws_lb_listener&quot; &quot;https&quot; &#123;</span><br></pre></td></tr></table></figure>
+<p>原因はエラーメッセージの内容とは異なり、作成されたACMの検証が完了できていない為でした。<br>ですので、<code>depends_on</code>を利用して、先程のコードの一部を下記のように更新してALBのリスナーの作成がACMの検証済みとなることを待つようにしました。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">〜〜〜</span><br><span class="line"></span><br><span class="line">resource &quot;aws_lb_listener&quot; &quot;https&quot; &#123;</span><br><span class="line">    load_balancer_arn &#x3D; aws_lb.alb.arn</span><br><span class="line">    port &#x3D; &quot;443&quot;</span><br><span class="line">    protocol &#x3D; &quot;HTTPS&quot;</span><br><span class="line">    certificate_arn &#x3D; aws_acm_certificate.aws-qualification.arn</span><br><span class="line">    ssl_policy &#x3D; &quot;ELBSecurityPolicy-2016-08&quot;</span><br><span class="line">    default_action &#123;</span><br><span class="line">        type &#x3D; &quot;forward&quot;</span><br><span class="line">        target_group_arn &#x3D; aws_lb_target_group.ec2.arn</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    depends_on &#x3D; [aws_acm_certificate_validation.standby]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_acm_certificate_validation&quot; &quot;standby&quot; &#123;</span><br><span class="line">    certificate_arn &#x3D; aws_acm_certificate.aws-qualification.arn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">〜〜〜</span><br></pre></td></tr></table></figure>
+<p>そうして、terraform applyをすると、下記のようなメッセージが出力されACMの検証済みとなることを待つようになります。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aws_acm_certificate_validation.standby: Creating...</span><br><span class="line">aws_acm_certificate_validation.standby: Still creating... [10s elapsed]</span><br><span class="line">aws_acm_certificate_validation.standby: Still creating... [20s elapsed]</span><br></pre></td></tr></table></figure>
+<p>待っている間に、作成されたACMの<code>ドメイン、タイプ、CNAME名、CNAME値</code>の内容で、Route53のホストゾーンの対象のドメインにレコードを作成する。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2023/05/11/Error-creating-ELBv2-Listener-%E3%80%87%E3%80%87%E3%80%87-UnsupportedCertificate-The-certificate-%E3%80%87%E3%80%87%E3%80%87-must-have-a-fully-qualified-domain-name-a-supported-signature-and-a-supported-key-size/" data-id="clhifkah800008w8z2rkjgra0" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Error-reading-ELBv2-Load-Balancer-〇〇〇-ValidationError-〇〇〇-is-not-a-valid-load-balancer-ARN-status-code-400-request-id-〇〇〇" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2023/05/11/Error-reading-ELBv2-Load-Balancer-%E3%80%87%E3%80%87%E3%80%87-ValidationError-%E3%80%87%E3%80%87%E3%80%87-is-not-a-valid-load-balancer-ARN-status-code-400-request-id-%E3%80%87%E3%80%87%E3%80%87/" class="article-date">
@@ -454,50 +499,6 @@
 
 
   
-    <article id="post-systemd-Failed-to-execute-command-Permission-denied" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/" class="article-date">
-  <time datetime="2021-03-20T04:33:38.000Z" itemprop="datePublished">2021-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/">systemd Failed to execute command: Permission denied</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CentOS8にてsystemdのtest.serviceを作成してみてsystemd start testを行ってみると実行に失敗、<br>/var/log/messagesに下記のエラーが表示されていました。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mar 20 13:21:45 unamu systemd[1]: Started testscript.</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed to execute command: Permission denied</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed at step EXEC spawning &#x2F;tmp&#x2F;test: Permission denied</span><br></pre></td></tr></table></figure>
-<p>Permission deniedの表示からファイルのパーミッションを確認しましたが、問題無し。<br>SELinuxが邪魔をしていたようです。<br>有効になっているか確認</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ getenforce</span><br><span class="line">Enforcing</span><br></pre></td></tr></table></figure>
-<p>Permissiveモードにします。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ setenforce 0</span><br></pre></td></tr></table></figure>
-<p>その後、systemd start testで無事実行されました。</p>
-<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="https://fujiyasu.hatenablog.com/entry/2016/08/05/094804" target="_blank" rel="noopener">https://fujiyasu.hatenablog.com/entry/2016/08/05/094804</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hoyoyo543.github.io/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/" data-id="clh1aofpe000g6u8za5g75h1e" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -534,6 +535,10 @@
       <ul>
         
           <li>
+            <a href="/2023/05/11/Error-creating-ELBv2-Listener-%E3%80%87%E3%80%87%E3%80%87-UnsupportedCertificate-The-certificate-%E3%80%87%E3%80%87%E3%80%87-must-have-a-fully-qualified-domain-name-a-supported-signature-and-a-supported-key-size/">Error: creating ELBv2 Listener 〇〇〇: UnsupportedCertificate: The certificate 〇〇〇 must have a fully-qualified domain name, a supported signature, and a supported key size.</a>
+          </li>
+        
+          <li>
             <a href="/2023/05/11/Error-reading-ELBv2-Load-Balancer-%E3%80%87%E3%80%87%E3%80%87-ValidationError-%E3%80%87%E3%80%87%E3%80%87-is-not-a-valid-load-balancer-ARN-status-code-400-request-id-%E3%80%87%E3%80%87%E3%80%87/">Error: reading ELBv2 Load Balancer 〇〇〇 ValidationError: 〇〇〇 is not a valid load balancer ARN status code: 400, request id: 〇〇〇</a>
           </li>
         
@@ -547,10 +552,6 @@
         
           <li>
             <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/">gradleでcomposer requireにあたることをする</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
           </li>
         
       </ul>

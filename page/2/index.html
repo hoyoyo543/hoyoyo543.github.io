@@ -75,6 +75,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-systemd-Failed-to-execute-command-Permission-denied" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/" class="article-date">
+  <time datetime="2021-03-20T04:33:38.000Z" itemprop="datePublished">2021-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/">systemd Failed to execute command: Permission denied</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CentOS8にてsystemdのtest.serviceを作成してみてsystemd start testを行ってみると実行に失敗、<br>/var/log/messagesに下記のエラーが表示されていました。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mar 20 13:21:45 unamu systemd[1]: Started testscript.</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed to execute command: Permission denied</span><br><span class="line">Mar 20 13:21:45 unamu systemd[83619]: test.service: Failed at step EXEC spawning &#x2F;tmp&#x2F;test: Permission denied</span><br></pre></td></tr></table></figure>
+<p>Permission deniedの表示からファイルのパーミッションを確認しましたが、問題無し。<br>SELinuxが邪魔をしていたようです。<br>有効になっているか確認</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ getenforce</span><br><span class="line">Enforcing</span><br></pre></td></tr></table></figure>
+<p>Permissiveモードにします。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ setenforce 0</span><br></pre></td></tr></table></figure>
+<p>その後、systemd start testで無事実行されました。</p>
+<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="https://fujiyasu.hatenablog.com/entry/2016/08/05/094804" target="_blank" rel="noopener">https://fujiyasu.hatenablog.com/entry/2016/08/05/094804</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2021/03/20/systemd-Failed-to-execute-command-Permission-denied/" data-id="clh1aofpe000g6u8za5g75h1e" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ファイアウォールでpingの疎通確認を拒否する" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/02/23/%E3%83%95%E3%82%A1%E3%82%A4%E3%82%A2%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%81%A7ping%E3%81%AE%E7%96%8E%E9%80%9A%E7%A2%BA%E8%AA%8D%E3%82%92%E6%8B%92%E5%90%A6%E3%81%99%E3%82%8B/" class="article-date">
@@ -594,45 +638,6 @@
 
 
   
-    <article id="post-This-version-of-ChromeDriver-only-supports-Chrome-version-vesion番号" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/04/This-version-of-ChromeDriver-only-supports-Chrome-version-vesion%E7%95%AA%E5%8F%B7/" class="article-date">
-  <time datetime="2020-05-04T08:08:26.000Z" itemprop="datePublished">2020-05-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/04/This-version-of-ChromeDriver-only-supports-Chrome-version-vesion%E7%95%AA%E5%8F%B7/">This version of ChromeDriver only supports Chrome version {vesion番号}</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="エラー-This-version-of-ChromeDriver-only-supports-Chrome-version-〇〇"><a href="#エラー-This-version-of-ChromeDriver-only-supports-Chrome-version-〇〇" class="headerlink" title="エラー This version of ChromeDriver only supports Chrome version 〇〇"></a>エラー This version of ChromeDriver only supports Chrome version 〇〇</h1><p>SeleniumのWebdriverでChromeを動かしていると<code>This version of ChromeDriver only supports Chrome version 81</code>とエラーメッセージが表示されました。<br>chromeのバージョンが自動アップデートされて、webdriverとchromeのバージョンが合わなくなったので表示されたようです。<br>ですので普段利用するchromeとは別に、seleniumで利用するchromeをインストールしてchromeの自動アップデートを無効にする方法を調べたのですが、個別にアップデートを抑制する方法が見つからず。  </p>
-<h2 id="ChromiunだとChromeと同じ機能で自動アップデートされない"><a href="#ChromiunだとChromeと同じ機能で自動アップデートされない" class="headerlink" title="ChromiunだとChromeと同じ機能で自動アップデートされない"></a>ChromiunだとChromeと同じ機能で自動アップデートされない</h2><p>そんな時に、<code>Chromium</code>だとChromeとほぼ同じ機能で自動アップデートされないという情報を見つけたので、<br>Webdriverのversionに対応する、Chromiumをダウンロードして解決しました。  </p>
-<h2 id="Chromiumの過去バージョンのダウンロードurl"><a href="#Chromiumの過去バージョンのダウンロードurl" class="headerlink" title="Chromiumの過去バージョンのダウンロードurl"></a>Chromiumの過去バージョンのダウンロードurl</h2><p><a href="https://chromium.woolyss.com/" target="_blank" rel="noopener">https://chromium.woolyss.com/</a>  </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hoyoyo543.github.io/2020/05/04/This-version-of-ChromeDriver-only-supports-Chrome-version-vesion%E7%95%AA%E5%8F%B7/" data-id="clh1aofp200096u8z6xai0hfn" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -669,6 +674,10 @@
       <ul>
         
           <li>
+            <a href="/2023/05/11/Error-creating-ELBv2-Listener-%E3%80%87%E3%80%87%E3%80%87-UnsupportedCertificate-The-certificate-%E3%80%87%E3%80%87%E3%80%87-must-have-a-fully-qualified-domain-name-a-supported-signature-and-a-supported-key-size/">Error: creating ELBv2 Listener 〇〇〇: UnsupportedCertificate: The certificate 〇〇〇 must have a fully-qualified domain name, a supported signature, and a supported key size.</a>
+          </li>
+        
+          <li>
             <a href="/2023/05/11/Error-reading-ELBv2-Load-Balancer-%E3%80%87%E3%80%87%E3%80%87-ValidationError-%E3%80%87%E3%80%87%E3%80%87-is-not-a-valid-load-balancer-ARN-status-code-400-request-id-%E3%80%87%E3%80%87%E3%80%87/">Error: reading ELBv2 Load Balancer 〇〇〇 ValidationError: 〇〇〇 is not a valid load balancer ARN status code: 400, request id: 〇〇〇</a>
           </li>
         
@@ -682,10 +691,6 @@
         
           <li>
             <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/">gradleでcomposer requireにあたることをする</a>
-          </li>
-        
-          <li>
-            <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
           </li>
         
       </ul>
