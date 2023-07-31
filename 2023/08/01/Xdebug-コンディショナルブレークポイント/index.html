@@ -12,21 +12,21 @@
   
 
   
-  <title>gradleでcomposer requireにあたることをする | hoyoyo</title>
+  <title>Xdebug コンディショナルブレークポイント | hoyoyo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="build.gradle.ktsのdependensiesに追加したいパッケージを追記すると象のsyncボタンが現れるので、syncのボタンを押す。">
+  <meta name="description" content="コンディショナルブレークポイント(Conditional Breakpoint)の機能を使えば、特定の条件の時のみ、ブレークポイントで止めることができる。   PHPStormの場合、ブレークポイントを設定してそれを右クリックするとConditionの入力エリアが出てくるので、そこにブレークポイントを止めたい場合の条件を設定する。   (例) $valueがbarの時のみブレークポイントで止める。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="gradleでcomposer requireにあたることをする">
-<meta property="og:url" content="https://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/index.html">
+<meta property="og:title" content="Xdebug コンディショナルブレークポイント">
+<meta property="og:url" content="https://hoyoyo543.github.io/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/index.html">
 <meta property="og:site_name" content="hoyoyo">
-<meta property="og:description" content="build.gradle.ktsのdependensiesに追加したいパッケージを追記すると象のsyncボタンが現れるので、syncのボタンを押す。">
+<meta property="og:description" content="コンディショナルブレークポイント(Conditional Breakpoint)の機能を使えば、特定の条件の時のみ、ブレークポイントで止めることができる。   PHPStormの場合、ブレークポイントを設定してそれを右クリックするとConditionの入力エリアが出てくるので、そこにブレークポイントを止めたい場合の条件を設定する。   (例) $valueがbarの時のみブレークポイントで止める。">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/gradle-composer-require.png">
-<meta property="article:published_time" content="2021-05-16T22:55:05.000Z">
-<meta property="article:modified_time" content="2023-04-29T00:36:46.649Z">
+<meta property="og:image" content="https://hoyoyo543.github.io/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/Conditional_Breakpoint.png">
+<meta property="article:published_time" content="2023-07-31T22:07:55.000Z">
+<meta property="article:modified_time" content="2023-07-31T22:19:00.244Z">
 <meta property="article:author" content="hoyoyo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/gradle-composer-require.png">
+<meta name="twitter:image" content="https://hoyoyo543.github.io/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/Conditional_Breakpoint.png">
   
     <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
   
@@ -79,10 +79,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-gradleでcomposer-requireにあたることをする" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Xdebug-コンディショナルブレークポイント" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2021-05-16T22:55:05.000Z" itemprop="datePublished">2021-05-17</time>
+    <a href="/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" class="article-date">
+  <time datetime="2023-07-31T22:07:55.000Z" itemprop="datePublished">2023-08-01</time>
 </a>
     
   </div>
@@ -93,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      gradleでcomposer requireにあたることをする
+      Xdebug コンディショナルブレークポイント
     </h1>
   
 
@@ -101,12 +101,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>build.gradle.ktsのdependensiesに追加したいパッケージを追記すると象のsyncボタンが現れるので、syncのボタンを押す。  </p>
-<img src="/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/gradle-composer-require.png" class="" title="gradleでcomposer requireにあたることをする">
+        <p>コンディショナルブレークポイント(Conditional Breakpoint)の機能を使えば、特定の条件の時のみ、ブレークポイントで止めることができる。  </p>
+<p>PHPStormの場合、ブレークポイントを設定してそれを右クリックするとConditionの入力エリアが出てくるので、そこにブレークポイントを止めたい場合の条件を設定する。  </p>
+<p>(例) $valueがbarの時のみブレークポイントで止める。  </p>
+<img src="/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/Conditional_Breakpoint.png" class="" title="Xdebug コンディショナルブレークポイント">
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hoyoyo543.github.io/2021/05/17/gradle%E3%81%A7composer-require%E3%81%AB%E3%81%82%E3%81%9F%E3%82%8B%E3%81%93%E3%81%A8%E3%82%92%E3%81%99%E3%82%8B/" data-id="clh1aofpd000f6u8z1cjybkju" class="article-share-link">共有</a>
+      <a data-url="https://hoyoyo543.github.io/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/" data-id="clkrfnkc80000bn8zeb7qao0j" class="article-share-link">共有</a>
       
       
     </footer>
@@ -115,19 +118,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/04/28/AWS%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%88%E3%82%A2%E3%82%BD%E3%82%B7%E3%82%A8%E3%82%A4%E3%83%88%E5%90%91%E3%81%91%E3%81%AE%E5%95%8F%E9%A1%8C%E9%9B%86%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">次の記事</strong>
-      <div class="article-nav-title">
-        
-          AWSソリューションアーキテクトアソシエイト向けの問題集を作成した
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/05/11/php%E3%81%AEisset%E3%81%A8empty%E3%81%A8is-null%E3%81%AE%E9%81%95%E3%81%84/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前の記事</strong>
-      <div class="article-nav-title">Hexoで画像を表示する</div>
+      <div class="article-nav-title">phpのissetとemptyとis_nullの違い</div>
     </a>
   
 </nav>
