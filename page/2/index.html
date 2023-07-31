@@ -75,6 +75,43 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-インターフェイス名はクライアント側に由来する名前にする" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2021-05-09T23:31:19.000Z" itemprop="datePublished">2021-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/">インターフェイス名はクライアント側に由来する名前にする</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>インターフェイスの名前を命名する時に、サーバー側の名前ではなくクライアント側の名前をつける必要があるそうです。<br>このソースは、<code>アジャイルソフトウェア開発の奥義（ロバート・C・マーチン）</code>の<code>9.3 鍵は「抽象」にあり</code>の項目(P130)に書かれていました。<br>理由は、<code>抽象クラスはそれを実際に実装するクラスとの関係よりも、それを利用するクラスとの関係の方がずっと密接</code>だからだそうです。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2021/05/10/%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E5%90%8D%E3%81%AF%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E5%81%B4%E3%81%AB%E7%94%B1%E6%9D%A5%E3%81%99%E3%82%8B%E5%90%8D%E5%89%8D%E3%81%AB%E3%81%99%E3%82%8B/" data-id="clh1aofpg000h6u8z9rambxdg" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Laravelのapp-make-はアンチパターン" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/04/11/Laravel%E3%81%AEapp-make-%E3%81%AF%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/" class="article-date">
@@ -581,51 +618,6 @@
 
 
   
-    <article id="post-python-moduleのimport-fromのルートとなる起点を指定したい" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/" class="article-date">
-  <time datetime="2020-06-21T07:51:06.000Z" itemprop="datePublished">2020-06-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/">python moduleのimport fromのルートとなる起点を指定したい</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="実行スクリプトのディレクトリ階層に関係なくfrom-importをさせたい"><a href="#実行スクリプトのディレクトリ階層に関係なくfrom-importをさせたい" class="headerlink" title="実行スクリプトのディレクトリ階層に関係なくfrom importをさせたい"></a>実行スクリプトのディレクトリ階層に関係なくfrom importをさせたい</h1><p>pythonを実行するスクリプトのディレクトリ階層によってfrom importが失敗することがあります。<br>実行するスクリプトのディレクトリ階層の位置に関係なくfrom importをできるようにする方法を調べました。</p>
-<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><p>このようなディレクトリ構成で普段は、python main.pyからitem_service.py item.py が呼び出され実行される内容だとします。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── main.py</span><br><span class="line">├── models</span><br><span class="line">│   └── item.py</span><br><span class="line">└──services</span><br><span class="line">    └── item_service.py</span><br></pre></td></tr></table></figure>
-<p>下記のようにitem_service.pyはmain.pyをルートとしてmodels/item.pyをfrom importしています。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">item_service.py</span><br><span class="line"></span><br><span class="line">from models.item import Item</span><br><span class="line"></span><br><span class="line">class ItemServiceModel:</span><br><span class="line">    def search():</span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    ItemServiceModel.search()</span><br></pre></td></tr></table></figure>
-
-<p>この場合に python item_service.py をすると<br>ModuleNotFoundError: No module named ‘models’<br>のようなエラーが出てimportに失敗します。  </p>
-<h2 id="なぜ失敗するか"><a href="#なぜ失敗するか" class="headerlink" title="なぜ失敗するか"></a>なぜ失敗するか</h2><p><a href="https://docs.python.org/ja/3/tutorial/modules.html" target="_blank" rel="noopener">https://docs.python.org/ja/3/tutorial/modules.html</a><br>html#the-module-search-path<br>公式ドキュメントによると、「入力されたスクリプトのあるディレクトリ」がモジュールの探索パスになるということです。<br>python main.pyでは成功し、python item_service.pyでは失敗するようになることの理解はできました。</p>
-<h2 id="入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom-importさせたい"><a href="#入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom-importさせたい" class="headerlink" title="入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom importさせたい"></a>入力されたスクリプトのあるディレクトリ構成位置に関係なくfrom importさせたい</h2><p>先程の公式ドキュメントの同じところに<br>「PYTHONPATH (ディレクトリ名のリスト。シェル変数の PATH と同じ構文)。」がモジュールの探索パス（import from の起点ルート）になると書いています。<br>なので、.zshrc や .bshrc に<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PYTHONPATH&#x3D;$PYTHONPATH:&#123;main.pyのあるディレクトリの絶対パス&#125;</span><br></pre></td></tr></table></figure><br> とすれば、python item_service.pyでもfrom importが成功するようになりました。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hoyoyo543.github.io/2020/06/21/python-module%E3%81%AEimport-from%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%88%E3%81%A8%E3%81%AA%E3%82%8B%E8%B5%B7%E7%82%B9%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E3%81%84/" data-id="clh1aofpd000e6u8zghimck9k" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -662,6 +654,10 @@
       <ul>
         
           <li>
+            <a href="/2023/08/01/stoplight-studio%E3%81%AEMac%E3%82%A2%E3%83%97%E3%83%AA%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/">stoplight studioのMacアプリインストール</a>
+          </li>
+        
+          <li>
             <a href="/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/">Xdebug コンディショナルブレークポイント</a>
           </li>
         
@@ -675,10 +671,6 @@
         
           <li>
             <a href="/2023/05/11/Error-reading-ELBv2-Load-Balancer-%E3%80%87%E3%80%87%E3%80%87-ValidationError-%E3%80%87%E3%80%87%E3%80%87-is-not-a-valid-load-balancer-ARN-status-code-400-request-id-%E3%80%87%E3%80%87%E3%80%87/">Error: reading ELBv2 Load Balancer 〇〇〇 ValidationError: 〇〇〇 is not a valid load balancer ARN status code: 400, request id: 〇〇〇</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/11/%E2%80%9Cterraform%E2%80%9D%E3%82%92%E9%96%8B%E3%81%8F%E3%81%A8%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%81%8C%E7%A0%B4%E6%90%8D%E3%81%97%E3%81%BE%E3%81%99%E3%80%82-%E3%82%B4%E3%83%9F%E7%AE%B1%E3%81%AB%E5%85%A5%E3%82%8C%E3%82%8B%E5%BF%85%E8%A6%81%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82/">“terraform”を開くとコンピュータが破損します。 ゴミ箱に入れる必要があります。</a>
           </li>
         
       </ul>
