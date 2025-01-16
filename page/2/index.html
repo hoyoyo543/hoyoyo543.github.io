@@ -75,6 +75,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Hexoで画像を表示する" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2021-05-16T03:20:37.000Z" itemprop="datePublished">2021-05-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/">Hexoで画像を表示する</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>_config.ymlをpost_asset_folder: trueにする。</p>
+<p>hexo new {記事title}の時に source/_postsディレクトリ以下に{記事tile}のディレクトリができるので、<br>そのディレクトリ内に画像を配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img 画像名 記事名 %&#125;</span><br></pre></td></tr></table></figure>
+<p>のタグで表示できます。</p>
+<p>画像名や記事名にスペースがふくまれる場合、ダブルクォーテーションで囲ってください。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img &quot;画像名&quot; &quot;記事名&quot; %&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考url"><a href="#参考url" class="headerlink" title="参考url"></a>参考url</h2><p><a href="https://hexo.io/docs/asset-folders#Tag-Plugins-For-Relative-Path-Referencing" target="_blank" rel="noopener">https://hexo.io/docs/asset-folders#Tag-Plugins-For-Relative-Path-Referencing</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2021/05/16/Hexo%E3%81%A7%E7%94%BB%E5%83%8F%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B/" data-id="clh1aofoz00066u8z1g3ya7y0" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-KotlinでSpring-Bootでhello-worldを出してみる" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/05/16/Kotlin%E3%81%A7Spring-Boot%E3%81%A7hello-world%E3%82%92%E5%87%BA%E3%81%97%E3%81%A6%E3%81%BF%E3%82%8B/" class="article-date">
@@ -574,59 +618,6 @@
 
 
   
-    <article id="post-AWS-EKS-にnginxのPodをデプロイしてブラウザからアクセスする" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2020-07-26T05:18:47.000Z" itemprop="datePublished">2020-07-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/">AWS EKS にnginxのPodをデプロイしてブラウザからアクセスする</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Docker/Kubernetes実践コンテナ開発入門の本を読んでいて5.10.1のIngressを通じたアクセスをAmazon EKSで行う場合はどのようになるのか調べました。</p>
-<h2 id="利用しているdocker-image"><a href="#利用しているdocker-image" class="headerlink" title="利用しているdocker image"></a>利用しているdocker image</h2><p>gihyodocker/echo : Hollo Docker!!と表示するwebサーバー<br>gihyodocker/nginx-proxy : echoに対してリバースプロキシする</p>
-<h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><ul>
-<li><p>1 eksctlでcrusterを作成する<br><a href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/getting-started-eksctl.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/getting-started-eksctl.html</a><br>※Fargetポッドがデプロイされる</p>
-</li>
-<li><p>2 ALB Ingress Controllerを作成する<br><a href="https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/alb-ingress.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/alb-ingress.html</a></p>
-</li>
-<li><p>3 ReplicaSet Service Ingress を作成する<br>ブラウザでIngressのアドレスにアクセスする</p>
-</li>
-</ul>
-<h3 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h3><p>同じ仕様のPodを複数作成する</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: ReplicaSet</span><br><span class="line">metadata:</span><br><span class="line">  name: echo-summer</span><br><span class="line">  labels:</span><br><span class="line">    app: echo</span><br><span class="line">    release: summer</span><br><span class="line">spec:</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: echo</span><br><span class="line">      release: summer</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: echo</span><br><span class="line">        release: summer</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx</span><br><span class="line">        image: gihyodocker&#x2F;nginx:latest</span><br><span class="line">        env:</span><br><span class="line">        - name: BACKEND_HOST</span><br><span class="line">          value: localhost:8080</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line">      - name: echo</span><br><span class="line">        image: gihyodocker&#x2F;echo:latest</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 8080</span><br></pre></td></tr></table></figure>
-
-<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>Podの集合に対して、アクセス経路を作成する。typeをNodePortにすることでグローバルなポートを開ける。OSI参照モデルのレイヤー４までしか扱えない。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: &quot;echo&quot;</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  selector:</span><br><span class="line">    app: echo</span><br><span class="line">    release: summer</span><br><span class="line">  ports:</span><br><span class="line">    - port: 80</span><br><span class="line">      targetPort: 80</span><br><span class="line">      protocol: TCP</span><br></pre></td></tr></table></figure>
-
-<h3 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h3><p>ServiceのKudernetesクラスタ外への公開。<br>VirtualHostやパスベースでのHTTP、HTTPSベースでのルーティングが可能。<br>Ingressが作成されると、EKSのALB Ingress ControllerがALBと必要なAWSサポートリソースを作成してくれる。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions&#x2F;v1beta1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: &quot;echo&quot;</span><br><span class="line">  annotations:</span><br><span class="line">    kubernetes.io&#x2F;ingress.class: alb # Ingress が ALB Ingress Controllerを使用することを設定</span><br><span class="line">    alb.ingress.kubernetes.io&#x2F;scheme: internet-facing</span><br><span class="line">    alb.ingress.kubernetes.io&#x2F;target-type: ip # Serviceでアクセス経路が作成されたPodにトラフィックをルーティングすることを設定</span><br><span class="line">  labels:</span><br><span class="line">    app: echo</span><br><span class="line">spec:</span><br><span class="line">  rules:</span><br><span class="line">    - http:</span><br><span class="line">        paths:</span><br><span class="line">          - path: &#x2F;*</span><br><span class="line">            backend:</span><br><span class="line">              serviceName: &quot;echo&quot;</span><br><span class="line">              servicePort: 80</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hoyoyo543.github.io/2020/07/26/AWS-EKS-%E3%81%ABnginx%E3%81%AEPod%E3%82%92%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B/" data-id="clh1aofny00006u8z0w6r9zmk" class="article-share-link">共有</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -650,7 +641,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">アーカイブ</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
     </div>
   </div>
 
@@ -661,6 +652,10 @@
     <h3 class="widget-title">最近の投稿</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/01/16/npm-i-g-nestjs-cli-%E3%81%8C%E7%B5%82%E3%82%8F%E3%82%89%E3%81%AA%E3%81%84/">npm i -g @nestjs/cli が終わらない</a>
+          </li>
         
           <li>
             <a href="/2023/09/30/TestFlight-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%9B%E3%82%93%E3%81%A7%E3%81%97%E3%81%9F/">TestFlight インストールできませんでした</a>
@@ -678,10 +673,6 @@
             <a href="/2023/05/11/php%E3%81%AEisset%E3%81%A8empty%E3%81%A8is-null%E3%81%AE%E9%81%95%E3%81%84/">phpのissetとemptyとis_nullの違い</a>
           </li>
         
-          <li>
-            <a href="/2023/05/11/Error-creating-ELBv2-Listener-%E3%80%87%E3%80%87%E3%80%87-UnsupportedCertificate-The-certificate-%E3%80%87%E3%80%87%E3%80%87-must-have-a-fully-qualified-domain-name-a-supported-signature-and-a-supported-key-size/">Error: creating ELBv2 Listener 〇〇〇: UnsupportedCertificate: The certificate 〇〇〇 must have a fully-qualified domain name, a supported signature, and a supported key size.</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -694,7 +685,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2023 hoyoyo<br>
+      &copy; 2025 hoyoyo<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
