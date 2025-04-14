@@ -75,6 +75,44 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-何故プログラミングで少数の値がずれるのか" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" class="article-date">
+  <time datetime="2020-03-15T08:45:39.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/">何故プログラミングで小数の値がずれるのか</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>小数に2進数で表現できないものが多くあるから。</p>
+<h2 id="どうして2進数で表現できない少数があるのか"><a href="#どうして2進数で表現できない少数があるのか" class="headerlink" title="どうして2進数で表現できない少数があるのか"></a>どうして2進数で表現できない少数があるのか</h2><p>例えば十進数で0.9の場合にそれを2進数で表現しようとすると、<br>小数点第一位 だと 1/2(0.5) 小数点第二位 だと 1/4(0.25) 小数点第三位 だと 1/8(0.125)と  少しずつ 0.5 + 0.25 + 0.125 = 0.875と0.9に寄っては行くが、<br>それをfloat型（単精度浮動小数点形式）の仮数部23回をおこなっても0.9と一致することはない。</p>
+<h2 id="検証JSコード"><a href="#検証JSコード" class="headerlink" title="検証JSコード"></a>検証JSコード</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var n &#x3D; 0;</span><br><span class="line">var nishinsu &#x3D; 0.5;</span><br><span class="line">var amari &#x3D; 0.9;</span><br><span class="line">var counter &#x3D; 0;</span><br><span class="line">while (n !&#x3D;&#x3D; 0.9 &amp;&amp; counter &lt; 23) &#123;</span><br><span class="line">    counter +&#x3D; 1;</span><br><span class="line">    if (amari &gt;&#x3D; nishinsu) &#123;</span><br><span class="line">        n +&#x3D; nishinsu;</span><br><span class="line">    &#125;</span><br><span class="line">    amari &#x3D; amari % nishinsu;</span><br><span class="line">    nishinsu &#x3D; nishinsu &#x2F; 2</span><br><span class="line">    </span><br><span class="line">    console.table(&#123;&#39;counter&#39;:counter, &#39;number&#39;:n, &#39;amari&#39;:amari, &#39;nishinsu&#39;:nishinsu&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2020/03/15/%E4%BD%95%E6%95%85%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E5%B0%91%E6%95%B0%E3%81%AE%E5%80%A4%E3%81%8C%E3%81%9A%E3%82%8C%E3%82%8B%E3%81%AE%E3%81%8B/" data-id="clh1aofpj000l6u8z0a452afu" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ビジネスロジックバリデーション" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/08/%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AD%E3%82%B8%E3%83%83%E3%82%AF%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/" class="article-date">
@@ -318,7 +356,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">アーカイブ</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
     </div>
   </div>
 
@@ -329,6 +367,10 @@
     <h3 class="widget-title">最近の投稿</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/04/14/Eloquent%E3%81%AE%E3%83%A2%E3%83%83%E3%82%AF%E6%96%B9%E6%B3%95/">Eloquentのモック方法</a>
+          </li>
         
           <li>
             <a href="/2025/01/16/npm-i-g-nestjs-cli-%E3%81%8C%E7%B5%82%E3%82%8F%E3%82%89%E3%81%AA%E3%81%84/">npm i -g @nestjs/cli が終わらない</a>
@@ -344,10 +386,6 @@
         
           <li>
             <a href="/2023/08/01/Xdebug-%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%8A%E3%83%AB%E3%83%96%E3%83%AC%E3%83%BC%E3%82%AF%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/">Xdebug コンディショナルブレークポイント</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/11/php%E3%81%AEisset%E3%81%A8empty%E3%81%A8is-null%E3%81%AE%E9%81%95%E3%81%84/">phpのissetとemptyとis_nullの違い</a>
           </li>
         
       </ul>
