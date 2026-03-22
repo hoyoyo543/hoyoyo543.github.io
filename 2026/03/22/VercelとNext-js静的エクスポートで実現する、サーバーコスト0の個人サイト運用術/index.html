@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TVTXT97');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  
+
+  
+  <title>VercelとNext.js静的エクスポートで実現する、サーバーコスト0の個人サイト運用術 | hoyoyo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="はじめに個人開発者や技術ブロガーにとって、ポートフォリオサイトやブログの運用コストは悩みの種です。「できるだけ費用をかけずに、でも表示速度や開発体験は妥協したくない…」そう考える方は多いのではないでしょうか。この記事では、VercelのHobbyプランとNext.js 14の静的エクスポート機能（SSG）を組み合わせることで、サーバーコスト0円で高機能かつ高速な個人サイトを運用する方法を解説します">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VercelとNext.js静的エクスポートで実現する、サーバーコスト0の個人サイト運用術">
+<meta property="og:url" content="https://hoyoyo543.github.io/2026/03/22/Vercel%E3%81%A8Next-js%E9%9D%99%E7%9A%84%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B%E3%80%81%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%B3%E3%82%B9%E3%83%880%E3%81%AE%E5%80%8B%E4%BA%BA%E3%82%B5%E3%82%A4%E3%83%88%E9%81%8B%E7%94%A8%E8%A1%93/index.html">
+<meta property="og:site_name" content="hoyoyo">
+<meta property="og:description" content="はじめに個人開発者や技術ブロガーにとって、ポートフォリオサイトやブログの運用コストは悩みの種です。「できるだけ費用をかけずに、でも表示速度や開発体験は妥協したくない…」そう考える方は多いのではないでしょうか。この記事では、VercelのHobbyプランとNext.js 14の静的エクスポート機能（SSG）を組み合わせることで、サーバーコスト0円で高機能かつ高速な個人サイトを運用する方法を解説します">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-03-22T07:03:37.000Z">
+<meta property="article:modified_time" content="2026-03-22T07:06:12.989Z">
+<meta property="article:author" content="hoyoyo">
+<meta property="article:tag" content="vercel next.js">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="hoyoyo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TVTXT97"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hoyoyo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hoyoyo543.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-VercelとNext-js静的エクスポートで実現する、サーバーコスト0の個人サイト運用術" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2026/03/22/Vercel%E3%81%A8Next-js%E9%9D%99%E7%9A%84%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B%E3%80%81%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%B3%E3%82%B9%E3%83%880%E3%81%AE%E5%80%8B%E4%BA%BA%E3%82%B5%E3%82%A4%E3%83%88%E9%81%8B%E7%94%A8%E8%A1%93/" class="article-date">
+  <time datetime="2026-03-22T07:03:37.000Z" itemprop="datePublished">2026-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      VercelとNext.js静的エクスポートで実現する、サーバーコスト0の個人サイト運用術
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h1><p>個人開発者や技術ブロガーにとって、ポートフォリオサイトやブログの運用コストは悩みの種です。「できるだけ費用をかけずに、でも表示速度や開発体験は妥協したくない…」そう考える方は多いのではないでしょうか。<br>この記事では、VercelのHobbyプランとNext.js 14の静的エクスポート機能（SSG）を組み合わせることで、サーバーコスト0円で高機能かつ高速な個人サイトを運用する方法を解説します。<br>実際にこの構成で運用している学習サイト <a href="https://studyforge.dev/aws/saa/study-guide" target="_blank" rel="noopener">StudyForge</a> の知見を元に、具体的な技術スタックからデプロイ手順までを紹介します。</p>
+<h2 id="対象読者"><a href="#対象読者" class="headerlink" title="対象読者"></a>対象読者</h2><ul>
+<li>無料で自分のブログやポートフォリオサイトを持ちたい方</li>
+<li>Next.jsやVercelを使ったモダンなWeb開発に興味がある方</li>
+<li>Markdown/MDXでコンテンツを管理したい方</li>
+</ul>
+<h2 id="なぜ「コスト0円」が可能なのか？"><a href="#なぜ「コスト0円」が可能なのか？" class="headerlink" title="なぜ「コスト0円」が可能なのか？"></a>なぜ「コスト0円」が可能なのか？</h2><p><a href="https://vercel.com/pricing" target="_blank" rel="noopener">VercelのHobbyプラン</a>は、非商用の個人プロジェクトに対して非常に寛大な無料枠を提供しています。</p>
+<ul>
+<li>デプロイ: 無制限</li>
+<li>帯域幅: 100GB/月</li>
+<li>ビルド時間: 6,000分/月</li>
+</ul>
+<p>Next.jsの静的エクスポート（output: ‘export’）機能を使うと、サイト全体がHTML/CSS/JSファイルとして出力されます。これはサーバーサイドで動的な処理を必要としないため、VercelのCDNに配置するだけで超高速に配信できます。<br>この構成なら、個人のブログやポートフォリオサイト程度のアクセス数であれば、無料枠を超えることはほとんどありません</p>
+<h2 id="技術スタック"><a href="#技術スタック" class="headerlink" title="技術スタック"></a>技術スタック</h2><p>この構成の要となる技術スタックです。</p>
+<ul>
+<li>フレームワーク: Next.js 14 (App Router)</li>
+<li>言語: TypeScript</li>
+<li>スタイリング: Tailwind CSS</li>
+<li>コンテンツ管理: MDX (Markdown with JSX)</li>
+<li>Markdownパース:<ul>
+<li>gray-matter: frontmatter（記事のメタデータ）を解析</li>
+<li>unified, remark-<em>, rehype-</em>: Markdown本文をHTMLに変換</li>
+</ul>
+</li>
+</ul>
+<h1 id="構築手順"><a href="#構築手順" class="headerlink" title="構築手順"></a>構築手順</h1><h2 id="Step-1-Next-jsプロジェクトのセットアップ"><a href="#Step-1-Next-jsプロジェクトのセットアップ" class="headerlink" title="Step 1: Next.jsプロジェクトのセットアップ"></a>Step 1: Next.jsプロジェクトのセットアップ</h2><p>まず、Next.jsプロジェクトを作成します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-next-app@latest my-static-site</span><br></pre></td></tr></table></figure>
+<p>npx create-next-app@latest my-static-site<br>次に、静的サイトとして出力するために next.config.mjs を編集します</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;** @type &#123;import(&#39;next&#39;).NextConfig&#125; *&#x2F;</span><br><span class="line">const nextConfig &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F; この一行を追加！</span><br><span class="line">  output: &#39;export&#39;,</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 必要に応じて他の設定も追加</span><br><span class="line">  &#x2F;&#x2F; 例: trailingSlash: true,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default nextConfig;</span><br></pre></td></tr></table></figure>
+<p>output: ‘export’ を指定することで、next build を実行した際に、Node.jsサーバーを必要としない完全に静的なファイル群が out ディレクトリに生成されるようになります。</p>
+<h2 id="Step-2-Markdown-MDXによるコンテンツ管理"><a href="#Step-2-Markdown-MDXによるコンテンツ管理" class="headerlink" title="Step 2: Markdown/MDXによるコンテンツ管理"></a>Step 2: Markdown/MDXによるコンテンツ管理</h2><p>記事やブログのコンテンツは、content/posts/ のようなディレクトリに .mdx ファイルとして管理するのがおすすめです。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &quot;はじめての投稿&quot;</span><br><span class="line">publishedAt: &quot;2026-03-22&quot;</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">## こんにちは、世界！</span><br><span class="line"></span><br><span class="line">これはMarkdownで書かれた最初の投稿です。</span><br><span class="line">Next.jsとVercelで快適なブログ生活を始めましょう。</span><br></pre></td></tr></table></figure>
+<p>これらのファイルを読み込んでページを生成するために、サーバーサイドで動作するユーティリティ関数を用意します。<br>gray-matter でファイルの先頭にあるメタデータ（frontmatter）を、unified と remark/rehype プラグインを使ってMarkdown本文をHTMLに変換します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import fs from &#39;fs&#39;;</span><br><span class="line">import path from &#39;path&#39;;</span><br><span class="line">import matter from &#39;gray-matter&#39;;</span><br><span class="line">import &#123; unified &#125; from &#39;unified&#39;;</span><br><span class="line">import remarkParse from &#39;remark-parse&#39;;</span><br><span class="line">import remarkGfm from &#39;remark-gfm&#39;;</span><br><span class="line">import remarkRehype from &#39;remark-rehype&#39;;</span><br><span class="line">import rehypeStringify from &#39;rehype-stringify&#39;;</span><br><span class="line"></span><br><span class="line">const postsDirectory &#x3D; path.join(process.cwd(), &#39;content&#x2F;posts&#39;);</span><br><span class="line"></span><br><span class="line">export async function getPostData(slug) &#123;</span><br><span class="line">  const fullPath &#x3D; path.join(postsDirectory, &#96;$&#123;slug&#125;.mdx&#96;);</span><br><span class="line">  const fileContents &#x3D; fs.readFileSync(fullPath, &#39;utf8&#39;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; gray-matterでメタデータをパース</span><br><span class="line">  const matterResult &#x3D; matter(fileContents);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; remark&#x2F;rehypeでMarkdownをHTMLに変換</span><br><span class="line">  const processedContent &#x3D; await unified()</span><br><span class="line">    .use(remarkParse)</span><br><span class="line">    .use(remarkGfm)</span><br><span class="line">    .use(remarkRehype)</span><br><span class="line">    .use(rehypeStringify)</span><br><span class="line">    .process(matterResult.content);</span><br><span class="line">  const contentHtml &#x3D; processedContent.toString();</span><br><span class="line"></span><br><span class="line">  return &#123;</span><br><span class="line">    slug,</span><br><span class="line">    contentHtml,</span><br><span class="line">    ...matterResult.data,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>この関数を、Next.jsの動的セグメントページ（例: src/app/blog/[slug]/page.tsx）で使うことで、Markdownファイルに基づいた静的なページを生成できます。</p>
+<h2 id="Step-3-ビルド"><a href="#Step-3-ビルド" class="headerlink" title="Step 3: ビルド"></a>Step 3: ビルド</h2><p>プロジェクトが完成したら、ビルドコマンドを実行します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<p>これにより、out ディレクトリに静的なHTML、CSS、JavaScriptファイルが生成されます。このディレクトリをWebサーバーに置くだけでサイトが公開できる状態です</p>
+<h2 id="Step-4-Vercelにデプロイ"><a href="#Step-4-Vercelにデプロイ" class="headerlink" title="Step 4: Vercelにデプロイ"></a>Step 4: Vercelにデプロイ</h2><p>いよいよデプロイです。手順は驚くほど簡単です。<br>1 . GitHubにリポジトリをプッシュ: 作成したプロジェクトをGitHubにプッシュします。<br>2 . Vercelにサインアップ: GitHubアカウントでVercelにサインアップします。<br>3 . プロジェクトをインポート:</p>
+<ul>
+<li>Vercelのダッシュボードで「Add New…」-&gt;「Project」を選択。</li>
+<li>先ほどプッシュしたGitHubリポジトリをインポートします。</li>
+</ul>
+<p>4 . デプロイ設定:</p>
+<ul>
+<li>Framework Preset: Next.js が自動で選択されます。</li>
+<li>Build and Output Settings: output: ‘export’ を設定している場合、Vercelが自動で検知し、出力ディレクトリを out に設定してくれます。</li>
+</ul>
+<p>設定を確認して「Deploy」ボタンをクリックすれば、数分でビルドとデプロイが完了し、https://<project-name>.vercel.app のようなURLでサイトが公開されます。<br>以降は、GitHubのmainブランチにプッシュするたびに、自動でビルドとデプロイが実行されます</p>
+<h1 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h1><p>VercelとNext.jsの静的エクスポート機能を組み合わせることで、開発体験を損なうことなく、無料で高速な個人サイトを運用できます。</p>
+<ul>
+<li>コスト: 0円（Hobbyプランの範囲内）</li>
+<li>パフォーマンス: VercelのEdge Networkにより世界中から高速アクセス</li>
+<li>開発体験: Next.jsによるモダンな開発と、Git-pushによる簡単なデプロイフロー<br>サーバー管理の手間から解放され、コンテンツ制作に集中できるこの構成を、ぜひ試してみてはいかがでしょうか。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hoyoyo543.github.io/2026/03/22/Vercel%E3%81%A8Next-js%E9%9D%99%E7%9A%84%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B%E3%80%81%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%B3%E3%82%B9%E3%83%880%E3%81%AE%E5%80%8B%E4%BA%BA%E3%82%B5%E3%82%A4%E3%83%88%E9%81%8B%E7%94%A8%E8%A1%93/" data-id="cmn1eyo1a0000fsbo6ruu70po" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vercel-next-js/" rel="tag">vercel next.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/05/04/%E3%83%90%E3%82%A4%E3%83%96%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A7Laravel%E3%82%92NextJS%E3%81%AB%E3%83%AA%E3%83%97%E3%83%AC%E3%82%A4%E3%82%B9%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">バイブコーディングでLaravelをNextJSにリプレイスしてみた</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/vercel-next-js/" rel="tag">vercel next.js</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/vercel-next-js/" style="font-size: 10px;">vercel next.js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">3月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">5月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">4月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">1月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">9月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">8月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">5月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">4月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">5月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">4月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">3月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">2月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">12月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">7月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">6月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">5月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">4月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">3月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">2月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2026/03/22/Vercel%E3%81%A8Next-js%E9%9D%99%E7%9A%84%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B%E3%80%81%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%B3%E3%82%B9%E3%83%880%E3%81%AE%E5%80%8B%E4%BA%BA%E3%82%B5%E3%82%A4%E3%83%88%E9%81%8B%E7%94%A8%E8%A1%93/">VercelとNext.js静的エクスポートで実現する、サーバーコスト0の個人サイト運用術</a>
+          </li>
+        
+          <li>
+            <a href="/2025/05/04/%E3%83%90%E3%82%A4%E3%83%96%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A7Laravel%E3%82%92NextJS%E3%81%AB%E3%83%AA%E3%83%97%E3%83%AC%E3%82%A4%E3%82%B9%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F/">バイブコーディングでLaravelをNextJSにリプレイスしてみた</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/14/Eloquent%E3%81%AE%E3%83%A2%E3%83%83%E3%82%AF%E6%96%B9%E6%B3%95/">Eloquentのモック方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/16/npm-i-g-nestjs-cli-%E3%81%8C%E7%B5%82%E3%82%8F%E3%82%89%E3%81%AA%E3%81%84/">npm i -g @nestjs/cli が終わらない</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/30/TestFlight-%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%9B%E3%82%93%E3%81%A7%E3%81%97%E3%81%9F/">TestFlight インストールできませんでした</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 hoyoyo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
